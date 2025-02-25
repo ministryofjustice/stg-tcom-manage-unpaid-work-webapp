@@ -13,6 +13,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=dev
       - APPLICATION_AUTHENTICATION_UI_ALLOWLIST=0.0.0.0/0
+      - JAVA_TOOL_OPTIONS="-XX:UseSVE=0"
 
   app:
     build:
