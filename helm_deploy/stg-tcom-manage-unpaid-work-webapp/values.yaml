@@ -1,5 +1,5 @@
 generic-service:
-  nameOverride: hmpps-template-typescript
+  nameOverride: stg-tcom-manage-unpaid-work-webapp
   productId: 'UNASSIGNED' # productId for the product that this belongs too, i.e. DPS001, see README.md for details
 
   # the IRSA service account name for accessing AWS resources
@@ -8,14 +8,14 @@ generic-service:
   replicaCount: 4
 
   image:
-    repository: ghcr.io/ministryofjustice/hmpps-template-typescript
+    repository: ghcr.io/ministryofjustice/stg-tcom-manage-unpaid-work-webapp
     tag: app_version # override at deployment time
     port: 3000
 
   ingress:
     enabled: true
     host: app-hostname.local # override per environment
-    tlsSecretName: hmpps-template-typescript-cert
+    tlsSecretName: stg-tcom-manage-unpaid-work-webapp-cert
 
   livenessProbe:
     httpGet:
@@ -46,7 +46,7 @@ generic-service:
       CLIENT_CREDS_CLIENT_SECRET: 'CLIENT_CREDS_CLIENT_SECRET'
     hmpps-template-typescript-auth-code:
       AUTH_CODE_CLIENT_ID: 'AUTH_CODE_CLIENT_ID'
-      AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'    
+      AUTH_CODE_CLIENT_SECRET: 'AUTH_CODE_CLIENT_SECRET'
     hmpps-template-typescript-session-secret:
       SESSION_SECRET: 'SESSION_SECRET'
     hmpps-template-typescript-elasticache-redis:
@@ -64,4 +64,4 @@ generic-service:
       - internal
 
 generic-prometheus-alerts:
-  targetApplication: hmpps-template-typescript
+  targetApplication: stg-tcom-manage-unpaid-work-webapp
