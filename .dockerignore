@@ -11,3 +11,4 @@ eslint-report.html
 test-report.html
 docker-compose*
 adrs*
+docs*
