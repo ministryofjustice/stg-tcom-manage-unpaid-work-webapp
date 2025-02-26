@@ -21,7 +21,8 @@
     "int-test": "cypress run --config video=false",
     "int-test-ui": "cypress open --e2e --browser chrome",
     "clean": "rm -rf dist node_modules",
-    "rebuild": "npm run clean && npm i && npm run build"
+    "rebuild": "npm run clean && npm i && npm run build",
+    "postbuild": "mkdir -p dist/server/routes/etc && cp server/routes/etc/htpasswd dist/server/routes/etc/htpasswd"
   },
   "engines": {
     "node": "^22",
@@ -99,7 +100,9 @@
     "passport": "^0.7.0",
     "passport-oauth2": "^1.8.0",
     "redis": "^4.7.0",
-    "superagent": "^10.1.1"
+    "superagent": "^10.1.1",
+    "express-basic-auth": "^1.2.0",
+    "bcrypt": "^5.0.1"
   },
   "devDependencies": {
     "@jgoz/esbuild-plugin-typecheck": "^4.0.3",
@@ -145,7 +148,8 @@
     "prettier-plugin-jinja-template": "^2.0.0",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "@types/bcrypt": "^5.0.0"
   },
   "overrides": {
     "@jgoz/esbuild-plugin-typecheck": {
