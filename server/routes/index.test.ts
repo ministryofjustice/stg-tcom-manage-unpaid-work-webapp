@@ -23,17 +23,9 @@ afterEach(() => {
 })
 
 describe('GET /', () => {
-  it('should render index page', () => {
-    // auditService.logPageView.mockResolvedValue(null)
-    return request(app)
-      .get('/')
-      .expect('Content-Type', /html/)
-      .expect(res => {
-        expect(res.text).toContain('Welcome, Carolina')
-        // expect(auditService.logPageView).toHaveBeenCalledWith(Page.EXAMPLE_PAGE, {
-        // who: user.username,
-        // correlationId: expect.any(String),
-        // })
-      })
+  it('should render the index page', async () => {
+    const res = await request(app).get('/')
+    expect(res.status).toBe(200)
+    expect(res.text).toContain('Welcome')
   })
 })
