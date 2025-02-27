@@ -2,7 +2,6 @@ import { type RequestHandler, Router } from 'express'
 
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import type { Services } from '../services'
-import { Page } from '../services/auditService'
 
 export default function routes({ auditService }: Services): Router {
   const router = Router()
