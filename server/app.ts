@@ -15,7 +15,6 @@ import setUpStaticResources from './middleware/setUpStaticResources'
 import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
-import basicAuthentication from './middleware/basicAuthentication'
 
 import routes from './routes'
 import type { Services } from './services'
@@ -25,7 +24,7 @@ export default function createApp(services: Services): express.Application {
 
   app.set('json spaces', 2)
   app.set('trust proxy', true)
-  app.set('port', process.env.PORT || 3000)
+  app.set('port', process.env.PORT || 3001)
 
   app.use(appInsightsMiddleware())
   app.use(setUpHealthChecks(services.applicationInfo))
@@ -36,10 +35,8 @@ export default function createApp(services: Services): express.Application {
   nunjucksSetup(app)
   // app.use(setUpAuthentication())
   // app.use(authorisationMiddleware())
-  // app.use(setUpCsrf())
+  app.use(setUpCsrf())
   // app.use(setUpCurrentUser())
-
-  app.use(basicAuthentication)
 
   app.use(routes(services))
 

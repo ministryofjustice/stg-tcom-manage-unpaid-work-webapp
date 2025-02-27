@@ -1,3 +1,80 @@
+.govuk-frontend-supported {
+  background-color: #f3f4f6; 
+}
 .govuk-main-wrapper {
-  min-height: 600px;
+  min-height: 800px;
+}
+
+.gem-c-cards__list {
+  list-style: none;
+  background-color: white;
+  padding: 0;
+}
+
+.gem-c-cards__link {
+  text-decoration: none; 
+  color: #005ea5;
+}
+
+.gem-c-cards__link:hover,
+.gem-c-cards__link:focus,
+.gem-c-cards__link:active,
+.gem-c-cards__link:visited {
+  text-decoration: none;
+  color: #005ea5;
+}
+
+.gem-c-cards__list-item-wrapper {
+  border: 1px solid #dcdcdc; 
+  padding: 25px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center; 
+  cursor: pointer;
+  position: relative;
+}
+
+.gem-c-cards__list-item-wrapper::after {
+  content: '→';
+  position: absolute;
+  right: 20px;
+  font-size: 20px;
+  color: #005ea5;
+}
+
+.gem-c-cards__sub-heading {
+  margin: 0; 
+}
+
+.govuk-heading-l {
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+p{
+  font-weight: 200;
+  font-size: small;
+}
+
+.staff-facing-link {
+  text-decoration: none;
+  font-size: 14px;
+  display: block;
+  margin-top: 20px;
+  color: #005ea5;
+}
+
+.staff-facing-link:hover,
+.staff-facing-link:focus,
+.staff-facing-link:active,
+.staff-facing-link:visited {
+  text-decoration: none;
+  color: #005ea5;
+}
+.para-text{
+  font-size: 18px;
+  font-weight: 100;
+  line-height: 1.5;
+  margin-bottom: 20px;
+  font-color: #393b3d;
 }
