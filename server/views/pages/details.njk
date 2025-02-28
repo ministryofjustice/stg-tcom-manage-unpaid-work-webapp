@@ -1,0 +1,74 @@
+{% extends "../partials/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Home" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+    <a class="govuk-link staff-facing-link" href="/">&lt; Back to homepage</a>
+    <h1 class="govuk-heading-m govuk-!-margin-top-4 govuk-!-margin-bottom-2">Your details</h1>
+  </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+<div class="content-div govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-3 govuk-!-margin-bottom-6 govuk-!-padding-top-4 border box-shadow">
+    <div class="profile">
+      <div class="prefix govuk-!-margin-right-3 govuk-!-display-flex govuk-!-align-items-center govuk-!-justify-content-center govuk-!-font-weight-bold">C</div>
+      <div class="name govuk-!-display-flex govuk-!-flex-direction-column govuk-!-justify-content-center">
+        <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold govuk-!-font-size-16">{{ userProfile.name }}</p>
+        <p class="govuk-body-xs govuk-!-margin-top-0 govuk-!-font-size-14">User ID: {{ userProfile.userId }}</p>
+      </div>
+    </div>
+
+    <div class="">
+      <div class="govuk-!-border-bottom">
+        <p class="govuk-heading-m govuk-!-font-size-16 govuk-!-font-weight-bold govuk-!-margin-bottom-2">Personal information</p>
+        <p class="govuk-body-xs govuk-!-margin-bottom-2 govuk-!-color-light">To change your personal information, please contact your responsible officer.</p>
+        <div class="govuk-!-margin-top-4">
+          <div class="govuk-!-margin-bottom-4">
+            <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Name</p>
+            <p class="govuk-body govuk-!-font-size-16">{{ userProfile.name }}</p>
+          </div>
+          <div class="govuk-!-margin-bottom-4">
+            <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Unpaid work hours required to complete</p>
+            <p class="govuk-body govuk-!-font-size-16">{{ userProfile.hoursRequired }} hours</p>
+          </div>
+          <div class="govuk-!-margin-bottom-1">
+            <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Address</p>
+            <p class="govuk-body govuk-!-font-size-16">{{ userProfile.address | replace('\n', '<br>') | safe }}</p>
+          </div>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-color-light govuk-!-background-color-light">
+
+      <div class="govuk-!-padding-bottom-4">
+        <p class="govuk-heading-m govuk-!-font-size-16 govuk-!-font-weight-bold govuk-!-margin-bottom-2">Contact details</p>
+        <div class="govuk-!-margin-top-4">
+          <div class="govuk-!-margin-bottom-4 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
+            <div>
+              <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Email</p>
+              <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-bottom-0">{{ userProfile.email }}</p>
+            </div>
+            <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-14 govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
+          </div>
+          <div class="govuk-!-margin-bottom-1 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
+            <div>
+              <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Phone number</p>
+              <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-bottom-0">{{ userProfile.phone }}</p>
+            </div>
+            <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-14 govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  </div>
+</div>
+
+{% endblock %}
