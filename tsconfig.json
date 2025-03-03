@@ -22,5 +22,5 @@
     "esbuild",
     "eslint.config.mjs"
   ],
-  "include": ["**/*.js", "**/*.ts"]
+  "include": ["**/*.js", "**/*.ts", "htpasswd"]
 }
