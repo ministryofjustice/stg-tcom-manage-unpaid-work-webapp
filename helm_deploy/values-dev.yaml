@@ -5,14 +5,15 @@ generic-service:
   replicaCount: 2
 
   ingress:
-    host: template-typescript-dev.hmpps.service.justice.gov.uk
+    host: stg-tcom-manage-unpaid-work-webapp-dev.apps.live.cloud-platform.service.justice.gov.uk
 
   env:
-    INGRESS_URL: "https://template-typescript-dev.hmpps.service.justice.gov.uk"
+    INGRESS_URL: "https://stg-tcom-manage-unpaid-work-webapp-dev.apps.live.cloud-platform.service.justice.gov.uk"
     HMPPS_AUTH_URL: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth"
     TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
     ENVIRONMENT_NAME: DEV
     AUDIT_ENABLED: "false"
+    TOKEN_VERIFICATION_ENABLED: 'false'
 
 generic-prometheus-alerts:
   alertSeverity: NON_PROD_ALERTS_SEVERITY_LABEL
