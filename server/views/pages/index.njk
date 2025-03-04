@@ -6,44 +6,48 @@
 {% block content %}
 
 <h1 class="govuk-heading-l">Welcome, Carolina</h1> 
-<p class="govuk-body para-text" style="color: #505A5E;">View and manage your community payback</p>
+<p class="govuk-body">View and manage your community payback</p>
 
-<div class="govuk-grid-row">π
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <div class="gem-c-cards">
-      <ul class="gem-c-cards__list gem-c-cards__list--one-column">
+      <ul class="gem-c-cards__list gem-c-cards__list--one-column govuk-!-margin-0 govuk-!-padding-0">
         <li class="gem-c-cards__list-item">
-          <a class="govuk-link gem-c-cards__link gem-c-force-print-link-styles" href="/your-details">
-            <div class="gem-c-cards__list-item-wrapper">
-              <h3 class="gem-c-cards__sub-heading govuk-heading-s color-blue">Your details</h3>
-            </div>
-          </a>
+          <div class="gem-c-cards__list-item-wrapper">
+            <h3 class="gem-c-cards__sub-heading govuk-heading-s">
+              <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/your-details">Your details</a>
+            </h3>
+          </div>
         </li>
         <li class="gem-c-cards__list-item">
-          <a class="govuk-link gem-c-cards__link gem-c-force-print-link-styles" href="/your-progress">
-            <div class="gem-c-cards__list-item-wrapper">
-              <h3 class="gem-c-cards__sub-heading govuk-heading-s color-blue">Your progress</h3>
-            </div>
-          </a>
+          <div class="gem-c-cards__list-item-wrapper">
+            <h3 class="gem-c-cards__sub-heading govuk-heading-s">
+              <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/your-progress">Your progress</a>
+            </h3>
+          </div>
         </li>
         <li class="gem-c-cards__list-item">
-          <a class="govuk-link gem-c-cards__link gem-c-force-print-link-styles" href="/">
-            <div class="gem-c-cards__list-item-wrapper">
-              <h3 class="gem-c-cards__sub-heading govuk-heading-s color-blue">Find unpaid work near you</h3>
-            </div>
-          </a>
+          <div class="gem-c-cards__list-item-wrapper">
+            <h3 class="gem-c-cards__sub-heading govuk-heading-s">
+              <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/">Past and upcoming appointments</a>
+            </h3>
+          </div>
         </li>
         <li class="gem-c-cards__list-item">
-          <a class="govuk-link gem-c-cards__link gem-c-force-print-link-styles" href="/">
-            <div class="gem-c-cards__list-item-wrapper">
-              <h3 class="gem-c-cards__sub-heading govuk-heading-s color-blue">Guidance</h3>
-            </div>
-          </a>
+          <div class="gem-c-cards__list-item-wrapper">
+            <h3 class="gem-c-cards__sub-heading govuk-heading-s">
+              <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/browse/benefits">Guidance</a>
+            </h3>
+          </div>
         </li>
       </ul>
     </div>
-    <a class="govuk-link staff-facing-link" href="/staff-flow">Staff-facing flow</a>
   </div>
 </div>
 
+<div class="govuk-grid-row govuk-!-margin-top-6">
+  <div class="govuk-grid-column-full">
+<a class="govuk-link govuk-link--no-underline staff-facing-link " href="/staff-flow">Staff-facing flow</a>
+  </div>
+</div>
 {% endblock %}

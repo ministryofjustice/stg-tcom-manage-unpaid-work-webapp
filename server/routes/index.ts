@@ -29,6 +29,5 @@ export default function routes(): Router {
     }
     res.render('pages/progress', { progress })
   })
-
   return router
 }
