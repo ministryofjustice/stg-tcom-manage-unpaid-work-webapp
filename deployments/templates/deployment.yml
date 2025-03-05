@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stg-manage-community-sentence-ui-deployment
+  labels:
+    app: stg-manage-community-sentence-ui
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: stg-manage-community-sentence-ui # this should match the selector in service.yml
+  template:
+    metadata:
+      labels:
+        app: stg-manage-community-sentence-ui # this should match the selector in service.yml
+    spec:
+      containers:
+        - name: stg-manage-community-sentence-ui
+          image: ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}
+          ports:
+            - containerPort: 8080

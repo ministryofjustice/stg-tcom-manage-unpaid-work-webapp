@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: stg-manage-community-sentence-ui-ingress
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: ingress-${NAMESPACE}-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+spec:
+  ingressClassName: default
+  tls:
+    - hosts:
+        - ${NAMESPACE}.apps.live.cloud-platform.service.justice.gov.uk
+  rules:
+    - host: ${NAMESPACE}.apps.live.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: stg-manage-community-sentence-ui-service # this should match the metadata.name in service.yml
+                port:
+                  number: 8080
