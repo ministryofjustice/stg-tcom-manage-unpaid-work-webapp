@@ -5,10 +5,10 @@ generic-service:
   replicaCount: 2
 
   ingress:
-    host: stg-tcom-manage-unpaid-work-webapp-dev.apps.live.cloud-platform.service.justice.gov.uk
+    host: stg-tcom-manage-unpaid-work-webapp-dev.apps.live.cloud-platform.service.justice.gov.uk # this is 10 characters too long and cannot be used to match a cert CN
 
   env:
-    INGRESS_URL: "https://stg-tcom-manage-unpaid-work-webapp-dev.apps.live.cloud-platform.service.justice.gov.uk"
+    INGRESS_URL: "https://stg-tcom-manage-unpaid-work-webapp-dev.apps.live.cloud-platform.service.justice.gov.uk" # needs to match the ingress.host
     HMPPS_AUTH_URL: "https://sign-in-dev.hmpps.service.justice.gov.uk/auth"
     TOKEN_VERIFICATION_API_URL: "https://token-verification-api-dev.prison.service.justice.gov.uk"
     ENVIRONMENT_NAME: DEV

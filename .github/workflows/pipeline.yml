@@ -1,9 +1,6 @@
 name: Pipeline [test -> build -> deploy]
-
+# March 2025 disabled and not in use until custom domain name configured and helm deploy can be used
 on:
-  push:
-    branches:
-      - '**'
   workflow_dispatch:
     inputs:
       additional_docker_tag:
