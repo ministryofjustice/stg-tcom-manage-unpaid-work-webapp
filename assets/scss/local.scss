@@ -53,9 +53,11 @@
 }
 
 .govuk-box--white {
-  background-color: white;
+  background-color: govuk-colour("white");;
 }
-
+.govuk-text--blue {
+  color: govuk-colour("blue");;
+}
 .govuk-box--rounded {
   border-radius: 5px;
 }
