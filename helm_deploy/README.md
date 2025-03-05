@@ -1,5 +1,9 @@
 # Deployment Notes
 
+## DISABLED
+
+Helm deploy is not in use for this app until a custom domain is organised (March 2025). Deployment will be done by the simpler cloud platform example method until then.
+
 ## Prerequisites
 
 - Ensure you have helm v3 client installed.
