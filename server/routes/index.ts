@@ -29,5 +29,10 @@ export default function routes(): Router {
     }
     res.render('pages/progress', { progress })
   })
+
+  get('/conditions', async (req, res, next) => {
+    res.render('pages/conditions')
+  })
+
   return router
 }
