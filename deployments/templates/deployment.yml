@@ -19,3 +19,29 @@ spec:
           image: ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}
           ports:
             - containerPort: 8080
+          # initial poc environment variables while auth functionality is not active
+          env:
+          - name: PRODUCT_ID
+            value: UNASSIGNED
+          - name: REDIS_ENABLED
+            value: false
+          - name: REDIS_HOST
+            value: unused
+          - name: HMPPS_AUTH_URL
+            value: "http://unused:8080/auth"
+          - name: AUTH_CODE_CLIENT_ID
+            value: unused
+          - name: AUTH_CODE_CLIENT_SECRET
+            value: unused
+          - name: CLIENT_CREDS_CLIENT_ID
+            value: unused
+          - name: CLIENT_CREDS_CLIENT_SECRET
+            value: unused
+          - name: SESSION_SECRET
+            value: unused
+          - name: TOKEN_VERIFICATION_API_URL
+            value: "http://unused:8080/auth"
+          - name: TOKEN_VERIFICATION_ENABLED
+            value: false
+          - name: INGRESS_URL
+            value: "https://stg-manage-community-sentence-ui-dev.apps.live.cloud-platform.service.justice.gov.uk"
