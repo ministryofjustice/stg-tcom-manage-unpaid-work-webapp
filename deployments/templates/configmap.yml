@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ui-config
+data:
+  PRODUCT_ID: "UNASSIGNED"
+  REDIS_ENABLED: "false"
+  REDIS_HOST: "unused"
+  HMPPS_AUTH_URL: "http://unused:8080/auth"
+  AUTH_CODE_CLIENT_ID: "unused"
+  AUTH_CODE_CLIENT_SECRET: "unused"
+  CLIENT_CREDS_CLIENT_ID: "unused"
+  CLIENT_CREDS_CLIENT_SECRET: "unused"
+  SESSION_SECRET: "unused"
+  TOKEN_VERIFICATION_API_URL: "http://unused:8080/auth"
+  TOKEN_VERIFICATION_ENABLED: "false"
+  INGRESS_URL: "https://stg-manage-community-sentence-ui-dev.apps.live.cloud-platform.service.justice.gov.uk"
