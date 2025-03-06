@@ -21,5 +21,5 @@ spec:
             - containerPort: 8080
           # initial poc environment variables while auth functionality is not active
           envFrom:
-            - configMapRef:
-              name: ui-config
+          - configMapRef:
+            name: ui-config
