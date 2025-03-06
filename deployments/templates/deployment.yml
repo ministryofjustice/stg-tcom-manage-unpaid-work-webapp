@@ -22,4 +22,4 @@ spec:
           # initial poc environment variables while auth functionality is not active
           envFrom:
           - configMapRef:
-            name: ui-config
+              name: ui-config
