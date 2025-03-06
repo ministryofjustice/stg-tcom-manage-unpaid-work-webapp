@@ -20,7 +20,7 @@ jobs:
       - uses: aws-actions/amazon-ecr-login@v2
         id: login-ecr
       - run: |
-          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG --build-arg GIT_REF=${{ github.sha }} --build-arg GIT_BRANCH=${{ github.ref_name }} .
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG --build-arg GIT_REF=${{ github.sha }} --build-arg GIT_BRANCH=${{ github.ref_name }} --build-arg BUILD_NUMBER=0_0_1 .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
