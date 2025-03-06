@@ -1,8 +1,8 @@
-appointments.njk
 {% extends "../partials/layout.njk" %}
 
 {%- from "moj/components/ticket-panel/macro.njk" import mojTicketPanel -%}
 
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 {% set pageTitle = applicationName + " - License" %}
 {% set mainClasses = "app-container govuk-body" %}
@@ -10,138 +10,94 @@ appointments.njk
 {% block content %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/">&lt; Back to homepage</a>
-      <div class="govuk-grid-row govuk-!-margin-top-6 govuk-!-paddin-bottom-4">
-        <div class="govuk-grid-column-two-thirds">
-          <h1 class="govuk-heading-m govuk-!-margin-bottom-1 govuk-!-padding-bottom-1">Your conditions</h1>
-                <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-padding-top-1 govuk-!-colour-light-grey">Ask your probation practitioner to explain anything you do not understand.</p>
-        </div>
-      </div>
-
-     <div class="govuk-grid-row ">
-       <div class="govuk-grid-column-full govuk-!-margin-top-4 ">
-
-        {{ mojTicketPanel({
-          attributes: {
-            "aria-label": "Sub navigation 1"
-          },
-          items: [{
-            html: '
-            <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1" >
-            You must follow these conditions to avoid being recalled to court. If you don\'t follow these conditions you might be sent to prison.</p>
-<p class=" govuk-body-s govuk-!-margin-0 govuk-!-padding-0 ">If you have a problem attending an appointment, you need to tell your probation worker as soon as possible.</p>',
-          attributes: {
-              "aria-label": "Section 1"
-            },
-            classes: "moj-ticket-panel__content--grey"
-          }]
-        }) }}
-      </div>
-
-       <div class="govuk-grid-column-full govuk-!-margin-top-4 ">
-
-       <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-4 border box-shadow">
-      <p class="govuk-body govuk-!-font-size-19 govuk-!-font-weight-bold">Your conditions expire on:</p>
-                                <p class="govuk-!-margin-bottom-2 govuk-!-font-size-22 govuk-!-font-weight-bold">27 July 2025</p>
-
-    </div>
+<div class="govuk-grid-column-full">
+<div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+<a class="govuk-link" href="/">&lt; Back to homepage</a>
+<div class="govuk-grid-row govuk-!-margin-top-6 govuk-!-paddin-bottom-4">
+<div class="govuk-grid-column-two-thirds">
+<h1 class="govuk-heading-m govuk-!-margin-bottom-1 govuk-!-padding-bottom-1">Your conditions</h1>
+<p class="govuk-body govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-padding-top-1 govuk-!-colour-light-grey">Ask your probation practitioner to explain anything you do not understand.</p>
 </div>
-
-
- <div class="govuk-grid-column-full govuk-!-margin-top-6 ">
-   <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-right-6 govuk-!-padding-left-6 govuk-!-padding-top-4 govuk-!-padding-bottom-4 border box-shadow">
-     <div class="govuk-grid-row">
-       <div class="govuk-grid-column-five-sixths govuk-!-padding-top-2">
-         <h3 class="govuk-heading-s govuk-!-margin-bottom-4">Standard conditions</h3>
-         <ol class="govuk-list govuk-list--number">
-           <li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Be of good behaviour and not behave in a way which undermines the purpose of the licence period.</li>
-           <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-           <li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Not commit any offence.</li>
-           <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-           <li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Keep in touch with the supervising officer in accordance with instructions given by the supervising officer.</li>
-           <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-           <li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Receive visits from the supervising officer in accordance with instructions given by the supervising officer.</li>
-           <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-           <li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Reside permanently at an address approved by the supervising officer and obtain the prior permission of the supervising officer for any stay of one or more nights at a different address.</li>
-           <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-           <li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Not undertake work, or a particular type of work, unless it is approved by the supervising officer and notify the supervising officer in advance of any proposal to undertake work or a particular type of work.</li>
-           <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-           <li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Not travel outside the United Kingdom, the Channel Islands or the Isle of Man except with the prior permission of your supervising officer or for the purposes of immigration deportation or removal.</li>
-           <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-           <li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Tell your supervising officer if you use a name which is different from the name or names which appear on your licence.</li>
-           <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-           <li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Tell your supervising officer if you change or add any contact details, including phone number or email.</li>
-         </ol>
-       </div>
-     </div>
-   </div>
-</div>
-
-<div class="govuk-grid-column-full govuk-!-margin-top-6">
-   <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-right-4 govuk-!-padding-left-4 govuk-!-padding-top-4 govuk-!-padding-bottom-4 border box-shadow">
-     
-     <div class="govuk-!-margin-bottom-4 govuk-!-padding-top-2">
-              <h3 class="govuk-heading-s  ">Additional conditions</h3>
-
-       <p class="govuk-body govuk-!-margin-bottom-1 govuk-text--blue ">Disclosure of information</p>
-       <p class="govuk-body-xs govuk-!-margin-0">Notify your supervising officer of any intimate relationships.</p>
-     </div>
-     <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-     <div class="govuk-!-margin-bottom-4">
-       <p class="govuk-body govuk-!-margin-bottom-2 govuk-text--blue">Attendance at appointments</p>
-       <p class="govuk-body-xs govuk-!-margin-0">Attend appointments arranged by your supervising officer. This includes appointments with: employment services, drug treatment providers, alcohol treatment providers.</p>
-     </div>
-     <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-     <div class="govuk-!-margin-bottom-4">
-       <p class="govuk-body govuk-!-margin-bottom-2 govuk-text--blue">Restriction of residency</p>
-       <p class="govuk-body-xs govuk-!-margin-0">Not to reside (not even to stay for one night) in the same household as any child under the age of 18 without the prior approval of your supervising officer.</p>
-     </div>
-     <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-     <div class="govuk-!-margin-bottom-4">
-       <p class="govuk-body govuk-!-margin-bottom-2 govuk-text--blue">Participation in programme</paddin>
-       <p class="govuk-body-xs govuk-!-margin-0">To comply with any instruction given by your supervising officer requiring you to attend a sex offender treatment programme.</p>
-     </div>
-     <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-     <div class="govuk-!-margin-bottom-4">
-       <p class="govuk-body govuk-!-margin-bottom-2 govuk-text--blue">Exclusion requirement</p>
-       <p class="govuk-body-xs govuk-!-margin-0">Not to enter the area of Moss Side, as defined by your supervising officer, without the prior approval of your supervising officer.</p>
-     </div>
-     <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
-     <div class="govuk-!-margin-bottom-4">
-       <p class="govuk-body govuk-!-margin-bottom-2 govuk-text--blue">Non-contact requirement</p>
-       <p class="govuk-body-xs govuk-!-margin-0">Not to contact or associate with Bob Martin or Bill Hinds without the prior approval of your supervising officer.</p>
-     </div>
-   </div>
-</div>
-
-    </div>
-  </div>
-   </div>
 </div>
 
 <div class="govuk-grid-row ">
- <div class="govuk-grid-column-full govuk-!-margin-top-4 ">
+<div class="govuk-grid-column-full govuk-!-margin-top-4 ">
 
-        {{ mojTicketPanel({
-          attributes: {
-            "aria-label": "Sub navigation 1"
-          },
-          items: [{
-            html: '
-            <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">
+{{ govukWarningText({
+  html: '<p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1" >
+You must follow these conditions to avoid being recalled to court. If you don\'t follow these conditions you might be sent to prison.</p>
+<p class=" govuk-body-s govuk-!-margin-0 govuk-!-padding-0 ">If you have a problem attending an appointment, you need to tell your probation worker as soon as possible.</p>
+',
+  iconFallbackText: "Warning"
+}) }}
+
+</div>
+
+<div class="govuk-grid-column-full govuk-!-margin-top-4 ">
+
+<div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-4 border box-shadow">
+<p class="govuk-body govuk-!-font-size-19 govuk-!-font-weight-bold">Your conditions expire on:</p>
+<p class="govuk-!-margin-bottom-2 govuk-!-font-size-22 govuk-!-font-weight-bold">27 July 2025</p>
+
+</div>
+</div>
+
+
+<div class="govuk-grid-column-full govuk-!-margin-top-6 ">
+<div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-right-6 govuk-!-padding-left-6 govuk-!-padding-top-4 govuk-!-padding-bottom-4 border box-shadow">
+<div class="govuk-grid-row">
+<div class="govuk-grid-column-five-sixths govuk-!-padding-top-2">
+<h3 class="govuk-heading-s govuk-!-margin-bottom-4">Standard conditions</h3>
+<ol class="govuk-list govuk-list--number">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Be of good behaviour and not behave in a way which undermines the purpose of the licence period.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Not commit any offence.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Keep in touch with the supervising officer in accordance with instructions given by the supervising officer.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Receive visits from the supervising officer in accordance with instructions given by the supervising officer.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Reside permanently at an address approved by the supervising officer and obtain the prior permission of the supervising officer for any stay of one or more nights at a different address.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Not undertake work, or a particular type of work, unless it is approved by the supervising officer and notify the supervising officer in advance of any proposal to undertake work or a particular type of work.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Not travel outside the United Kingdom, the Channel Islands or the Isle of Man except with the prior permission of your supervising officer or for the purposes of immigration deportation or removal.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Tell your supervising officer if you use a name which is different from the name or names which appear on your licence.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Tell your supervising officer if you change or add any contact details, including phone number or email.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Notify your supervising officer of any intimate relationships.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Attend appointments arranged by your supervising officer. This includes appointments with: employment services, drug treatment providers, alcohol treatment providers.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Not to reside (not even to stay for one night) in the same household as any child under the age of 18 without the prior approval of your supervising officer.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">To comply with any instruction given by your supervising officer requiring you to attend a sex offender treatment programme.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Not to enter the area of Moss Side, as defined by your supervising officer, without the prior approval of your supervising officer.</li>
+<hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+<li class="govuk-body-xs govuk-!-padding-bottom-1 govuk-!-margin-bottom-4">Not to contact or associate with Bob Martin or Bill Hinds without the prior approval of your supervising officer.</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="govuk-grid-row ">
+<div class="govuk-grid-column-full govuk-!-margin-top-4 ">
+
+<p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">
 Need help understanding your conditions?
 </p>
-<p class=" govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">Contact your probation practitioner for guidance on any conditions you\'re unsure about.</p>
-            <a class="govuk-link govuk-link--no-visited-state" href="#">Message</a>',
-          attributes: {
-              "aria-label": "Section 1"
-            },
-            classes: "moj-ticket-panel__content--blue"
-          }]
-        }) }}
-      </div>
+<p class=" govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">Contact your probation practitioner for guidance on any conditions you're unsure about.</p>
+<a class="govuk-link govuk-link--no-visited-state" href="#">Message</a>
+
+</div>
 </div>
 
 {% endblock %}
