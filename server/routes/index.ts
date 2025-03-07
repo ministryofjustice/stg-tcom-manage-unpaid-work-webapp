@@ -46,12 +46,12 @@ export default function routes(): Router {
     res.render('pages/pop/conditions')
   })
 
-  get('/book-appointment', async (req, res, next) => {
+  get('#', async (req, res, next) => {
     const progress = {
       completedHours: 0,
       totalHours: 100,
     }
-    res.render('pages/pop/book-appointment', { progress })
+    res.render('#', { progress })
   })
 
   get('/appointment-type', async (req, res, next) => {
