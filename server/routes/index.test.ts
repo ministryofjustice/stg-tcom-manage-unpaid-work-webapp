@@ -26,6 +26,6 @@ describe('GET /', () => {
   it('should render the index page', async () => {
     const res = await request(app).get('/')
     expect(res.status).toBe(200)
-    expect(res.text).toContain('Welcome')
+    expect(res.text).toContain('Manage my community sentence')
   })
 })
