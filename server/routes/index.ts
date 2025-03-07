@@ -9,6 +9,9 @@ export default function routes(): Router {
   get('/', async (req, res, next) => {
     res.render('pages/index')
   })
+  get('/pop', async (req, res, next) => {
+    res.render('pages/pop/index')
+  })
 
   get('/your-details', async (req, res, next) => {
     const userProfile = {
@@ -19,7 +22,7 @@ export default function routes(): Router {
       email: 'carolinapizatto@example.com',
       phone: '07777 012345',
     }
-    res.render('pages/details', { userProfile })
+    res.render('pages/pop/details', { userProfile })
   })
 
   get('/your-progress', async (req, res, next) => {
@@ -27,11 +30,11 @@ export default function routes(): Router {
       completedHours: 40,
       totalHours: 100,
     }
-    res.render('pages/progress', { progress })
+    res.render('pages/pop/progress', { progress })
   })
 
   get('/conditions', async (req, res, next) => {
-    res.render('pages/conditions')
+    res.render('pages/pop/conditions')
   })
 
   return router
