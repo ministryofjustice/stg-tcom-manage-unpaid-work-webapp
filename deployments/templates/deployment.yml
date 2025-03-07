@@ -5,7 +5,7 @@ metadata:
   labels:
     app: stg-manage-community-sentence-ui
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: stg-manage-community-sentence-ui # this should match the selector in service.yml
@@ -19,3 +19,7 @@ spec:
           image: ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}
           ports:
             - containerPort: 8080
+          # initial poc environment variables while auth functionality is not active
+          envFrom:
+          - configMapRef:
+              name: ui-config
