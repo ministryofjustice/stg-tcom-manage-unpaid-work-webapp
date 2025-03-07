@@ -1,3 +1,5 @@
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
+
 {% extends "../../partials/layout.njk" %}
 
 {% set pageTitle = applicationName + " - Home" %}
@@ -5,8 +7,28 @@
 
 {% block content %}
 
-<h1 class="govuk-heading-l">Welcome, Carolina</h1> 
+<h1 class="govuk-heading-l">Welcome, Carolina</h1>
 <p class="govuk-body">View and manage your community payback</p>
+
+{% if scenario == "missed" %}
+{{ mojAlert({
+  variant: "error",
+  title: "Missed appointment",
+  showTitleAsHeading: true,
+  dismissible: false,
+  text: 'You failed to attend your scheduled probation appointment on 3 March 2025, breaching your supervision requirements. Please <a href="#">contact</a> your probation practitioner as soon as possible to discuss this matter.'
+}) }}
+{% endif %}
+
+{% if scenario == "reminder" %}
+{{ mojAlert({
+  variant: "information",
+  title: "Appointment reminder",
+  showTitleAsHeading: true,
+  dismissible: false,
+  html: 'You have an appointment booked for 20 March 2025 at 2pm. <a href="#">View your appointment</a> if you need to reschedule it.'
+}) }}
+{% endif %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
