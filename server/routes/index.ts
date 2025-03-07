@@ -46,40 +46,6 @@ export default function routes(): Router {
     res.render('pages/pop/conditions')
   })
 
-  get('#', async (req, res, next) => {
-    const progress = {
-      completedHours: 0,
-      totalHours: 100,
-    }
-    res.render('#', { progress })
-  })
-
-  get('/appointment-type', async (req, res, next) => {
-    const appointmentTypes = [
-      {
-        title: 'Meeting with Probation Officer',
-        description: 'Schedule a meeting with your probation officer to discuss your progress and any concerns.',
-      },
-      {
-        title: 'Unpaid Work',
-        description: 'Book an unpaid work placement session to fulfill your community service requirements.',
-      },
-      {
-        title: 'Rehabilitation Activity',
-        description: 'Participate in activities designed to help with rehabilitation and reduce reoffending.',
-      },
-      {
-        title: 'Behaviour Programmes',
-        description: 'Attend structured programmes aimed at addressing specific behavioral issues.',
-      },
-      {
-        title: 'Interventions',
-        description: 'Access specialized interventions tailored to your individual needs and circumstances.',
-      },
-    ]
-    res.render('pages/pop/appointment-type', { appointmentTypes })
-  })
-
   get('/appointments', async (req, res, next) => {
     const appointments = [
       {
