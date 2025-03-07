@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: ui-config
 data:
+  POC_PASSWORD: "${POC_PASSWORD}"
   PRODUCT_ID: "UNASSIGNED"
   REDIS_ENABLED: "false"
   REDIS_HOST: "unused"
