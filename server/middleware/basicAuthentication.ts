@@ -1,39 +1,63 @@
-import basicAuth from 'express-basic-auth'
-import fs from 'fs'
-import path from 'path'
-import bcrypt from 'bcrypt'
+import * as crypto from 'crypto'
+import { NextFunction, type Request, type Response } from 'express'
+import asyncMiddleware from './asyncMiddleware'
+import logger from '../../logger'
 
-interface Users {
-  [key: string]: string
+// Local variables
+const allowedPathsWhenUnauthenticated = ['/admin/password']
+
+export function basicAuthentication() {
+  if (!shouldUseAuth()) {
+    return function doNothing(req: Request, res: Response, next: NextFunction) {
+      next()
+    }
+  }
+
+  if (!process.env.POC_PASSWORD) {
+    return function showErrors(req: Request, res: Response, next: NextFunction) {
+      showNoPasswordError(res)
+    }
+  }
+
+  // password is encrypted because we store it in a cookie
+  // we store the password to compare in case it is changed server-side
+  // changing the password should require users to re-authenticate
+  const password = encryptPassword(process.env.POC_PASSWORD)
+
+  return asyncMiddleware((req, res, next) => {
+    if (allowedPathsWhenUnauthenticated.includes(req.path)) {
+      next()
+    } else if (isAuthenticated(password, req)) {
+      next()
+    } else {
+      sendUserToPasswordPage(req, res)
+    }
+  })
 }
 
-const htpasswdPath = path.join(__dirname, '../routes/etc/htpasswd')
-
-const users: Users = fs.existsSync(htpasswdPath)
-  ? fs
-      .readFileSync(htpasswdPath, 'utf-8')
-      .split('\n')
-      .filter(line => line)
-      .reduce((acc: Users, line) => {
-        const [user, pass] = line.split(':')
-        acc[user] = pass
-        return acc
-      }, {})
-  : {}
-
-if (Object.keys(users).length === 0) {
-  const defaultUser = 'admin'
-  const defaultPassword = 'Password123456'
-  const hashedPassword = bcrypt.hashSync(defaultPassword, 10)
-  fs.writeFileSync(htpasswdPath, `${defaultUser}:${hashedPassword}\n`)
-  users[defaultUser] = hashedPassword
+export function encryptPassword(password: string) {
+  const hash = crypto.createHash('sha256')
+  hash.update(password)
+  return hash.digest('hex')
 }
 
-export default basicAuth({
-  authorizer: (username: string, password: string) => {
-    const userPassword = users[username]
-    return userPassword && bcrypt.compareSync(password, userPassword)
-  },
-  challenge: true,
-  unauthorizedResponse: 'Unauthorized',
-})
+function shouldUseAuth() {
+  const safeNodeEnv = process.env.NODE_ENV || 'not set'
+  const isRunningInProduction = safeNodeEnv.toLowerCase() === 'production'
+  return isRunningInProduction || true
+}
+
+function showNoPasswordError(res: Response) {
+  return res.send(
+    '<h1>Error:</h1><p>Password not set. <a href="https://govuk-prototype-kit.herokuapp.com/docs/publishing-on-heroku#6-set-a-password">See guidance for setting a password</a>.</p>',
+  )
+}
+
+function sendUserToPasswordPage(req: Request, res: Response) {
+  logger.info(`Not logged in, going to password input`)
+  res.redirect('/admin/password')
+}
+
+function isAuthenticated(encryptedPassword: string, req: Request) {
+  return req.cookies?.authentication === encryptedPassword
+}
