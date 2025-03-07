@@ -27,7 +27,7 @@ export default function routes(): Router {
 
   get('/your-progress', async (req, res, next) => {
     const progress = {
-      completedHours: 40,
+      completedHours: 0,
       totalHours: 100,
     }
     res.render('pages/pop/progress', { progress })
