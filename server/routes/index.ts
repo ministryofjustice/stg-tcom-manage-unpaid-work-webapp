@@ -30,11 +30,114 @@ export default function routes(): Router {
       completedHours: 0,
       totalHours: 100,
     }
-    res.render('pages/pop/progress', { progress })
+
+    // const appointment = ""; // if no appointment
+
+    const appointment = {
+      title: 'Community Garden Maintenance',
+      date: 'Friday 15 March 2024',
+      time: '09:00',
+      location: '123 Garden Street, London SE1 7TH',
+    }
+    res.render('pages/pop/progress', { progress, appointment })
   })
 
   get('/conditions', async (req, res, next) => {
     res.render('pages/pop/conditions')
+  })
+
+  get('/book-appointment', async (req, res, next) => {
+    const progress = {
+      completedHours: 0,
+      totalHours: 100,
+    }
+    res.render('pages/pop/book-appointment', { progress })
+  })
+
+  get('/appointment-type', async (req, res, next) => {
+    const appointmentTypes = [
+      {
+        title: 'Meeting with Probation Officer',
+        description: 'Schedule a meeting with your probation officer to discuss your progress and any concerns.',
+      },
+      {
+        title: 'Unpaid Work',
+        description: 'Book an unpaid work placement session to fulfill your community service requirements.',
+      },
+      {
+        title: 'Rehabilitation Activity',
+        description: 'Participate in activities designed to help with rehabilitation and reduce reoffending.',
+      },
+      {
+        title: 'Behaviour Programmes',
+        description: 'Attend structured programmes aimed at addressing specific behavioral issues.',
+      },
+      {
+        title: 'Interventions',
+        description: 'Access specialized interventions tailored to your individual needs and circumstances.',
+      },
+    ]
+    res.render('pages/pop/appointment-type', { appointmentTypes })
+  })
+
+  get('/appointments', async (req, res, next) => {
+    const appointments = [
+      {
+        date: 'Thursday 27 Feb 2025',
+        time: '2:00pm - 2:30pm',
+        title: 'Community Garden Maintenance',
+        location: '123 Garden Street, London SE1 7TH',
+        contact: 'Karen Smith',
+        contactLink: '',
+        description:
+          'Group session focused on weeding, planting seasonal vegetables, and general garden maintenance. Bring appropriate clothing for outdoor work, tools will be provided. Break times will be scheduled during the session.',
+      },
+      {
+        date: 'Thursday 27 Feb 2025',
+        time: '2:00pm - 2:30pm',
+        title: 'Probation appointment',
+        location: 'National Probation Service, Redfern Building, 30 Hanover Street, Manchester M4 4AH',
+        contact: 'Julie Myers',
+        contactLink: '/messages',
+        description:
+          'Monthly probation meeting to review progress and discuss the next steps in rehabilitation. Consider if any assistance is needed from the probation team regarding employment or housing.',
+      },
+      {
+        date: 'Thursday 27 Feb 2025',
+        time: '2:00pm - 2:30pm',
+        title: 'Probation appointment',
+        location: 'National Probation Service, Redfern Building, 30 Hanover Street, Manchester M4 4AH',
+        contact: 'Julie Myers',
+        contactLink: '',
+        description:
+          'Monthly probation meeting to review progress and discuss the next steps in rehabilitation. Consider if any assistance is needed from the probation team regarding employment or housing.',
+      },
+      {
+        date: 'Thursday 27 Feb 2025',
+        time: '2:00pm - 2:30pm',
+        title: 'Community Garden Maintenance',
+        location: '123 Garden Street, London SE1 7TH',
+        contact: 'Karen Smith',
+        contactLink: '',
+        description:
+          'Group session focused on weeding, planting seasonal vegetables, and general garden maintenance. Bring appropriate clothing for outdoor work, tools will be provided. Break times will be scheduled during the session.',
+      },
+      {
+        date: 'Thursday 27 Feb 2025',
+        time: '2:00pm - 2:30pm',
+        title: 'Probation appointment',
+        location: 'National Probation Service, Redfern Building, 30 Hanover Street, Manchester M4 4AH',
+        contact: 'Julie Myers',
+        contactLink: '/messages',
+        description:
+          'Monthly probation meeting to review progress and discuss the next steps in rehabilitation. Consider if any assistance is needed from the probation team regarding employment or housing.',
+      },
+    ]
+    res.render('pages/pop/appointments', { appointments })
+  })
+
+  get('/view-appointment', async (req, res, next) => {
+    res.render('pages/pop/view-appointment')
   })
 
   return router
