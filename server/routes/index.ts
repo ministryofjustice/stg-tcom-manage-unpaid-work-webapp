@@ -49,8 +49,8 @@ export default function routes(): Router {
   get('/appointments', async (req, res, next) => {
     const appointments = [
       {
-        date: 'Thursday 27 Feb 2025',
-        time: '2:00pm - 2:30pm',
+        date: 'Tuesday 18 March 2025',
+        time: '10:00am - 10:30am',
         title: 'Community Garden Maintenance',
         location: '123 Garden Street, London SE1 7TH',
         contact: 'Karen Smith',
@@ -59,14 +59,14 @@ export default function routes(): Router {
           'Group session focused on weeding, planting seasonal vegetables, and general garden maintenance. Bring appropriate clothing for outdoor work, tools will be provided. Break times will be scheduled during the session.',
       },
       {
-        date: 'Thursday 27 Feb 2025',
+        date: 'Thursday 20 March 2025',
         time: '2:00pm - 2:30pm',
         title: 'Probation appointment',
-        location: 'National Probation Service, Redfern Building, 30 Hanover Street, Manchester M4 4AH',
+        location: 'National Probation Service, 235 Greenwich High Road, London SE10 8NB',
         contact: 'Julie Myers',
-        contactLink: '/messages',
+        contactLink: '',
         description:
-          'Monthly probation meeting to review progress and discuss the next steps in rehabilitation. Consider if any assistance is needed from the probation team regarding employment or housing.',
+          'Regular probation check-in to discuss progress, any issues faced, and upcoming milestones. Make sure to bring any requested documents or updates for the probation officer.',
       },
       {
         date: 'Thursday 27 Feb 2025',
