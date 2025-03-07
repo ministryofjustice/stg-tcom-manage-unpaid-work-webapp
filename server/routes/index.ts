@@ -76,7 +76,26 @@ export default function routes(): Router {
   })
 
   get('/appointments', async (req, res, next) => {
-    const appointments = [
+    const pastAppointments = [
+      {
+        date: 'Thursday 20 Jan 2025',
+        time: '10:00am',
+        title: 'Probation appointment',
+        location: '123 Garden Street, London SE1 7TH',
+        contact: 'Karen Smith',
+        contactLink: '',
+      },
+      {
+        date: 'Thursday 15 Jan 2025',
+        time: '2:00pm',
+        title: 'Probation appointment',
+        location: 'National Probation Service, 235 Greenwich High Road, London SE10 8NB',
+        contact: 'Julie Myers',
+        contactLink: '',
+      },
+    ]
+
+    const upcomingAppointments = [
       {
         date: 'Tuesday 18 March 2025',
         time: '10:00am',
@@ -97,24 +116,9 @@ export default function routes(): Router {
         description:
           'Regular probation check-in to discuss progress, any issues faced, and upcoming milestones. Make sure to bring any requested documents or updates for the probation officer.',
       },
-      {
-        date: 'Thursday 20 Jan 2025',
-        time: '10:00am',
-        title: 'Probation appointment',
-        location: '123 Garden Street, London SE1 7TH',
-        contact: 'Karen Smith',
-        contactLink: '',
-      },
-      {
-        date: 'Thursday 15 Jan 2025',
-        time: '2:00pm',
-        title: 'Probation appointment',
-        location: 'National Probation Service, 235 Greenwich High Road, London SE10 8NB',
-        contact: 'Julie Myers',
-        contactLink: '',
-      },
     ]
-    res.render('pages/pop/appointments', { appointments })
+
+    res.render('pages/pop/appointments', { upcomingAppointments, pastAppointments })
   })
 
   get('/view-appointment', async (req, res, next) => {
