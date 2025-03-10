@@ -59,5 +59,5 @@ function sendUserToPasswordPage(req: Request, res: Response) {
 }
 
 function isAuthenticated(encryptedPassword: string, req: Request) {
-  return req.cookies?.authentication === encryptedPassword
+  return req.cookies?.poc_check === encryptedPassword
 }
