@@ -68,8 +68,8 @@ export default function routes(): Router {
     const { returnURL } = req.body
     if (submittedPassword === password) {
       // see /middleware/basicAuthentication.js for explanation
-      res.cookie('authentication', encryptPassword(password), {
-        maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
+      res.cookie('poc_check', encryptPassword(password), {
+        maxAge: 1000 * 60 * 60 * 24, // 1 day
         sameSite: 'lax', // Allows GET and POST requests from other domains
         httpOnly: true,
         secure: true,
