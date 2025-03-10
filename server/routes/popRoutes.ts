@@ -1,9 +1,12 @@
 import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../middleware/asyncMiddleware'
+import { pastAppointments, upcomingAppointments } from './data/appointments'
+import messages from './data/messages'
 
 export default function popRoutes(): Router {
   const router = Router()
   const get = (path: string | string[], handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
+  const post = (path: string | string[], handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
 
   get('/', async (req, res, next) => {
     // /pop?scenario=missed
@@ -46,48 +49,6 @@ export default function popRoutes(): Router {
   })
 
   get('/appointments', async (req, res, next) => {
-    const pastAppointments = [
-      {
-        date: 'Thursday 20 Jan 2025',
-        time: '10:00am',
-        title: 'Probation appointment',
-        location: '123 Garden Street, London SE1 7TH',
-        contact: 'Karen Smith',
-        contactLink: '/pop/new-message',
-      },
-      {
-        date: 'Thursday 15 Jan 2025',
-        time: '2:00pm',
-        title: 'Probation appointment',
-        location: 'National Probation Service, 235 Greenwich High Road, London SE10 8NB',
-        contact: 'Julie Myers',
-        contactLink: '',
-      },
-    ]
-
-    const upcomingAppointments = [
-      {
-        date: 'Tuesday 18 March 2025',
-        time: '10:00am',
-        title: 'Community Garden Maintenance',
-        location: '123 Garden Street, London SE1 7TH',
-        contact: 'Karen Smith',
-        contactLink: '',
-        description:
-          'Group session focused on weeding, planting seasonal vegetables, and general garden maintenance. Bring appropriate clothing for outdoor work, tools will be provided. Break times will be scheduled during the session.',
-      },
-      {
-        date: 'Thursday 21 March 2025',
-        time: '2:00pm',
-        title: 'Probation appointment',
-        location: 'National Probation Service, 235 Greenwich High Road, London SE10 8NB',
-        contact: 'Julie Myers',
-        contactLink: '',
-        description:
-          'Regular probation check-in to discuss progress, any issues faced, and upcoming milestones. Make sure to bring any requested documents or updates for the probation officer.',
-      },
-    ]
-
     res.render('pages/pop/appointments', { upcomingAppointments, pastAppointments })
   })
 
@@ -96,65 +57,29 @@ export default function popRoutes(): Router {
   })
 
   get('/messages', async (req, res, next) => {
-    const messages = [
-      {
-        subject: 'Missed appointment',
-        date: '11 March 2024',
-        description:
-          'You failed to attend your scheduled probation appointment on 10 March 2024. This is a breach of your supervision requirements. Please contact your probation practitioner as soon as possible to discuss this matter.',
-        id: '5cdc4302-3ad3-4378-b3e3-6ae0731ab4a1',
-        status: 'unread',
-      },
-      {
-        subject: 'Message from your probation practitioner',
-        date: '10 March 2024',
-        description: 'Please contact me as soon as possible to discuss your progress.',
-        id: 'c8ab26a7-e4d3-4f78-82a2-98fec61e79e5',
-        status: 'unread',
-      },
-      {
-        subject: 'Documentation request from your probation practitioner',
-        date: '10 March 2024',
-        description:
-          'Please provide documentation for your recent employment. This is required as part of your supervision conditions.',
-        id: 'c8ab26a7-e4d3-4f78-82a2-98fec61e79d45',
-        status: 'unread',
-      },
-    ]
-
     res.render('pages/pop/messages', { messages })
   })
 
   get('/messages/thread/:id', async (req, res, next) => {
-    const messages = [
-      {
-        subject: 'Missed appointment',
-        date: '11 March 2024',
-        description:
-          'You failed to attend your scheduled probation appointment on 10 March 2024. This is a breach of your supervision requirements. Please contact your probation practitioner as soon as possible to discuss this matter.',
-        id: '5cdc4302-3ad3-4378-b3e3-6ae0731ab4a1',
-        status: 'unread',
-      },
-      {
-        subject: 'Message from your probation practitioner',
-        date: '10 March 2024',
-        description: 'Please contact me as soon as possible to discuss your progress.',
-        id: 'c8ab26a7-e4d3-4f78-82a2-98fec61e79e5',
-        status: 'unread',
-      },
-      {
-        subject: 'Documentation request from your probation practitioner',
-        date: '10 March 2024',
-        description:
-          'Please provide documentation for your recent employment. This is required as part of your supervision conditions.',
-        id: 'c8ab26a7-e4d3-4f78-82a2-98fec61e79d45',
-        status: 'unread',
-      },
-    ]
-
     const message = messages.find(msg => msg.id === req.params.id)
     if (message) {
       res.render('pages/pop/messageThread', { message })
+    } else {
+      res.status(404).send('Message not found')
+    }
+  })
+
+  post('/messages/thread/:id', async (req, res, next) => {
+    const message = messages.find(msg => msg.id === req.params.id)
+    if (message) {
+      const newMessage = {
+        text: req.body.message,
+        type: 'sent',
+        timestamp: new Date().toLocaleString(),
+        sender: 'You',
+      }
+      message.items.push(newMessage)
+      res.redirect(`/pop/messages/thread/${req.params.id}`)
     } else {
       res.status(404).send('Message not found')
     }
