@@ -56,7 +56,7 @@ export default function routes(): Router {
       // see /middleware/basicAuthentication.js for explanation
       res.cookie('authentication', encryptPassword(password), {
         maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
-        sameSite: 'none', // Allows GET and POST requests from other domains
+        sameSite: 'lax', // Allows GET and POST requests from other domains
         httpOnly: true,
         secure: true,
       })
