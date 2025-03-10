@@ -80,7 +80,7 @@ export default function routes(): Router {
       {
         date: 'Thursday 20 Jan 2025',
         time: '10:00am',
-        title: 'Probation appointment',
+        title: 'Community Garden Maintenance',
         location: '123 Garden Street, London SE1 7TH',
         contact: 'Karen Smith',
         contactLink: '',
