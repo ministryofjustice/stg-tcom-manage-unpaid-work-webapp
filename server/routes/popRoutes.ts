@@ -102,14 +102,14 @@ export default function popRoutes(): Router {
         date: '11 March 2024',
         description:
           'You failed to attend your scheduled probation appointment on 10 March 2024. This is a breach of your supervision requirements. Please contact your probation practitioner as soon as possible to discuss this matter.',
-        id: '1',
+        id: '5cdc4302-3ad3-4378-b3e3-6ae0731ab4a1',
         status: 'unread',
       },
       {
         subject: 'Message from your probation practitioner',
         date: '10 March 2024',
         description: 'Please contact me as soon as possible to discuss your progress.',
-        id: '2',
+        id: 'c8ab26a7-e4d3-4f78-82a2-98fec61e79e5',
         status: 'unread',
       },
       {
@@ -117,12 +117,47 @@ export default function popRoutes(): Router {
         date: '10 March 2024',
         description:
           'Please provide documentation for your recent employment. This is required as part of your supervision conditions.',
-        id: '3',
+        id: 'c8ab26a7-e4d3-4f78-82a2-98fec61e79d45',
         status: 'unread',
       },
     ]
 
     res.render('pages/pop/messages', { messages })
+  })
+
+  get('/messages/thread/:id', async (req, res, next) => {
+    const messages = [
+      {
+        subject: 'Missed appointment',
+        date: '11 March 2024',
+        description:
+          'You failed to attend your scheduled probation appointment on 10 March 2024. This is a breach of your supervision requirements. Please contact your probation practitioner as soon as possible to discuss this matter.',
+        id: '5cdc4302-3ad3-4378-b3e3-6ae0731ab4a1',
+        status: 'unread',
+      },
+      {
+        subject: 'Message from your probation practitioner',
+        date: '10 March 2024',
+        description: 'Please contact me as soon as possible to discuss your progress.',
+        id: 'c8ab26a7-e4d3-4f78-82a2-98fec61e79e5',
+        status: 'unread',
+      },
+      {
+        subject: 'Documentation request from your probation practitioner',
+        date: '10 March 2024',
+        description:
+          'Please provide documentation for your recent employment. This is required as part of your supervision conditions.',
+        id: 'c8ab26a7-e4d3-4f78-82a2-98fec61e79d45',
+        status: 'unread',
+      },
+    ]
+
+    const message = messages.find(msg => msg.id === req.params.id)
+    if (message) {
+      res.render('pages/pop/messageThread', { message })
+    } else {
+      res.status(404).send('Message not found')
+    }
   })
 
   get('/new-message', async (req, res, next) => {

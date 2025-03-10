@@ -40,23 +40,15 @@
 
   {% for message in messages %}
     <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-4 border box-shadow govuk-!-margin-bottom-6">
-      <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-          <h3 class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0 govuk-!-margin-bottom-2">{{message.subject}}</h3>
-          <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0 govuk-!-margin-bottom-4">{{message.date}}</p>
-        </div>
-        <div class="govuk-grid-column-one-third govuk-!-text-align-right">
-          {{ govukTag({
-            text: "Unread",
-            classes: "govuk-tag--red govuk-box--rounded "
-          }) }}
-        </div>
-      </div>
-      <p class="govuk-body-s">{{message.description}}</p>
-      <a class="govuk-link" href="/pop/new-message">View message</a>
-    </div>
-   
-   {% endfor %}
+  <div class="govuk-!-display-flex govuk-!-justify-content-space-between govuk-!-align-items-center">
+    <h3 class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1">{{message.subject}}
+     <span class="govuk-body-s govuk-tag govuk-tag--red govuk-box--rounded govuk-!-margin-left-1">Unread</span>
+</h3>
+  </div>
+  <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0 govuk-!-margin-bottom-4">{{message.date}}</p>
+  <p class="govuk-body-s">{{message.description}}</p>
+<a class="govuk-link" href="/pop/messages/thread/{{message.id}}">View message</a></div>
+  {% endfor %}
   </div>
 </div>
 
