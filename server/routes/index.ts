@@ -12,7 +12,12 @@ export default function routes(): Router {
     res.render('pages/index')
   })
   get('/pop', async (req, res, next) => {
-    res.render('pages/pop/index')
+    // /pop?scenario=missed
+    // /pop?scenario=reminder
+
+    const { scenario } = req.query
+
+    res.render('pages/pop/index', { scenario })
   })
 
   get('/your-details', async (req, res, next) => {
