@@ -1,0 +1,58 @@
+{% extends "../../partials/layout.njk" %}
+
+{%- from "moj/components/ticket-panel/macro.njk" import mojTicketPanel -%}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{%- from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/tag/macro.njk" import govukTag %}
+
+{% set pageTitle = applicationName + " - Messages" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+      <a class="govuk-link" href="/pop">&lt; Back to homepage</a>
+      <div class="govuk-grid-row govuk-!-margin-top-6 govuk-!-paddin-bottom-4">
+        <div class="govuk-grid-column-two-thirds">
+          <h1 class="govuk-heading-l govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2  ">Messages</h1>
+          <p class="govuk-body-s govuk-!-color-muted">Communicate with your probation practitioner and view important updates about your community sentence
+
+</p>
+        </div>
+        <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+           {{ govukButton({
+    text: "Create new message",
+    href: "/pop/new-message",
+    class: "govuk-!-text-align-right "
+  }) }}
+        </div>
+      </div>
+
+  </div>
+   </div>
+</div>
+
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+  {% for message in messages %}
+    <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-4 border box-shadow govuk-!-margin-bottom-6">
+  <div class="govuk-!-display-flex govuk-!-justify-content-space-between govuk-!-align-items-center">
+    <h3 class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1">{{message.subject}}
+     {% if message.status == 'unread' %}
+     <span class="govuk-body-s govuk-tag govuk-box--rounded govuk-!-margin-left-1 govuk-tag--red ">Unread</span>
+      {% endif %}
+</h3>
+  </div>
+  <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0 govuk-!-margin-bottom-4">{{message.date}}</p>
+  <p class="govuk-body-s">{{message.description}}</p>
+<a class="govuk-link" href="/pop/messages/thread/{{message.id}}">View message</a></div>
+  {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "../../partials/layout.njk" %}
+
+{%- from "govuk/components/button/macro.njk" import govukButton %}
+{%- from "moj/components/messages/macro.njk" import mojMessages -%}
+
+{% set pageTitle = applicationName + " - Messages" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+      <a class="govuk-link" href="/pop/messages">&lt; Back to messages</a>
+      <div class="govuk-grid-row govuk-!-margin-top-6 govuk-!-paddin-bottom-4">
+          <h1 class="govuk-heading-l govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-6 ">{{message.subject}}</h1>
+      </div>
+
+      <div id="reply-form" class="govuk-grid-row govuk-!-margin-top-6">
+          <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-6 border box-shadow">
+
+            <div id="message-list">
+        {{ mojMessages({
+          items: message.items
+        }) }}
+      </div>
+
+            <form id="replyForm" class="govuk-!-margin-top-2"  method="post" action="/pop/messages/thread/{{message.id}}">
+              <div class="govuk-form-group">
+                <textarea class="govuk-textarea" id="message" name="message" rows="5" placeholder="Enter your message"></textarea>
+              </div>
+              <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-!-text-align-right">
+                      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+                  {{ govukButton({
+                    text: "Cancel",
+                    href: "/pop/messages",
+                    classes: "govuk-button--secondary govuk-!-margin-right-2 govuk-!-margin-left-2"
+                  }) }}
+                  {{ govukButton({
+                    text: "Reply",
+                    type: "submit"
+                  }) }}
+                </div>
+              </div>
+            </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
