@@ -26,12 +26,12 @@
       </div>
 
             <form id="replyForm" class="govuk-!-margin-top-2"  method="post" action="/pop/messages/thread/{{message.id}}">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
               <div class="govuk-form-group">
                 <textarea class="govuk-textarea" id="message" name="message" rows="5" placeholder="Enter your message"></textarea>
               </div>
               <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-!-text-align-right">
-                      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
                   {{ govukButton({
                     text: "Cancel",
