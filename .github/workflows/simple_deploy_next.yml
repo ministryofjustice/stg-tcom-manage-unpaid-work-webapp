@@ -1,8 +1,8 @@
-name: Simple Cloud Platform Deploy
+name: Next Cloud Platform Deploy
 
 on:
   push:
-    branches: [main]
+    branches: [next]
   workflow_dispatch:
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
-          NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
+          NAMESPACE: ${{ secrets.KUBE_NAMESPACE_NEXT }}
           POC_PASSWORD: ${{secrets.POC_PASSWORD}}
       - run: |
           echo "${{ secrets.KUBE_CERT }}" > ca.crt
@@ -45,5 +45,5 @@ jobs:
           kubectl config use-context ${KUBE_CLUSTER}
           kubectl -n ${NAMESPACE} apply -f deployments/
         env:
-          NAMESPACE: ${{ secrets.KUBE_NAMESPACE }}
+          NAMESPACE: ${{ secrets.KUBE_NAMESPACE_NEXT }}
           KUBE_CLUSTER: ${{ secrets.KUBE_CLUSTER }}
