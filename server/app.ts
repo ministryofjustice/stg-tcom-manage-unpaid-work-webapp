@@ -12,7 +12,9 @@ import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
 // import { basicAuthentication } from './middleware/basicAuthentication'
 
-import routes from './routes'
+import adminRoutes from './routes/adminRoutes'
+import popRoutes from './routes/popRoutes'
+import indexRoutes from './routes/index'
 
 export default function createApp(): express.Application {
   const app = express()
@@ -29,10 +31,12 @@ export default function createApp(): express.Application {
   nunjucksSetup(app)
   app.use(setUpCsrf())
 
-  // temporarily disable poassword protection as cookies cannot be set on edge for non-localhost domains
+  // temporarily disable password protection as cookies cannot be set on edge for non-localhost domains
   // app.use(cookieParser())
   // app.use(basicAuthentication())
-  app.use(routes())
+  app.use('/', indexRoutes())
+  app.use('/admin', adminRoutes())
+  app.use('/pop', popRoutes())
 
   app.use((req, res, next) => next(createError(404, 'Not found')))
   app.use(errorHandler(process.env.NODE_ENV === 'production'))

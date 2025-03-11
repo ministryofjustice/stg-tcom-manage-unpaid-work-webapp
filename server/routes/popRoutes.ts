@@ -3,7 +3,7 @@ import asyncMiddleware from '../middleware/asyncMiddleware'
 import { pastAppointments, upcomingAppointments } from './data/appointments'
 import messages from './data/messages'
 
-export default function popRoutes(): Router {
+export default function routes(): Router {
   const router = Router()
   const get = (path: string | string[], handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
   const post = (path: string | string[], handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
