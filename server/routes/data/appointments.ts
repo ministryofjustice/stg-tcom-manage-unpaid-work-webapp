@@ -19,8 +19,8 @@ export const pastAppointments = [
 
 export const upcomingAppointments = [
   {
-    date: 'Tuesday 18 March 2025',
-    time: '10:00am',
+    date: 'Saturday 15 March 2025',
+    time: '09:00am',
     title: 'Community Garden Maintenance',
     location: '123 Garden Street, London SE1 7TH',
     contact: 'Karen Smith',

@@ -42,13 +42,9 @@
     <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-4 border box-shadow govuk-!-margin-bottom-6">
   <div class="govuk-!-display-flex govuk-!-justify-content-space-between govuk-!-align-items-center">
     <h3 class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1">{{message.subject}}
-     <span class="govuk-body-s govuk-tag govuk-box--rounded govuk-!-margin-left-1 
      {% if message.status == 'unread' %}
-       govuk-tag--red
-     {% elseif message.status == 'new' %}
-       govuk-tag--red
-     {% endif %}
-     ">{{message.status}}</span>
+     <span class="govuk-body-s govuk-tag govuk-box--rounded govuk-!-margin-left-1 govuk-tag--red ">Unread</span>
+      {% endif %}
 </h3>
   </div>
   <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0 govuk-!-margin-bottom-4">{{message.date}}</p>

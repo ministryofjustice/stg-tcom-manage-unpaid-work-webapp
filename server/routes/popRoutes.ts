@@ -89,5 +89,9 @@ export default function popRoutes(): Router {
     res.render('pages/pop/new-message')
   })
 
+  post('/new-message', async (req, res, next) => {
+    res.redirect(`/pop/messages/thread/c8ab26a7-e4d3-4f78-82a2-98fec61e79e5`)
+  })
+
   return router
 }

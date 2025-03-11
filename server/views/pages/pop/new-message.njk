@@ -21,7 +21,8 @@
       <div class="govuk-grid-row govuk-!-margin-top-6 ">
           <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-6 border box-shadow">
 
-        <form class="">
+        <form method="post" action="/pop/new-message">
+              <input type="hidden" name="_csrf" value="{{ csrfToken }}">
           <div class="govuk-form-group">
             <label class="govuk-label" for="subject">Subject</label>
             <input class="govuk-input" id="subject" name="subject" type="text" placeholder="">
