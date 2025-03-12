@@ -38,7 +38,7 @@ jobs:
           NAMESPACE: ${{ secrets.KUBE_NAMESPACE_NEXT }}
           POC_PASSWORD: ${{secrets.POC_PASSWORD}}
       - run: |
-          echo "${{ secrets.KUBE_CERT }}" > ca.crt
+          echo "${{ secrets.KUBE_CERT_NEXT }}" > ca.crt
           kubectl config set-cluster ${KUBE_CLUSTER} --certificate-authority=./ca.crt --server=https://${KUBE_CLUSTER}
           kubectl config set-credentials deploy-user --token=${{ secrets.KUBE_TOKEN_NEXT }}
           kubectl config set-context ${KUBE_CLUSTER} --cluster=${KUBE_CLUSTER} --user=deploy-user --namespace=${NAMESPACE}
