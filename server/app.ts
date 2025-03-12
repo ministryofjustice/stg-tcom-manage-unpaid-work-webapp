@@ -1,5 +1,5 @@
 import express from 'express'
-// import cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser'
 import createError from 'http-errors'
 
 import nunjucksSetup from './utils/nunjucksSetup'
@@ -10,7 +10,7 @@ import setUpStaticResources from './middleware/setUpStaticResources'
 import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
-// import { basicAuthentication } from './middleware/basicAuthentication'
+import { basicAuthentication } from './middleware/basicAuthentication'
 
 import adminRoutes from './routes/adminRoutes'
 import popRoutes from './routes/popRoutes'
@@ -32,8 +32,8 @@ export default function createApp(): express.Application {
   app.use(setUpCsrf())
 
   // temporarily disable password protection as cookies cannot be set on edge for non-localhost domains
-  // app.use(cookieParser())
-  // app.use(basicAuthentication())
+  app.use(cookieParser())
+  app.use(basicAuthentication())
   app.use('/', indexRoutes())
   app.use('/admin', adminRoutes())
   app.use('/pop', popRoutes())
