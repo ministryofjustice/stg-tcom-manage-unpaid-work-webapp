@@ -25,11 +25,15 @@
         }) }}
       </div>
 
-            <form id="replyForm" class="govuk-!-margin-top-2"  method="post" action="/pop/messages/thread/{{message.id}}">
+            <form id="replyForm" class="govuk-!-margin-top-2" method="post" action="/pop/messages/thread/{{message.id}}">
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
               <div class="govuk-form-group">
                 <textarea class="govuk-textarea" id="message" name="message" rows="5" placeholder="Enter your message"></textarea>
               </div>
+               <div class="govuk-form-group">
+            <label class="govuk-label" for="attachment">Attach supporting evidence (optional)</label>
+            <input class="govuk-file-upload" id="attachment" name="attachment" type="file" accept="image/*">
+          </div>
               <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-!-text-align-right">
 
