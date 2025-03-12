@@ -1,6 +1,7 @@
 import express from 'express'
 import cookieParser from 'cookie-parser'
 import createError from 'http-errors'
+import path from 'path'
 
 import nunjucksSetup from './utils/nunjucksSetup'
 import errorHandler from './errorHandler'
@@ -22,6 +23,8 @@ export default function createApp(): express.Application {
   app.set('json spaces', 2)
   app.set('trust proxy', true)
   app.set('port', process.env.PORT || 3000)
+
+  app.use(express.urlencoded({ extended: false }))
 
   app.use(appInsightsMiddleware())
   app.use(setUpWebSecurity())
