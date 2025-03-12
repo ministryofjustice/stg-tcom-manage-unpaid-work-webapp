@@ -8,5 +8,11 @@ export default function routes(): Router {
   get('/', async (req, res, next) => {
     res.render('pages/index')
   })
+
+  // this is a route that is also defined in hmpps auth middleware so beware of future clashes when that gets included.
+  get('/sign-out', async (req, res, next) => {
+    req.session.destroy(() => res.redirect('/'))
+  })
+
   return router
 }
