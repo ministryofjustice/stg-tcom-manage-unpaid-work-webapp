@@ -20,7 +20,7 @@ export default function routes(): Router {
     const submittedPassword = req.body.password
     const { returnURL } = req.body
     if (submittedPassword === password) {
-      res.cookie('authentication', encryptPassword(password), {
+      res.cookie('poc_check', encryptPassword(password), {
         maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
         sameSite: 'none', // Allows GET and POST requests from other domains
         httpOnly: true,
