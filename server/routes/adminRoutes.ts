@@ -28,7 +28,7 @@ export default function routes(): Router {
       })
       res.redirect(returnURL)
     } else {
-      res.redirect(`/prototype-admin/password?error=wrong-password&returnURL=${encodeURIComponent(returnURL)}`)
+      res.redirect(`/admin/password?error=wrong-password&returnURL=${encodeURIComponent(returnURL)}`)
     }
   })
 
