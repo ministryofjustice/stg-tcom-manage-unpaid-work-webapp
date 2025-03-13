@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.744.0",
-    "@ministryofjustice/frontend": "^3.7.0",
+    "@ministryofjustice/frontend": "^4.0.1",
     "@types/cookie-parser": "^1.4.8",
     "agentkeepalive": "^4.6.0",
     "applicationinsights": "^2.9.6",
