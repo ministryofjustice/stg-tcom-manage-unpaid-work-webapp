@@ -1,0 +1,40 @@
+{% extends "govuk/template.njk" %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
+{% from "govuk/components/header/macro.njk" import govukHeader %}
+
+{% block head %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ pageTitle }}</title>
+  <link href="{{ '/assets/css/app.css' | assetMap }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}
+
+{% block header %}
+{{ govukHeader({
+  homepageUrl: "/",
+  serviceName: "One Login",
+  serviceUrl: "/"
+}) }}
+{% endblock %}
+
+{% block bodyStart %}
+{% endblock %}
+
+{% block footer %}
+{{ govukFooter({
+meta: {
+items: [
+{
+href: "/prototype-admin/clear-data",
+text: "Clear data"
+}
+]
+}
+}) }}
+{% endblock %}
+
+{% block bodyEnd %}
+  <script type="module" src="{{ '/assets/js/app.js' | assetMap }}"></script>
+{% endblock %}

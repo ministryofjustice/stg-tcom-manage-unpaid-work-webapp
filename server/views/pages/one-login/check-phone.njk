@@ -1,0 +1,56 @@
+{% extends "./partials/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set pageTitle = applicationName + " - Check phone" %}
+{% set mainClasses = "app-auth-container govuk-body" %}
+
+{% block content %}
+ {{ govukBackLink({
+  text: "Back",
+  href: "/one-login/enter-phone-number"
+}) }}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form class="form" action="account-created" method="post">
+
+            <h1 class="govuk-heading-l">Check your phone</h1>
+
+            <div class="govuk-inset-text">We have sent a code to your phone number ending with <b>7137</b></div>
+
+            <p class="govuk-body">It might take a few minutes to arrive. The code will expire after 15 minutes.</p>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="code">
+                    Enter the 6 digit security code
+                </label>
+                <input class="govuk-input govuk-input--width-10" id="code" name="code" type="text" spellcheck="false" autocomplete="one-time-code" inputmode="numeric">
+            </div>
+
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+
+            <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                        Problems with the code?
+                    </span>
+                </summary>
+                <div class="govuk-details__text">
+                    <p class="govuk-body">
+                        We can
+                        <a href="#" class="govuk-link" rel="noreferrer noopener">send the code again</a>
+                        or you can
+                        <a href="enter-phone-number" class="govuk-link" rel="noreferrer noopener">use a different phone number</a>.
+                    </p>
+                    <p class="govuk-body">
+                        <a href="get-security-code" class="govuk-link" rel="noreferrer noopener">Get a code another way</a>.
+                    </p>
+                </div>
+            </details>
+
+        </form>
+    </div>
+</div>
+{% endblock %}

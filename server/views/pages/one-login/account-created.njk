@@ -1,0 +1,40 @@
+{% extends "./partials/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set pageTitle = applicationName + " - Account Created" %}
+{% set mainClasses = "app-auth-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+ {{ govukBackLink({
+  text: "Back",
+  href: "/one-login/enter-phone-number"
+}) }}
+
+        <form class="form" action="" method="post">
+
+            <h1 class="govuk-heading-l">
+                You’ve created your GOV.UK One Login
+            </h1>
+
+            <p>Now continue to use the service.</p>
+
+
+            <button class="govuk-button" data-module="govuk-button">Continue</button>
+
+        </form>
+
+    </div>
+</div>
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-full">
+        <p class="govuk-body-s">
+            <a href="account-created-email.html" target="_blank" style="color: orange;">View account created email</a>
+        </p>
+    </div>
+
+</div>
+{% endblock %}
