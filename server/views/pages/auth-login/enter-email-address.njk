@@ -7,13 +7,13 @@
 {% block content %}
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-bottom-4">
 
      {{ govukBackLink({
   text: "Back",
   href: "/pop"
 }) }}
-      <h1 class="govuk-heading-l govuk-!-margin-top-8 govuk-!-margin-bottom-2">Enter your email address</h1>
+      <h1 class="govuk-heading-l govuk-!-margin-top-4 govuk-!-margin-bottom-2">Enter your email address</h1>
       <form class="form" method="post" action="/auth/enter-email-address" novalidate="novalidate">
                    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
         <div class="govuk-form-group">
