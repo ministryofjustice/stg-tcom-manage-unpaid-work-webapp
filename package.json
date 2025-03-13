@@ -1,8 +1,8 @@
 {
-  "name": "hmpps-template-typescript",
+  "name": "stg-tcom-manage-unpaid-work-webapp",
   "version": "0.0.1",
   "description": "Manage my community sentence",
-  "repository": "git@github.com:ministryofjustice/hmpps-template-typescript.git",
+  "repository": "git@github.com:ministryofjustice/stg-tcom-manage-unpaid-work-webapp.git",
   "license": "MIT",
   "scripts": {
     "prepare": "husky",
@@ -10,19 +10,14 @@
     "build": "node esbuild/esbuild.config.js --build",
     "start": "node $NODE_OPTIONS dist/server.js | bunyan -o short",
     "start:dev": "concurrently -k -p \"[{name}]\" -n \"ESBuild,Node\" -c \"yellow.bold,cyan.bold\" \"node esbuild/esbuild.config.js --build --watch\" \"node esbuild/esbuild.config.js --dev-server\"",
-    "start-feature": " node $NODE_DEBUG_OPTION --env-file=feature.env dist/server.js | bunyan -o short",
-    "start-feature:dev": "concurrently -k -p \"[{name}]\" -n \"ESBuild,Node\" -c \"yellow.bold,cyan.bold\" \"node esbuild/esbuild.config.js  --build --watch \" \"node esbuild/esbuild.config.js --dev-test-server\"",
     "lint": "eslint . --cache --max-warnings 0",
     "lint-fix": "eslint . --cache --max-warnings 0 --fix",
-    "typecheck": "tsc && tsc -p integration_tests",
+    "typecheck": "tsc",
     "test": "jest",
     "test:ci": "jest --runInBand",
     "security_audit": "npx audit-ci --config audit-ci.json",
-    "int-test": "cypress run --config video=false",
-    "int-test-ui": "cypress open --e2e --browser chrome",
     "clean": "rm -rf dist node_modules",
-    "rebuild": "npm run clean && npm i && npm run build",
-    "postbuild": "mkdir -p dist/server/routes/etc && cp server/routes/etc/htpasswd dist/server/routes/etc/htpasswd"
+    "rebuild": "npm run clean && npm i && npm run build"
   },
   "engines": {
     "node": "^22",
@@ -79,7 +74,6 @@
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.744.0",
     "@ministryofjustice/frontend": "^3.7.0",
-    "@ministryofjustice/hmpps-monitoring": "^0.0.1-beta.2",
     "@types/cookie-parser": "^1.4.8",
     "agentkeepalive": "^4.6.0",
     "applicationinsights": "^2.9.6",

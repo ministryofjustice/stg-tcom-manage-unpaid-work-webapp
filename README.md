@@ -10,10 +10,6 @@ This is a prototype app to explore user research questions around functionality 
 * to make it easier to manage community service work so more capacity is available to focus on probation responsibilities and
 * to promote compliance through clarity of achievement and positive reinforcement.
 
-## Development instructions
-
-A guide to running and developing the site can be found in [developer readme](docs/Developer_readme.md)
-
 ## Change log
 
 A changelog for the service is available [here](./CHANGELOG.md)
