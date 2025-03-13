@@ -1,10 +1,9 @@
 import { type RequestHandler, Router } from 'express'
-import fs from 'fs'
-import multer from 'multer'
 import path from 'path'
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import { pastAppointments, upcomingAppointments } from './data/appointments'
 import messages from './data/messages'
+import setUpMultipartFormDataParsing from '../middleware/setUpMultipartFormDataParsing'
 
 interface MessageItem {
   html: string
@@ -13,62 +12,12 @@ interface MessageItem {
   sender: string
 }
 
-export default function routes(): Router {
+export default function popRoutes(): Router {
   const router = Router()
   const get = (routePath: string | string[], handler: RequestHandler) => router.get(routePath, asyncMiddleware(handler))
-  const post = (
-    routePath: string | string[],
-    middleware: RequestHandler | RequestHandler[],
-    handler?: RequestHandler,
-  ) => {
-    if (handler) {
-      if (Array.isArray(middleware)) {
-        router.post(routePath, ...middleware, asyncMiddleware(handler))
-      } else {
-        router.post(routePath, middleware, asyncMiddleware(handler))
-      }
-    } else {
-      router.post(routePath, asyncMiddleware(middleware as RequestHandler))
-    }
-  }
-
-  const uploadsDir = path.join(__dirname, '..', '..', 'assets', 'uploads')
-  try {
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true, mode: 0o755 })
-    }
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(`Error creating uploads directory: ${error.message}`)
-  }
-
-  const storage = multer.diskStorage({
-    destination(req, file, cb) {
-      if (!fs.existsSync(uploadsDir)) {
-        return cb(new Error(`Uploads directory does not exist: ${uploadsDir}`), null)
-      }
-      cb(null, uploadsDir)
-      return undefined
-    },
-    filename(req, file, cb) {
-      const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`
-      const ext = path.extname(file.originalname)
-      const filename = `${file.fieldname}-${uniqueSuffix}${ext}`
-      cb(null, filename)
-    },
-  })
-
-  const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-    cb(null, true)
-  }
-
-  const upload = multer({
-    storage,
-    fileFilter,
-    limits: {
-      fileSize: 5 * 1024 * 1024,
-    },
-  })
+  const post = (routePath: string | string[], handler: RequestHandler) =>
+    router.post(routePath, asyncMiddleware(handler))
+  router.use('/messages/thread/:id', setUpMultipartFormDataParsing())
 
   get('/', async (req, res, next) => {
     // /pop?scenario=missed
@@ -131,7 +80,7 @@ export default function routes(): Router {
     }
   })
 
-  post('/messages/thread/:id', upload.single('attachment'), async (req, res, next) => {
+  post('/messages/thread/:id', async (req, res, next) => {
     const message = messages.find(msg => msg.id === req.params.id)
     if (message) {
       let messageText = req.body.message
