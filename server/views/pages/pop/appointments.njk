@@ -1,4 +1,4 @@
-{% extends "../../partials/layout.njk" %}
+{% extends "../../layouts/layout.njk" %}
 
 {%- from "moj/components/ticket-panel/macro.njk" import mojTicketPanel -%}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
@@ -69,7 +69,7 @@
             <a class="govuk-link govuk-link--no-visited-state" href="#">Message</a>
           {% endif %}
         </span>
-      </div>   
+      </div>
        <div class="govuk-!-margin-top-3">
          <p class="govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold  ">Location</p>
           <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0  govuk-!-padding-bottom-1 ">{{ appointment.location }}</p>
@@ -87,7 +87,7 @@
 
       </div>
     </div>
-   
+
    {% endfor %}
      </div>
 
@@ -101,7 +101,7 @@
     <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-4 border box-shadow govuk-!-margin-bottom-6">
       <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold govuk-!-padding-bottom-1 ">{{appointment.date}}</p>
       <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold  govuk-!-padding-bottom-1 ">{{appointment.time}}</p>
-   
+
        <div class="govuk-!-margin-top-3">
   <p class="govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold govuk-!-padding-bottom-1 ">Appointment type</p>
 
@@ -118,7 +118,7 @@
           {% endif %}
         </span>
       </div>
-       
+
        <div class="govuk-!-margin-top-3">
          <p class="govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold  ">Location</p>
           <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0  govuk-!-padding-bottom-1 ">{{ appointment.location }}</p>
@@ -132,7 +132,7 @@
 
       </div>
     </div>
-   
+
    {% endfor %}
      </div>
 
