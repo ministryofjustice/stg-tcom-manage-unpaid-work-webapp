@@ -1,9 +1,10 @@
 {% extends "../../layouts/layout.njk" %}
 
 {%- from "govuk/components/button/macro.njk" import govukButton %}
-{%- from "moj/components/messages/macro.njk" import mojMessages -%}
+{%- from "moj/components/messages/macro.njk" import mojMessages %}
+{%- from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
-{% set pageTitle = applicationName + " - Messages" %}
+{% set pageTitle = applicationName + " - Message Thread" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
@@ -16,6 +17,16 @@
           <h1 class="govuk-heading-l govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-6 ">{{message.subject}}</h1>
       </div>
 
+      {% if error and error != "" %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: [{
+            text: error,
+            href: "#attachment"
+          }]
+        }) }}
+      {% endif %}
+
       <div id="reply-form" class="govuk-grid-row govuk-!-margin-top-6">
           <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-6 border box-shadow">
 
@@ -25,7 +36,7 @@
         }) }}
       </div>
 
-            <form id="replyForm" class="govuk-!-margin-top-2" method="post" action="/pop/messages/thread/{{message.id}}">
+            <form id="replyForm" class="govuk-!-margin-top-2" method="post" action="/pop/messages/thread/{{message.id}}" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
               <div class="govuk-form-group">
                 <textarea class="govuk-textarea" id="message" name="message" rows="5" placeholder="Enter your message"></textarea>

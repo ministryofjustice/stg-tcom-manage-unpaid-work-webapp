@@ -3,6 +3,7 @@ export declare module 'express-session' {
   interface SessionData {
     returnTo: string
     nowInMinutes: number
+    user_id: string
   }
 }
 
@@ -18,6 +19,13 @@ export declare global {
       verified?: boolean
       id: string
       logout(done: (err: unknown) => void): void
+    }
+
+    interface MessageItem {
+      html: string
+      type: string
+      timestamp: string
+      sender: string
     }
   }
 }
