@@ -9,6 +9,8 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
+    ignore:
+      - update-types: ["version-update:semver-major"]
     schedule:
       interval: "weekly"
   - package-ecosystem: "npm"
@@ -17,5 +19,7 @@ updates:
       interval: "weekly"
   - package-ecosystem: "docker"
     directory: "/"
+    ignore:
+      - update-types: ["version-update:semver-major"]
     schedule:
       interval: "weekly"
