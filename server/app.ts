@@ -22,10 +22,7 @@ export default function createApp(): express.Application {
   app.set('trust proxy', true)
   app.set('port', process.env.PORT || 3000)
 
-
   app.use(express.urlencoded({ extended: false }))
-
-  app.use(appInsightsMiddleware())
 
   app.use(setUpWebSecurity())
   app.use(setUpWebSession())
