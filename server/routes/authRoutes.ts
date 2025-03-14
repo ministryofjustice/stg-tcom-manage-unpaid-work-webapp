@@ -24,8 +24,8 @@ export default function authRoutes(): Router {
   })
 
   post('/enter-email-address', async (req, res, next) => {
-    const { emailAddress } = req.body
-    res.redirect(`/one-login/verify-security-code?email=${encodeURIComponent(emailAddress)}`)
+    const { email } = req.body
+    res.redirect(`/one-login/verify-security-code?email=${encodeURIComponent(email)}`)
   })
 
   get('/verify-security-code', async (req, res, next) => {
