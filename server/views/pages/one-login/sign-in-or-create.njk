@@ -1,0 +1,68 @@
+{% extends "./layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set pageTitle = applicationName + " - Sign in or create" %}
+{% set mainClasses = "app-auth-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds ">
+                     {{ govukBackLink({
+  text: "Back",
+  href: "/pop"
+}) }}
+    <h1 class="govuk-heading-l govuk-!-margin-top-0 govuk-!-margin-bottom-3">Create a GOV.UK One&nbsp;Login or sign&nbsp;in </h1>
+
+    <p class="govuk-body">You’ll need:</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>an email address</li>
+          <li>a way to get security codes - this can be a mobile phone number or an authenticator app</li>
+    </ul>
+    
+    <div class="govuk-inset-text">
+  
+        You can also 
+        <a href="#" class="govuk-link" rel="noreferrer">
+            use GOV.UK One Login in Welsh
+            <span lang="cy">(Cymraeg)</span></a>.
+    
+</div>
+    <form action="/one-login/sign-in-or-create" method="post" novalidate="novalidate">
+
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    
+<button value="create" name="optionSelected" class="govuk-button govuk-!-margin-right-3" data-module="govuk-button" id="create-account-link" data-nav="true" data-link="/enter-email-create">
+  Create your GOV.UK One Login
+</button>
+
+        <div>
+
+
+<button class="govuk-button govuk-button--secondary" data-module="govuk-button" id="sign-in-button" data-nav="true" data-link="/enter-email">
+  Sign in
+</button>
+
+        </div>
+
+    </form>
+
+    <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                        About GOV.UK One Login
+                    </span>
+                </summary>
+                <div class="govuk-details__text">
+
+                    <p class="govuk-body">
+                       You can use your GOV.UK One Login to access all government services.
+                    </p>
+
+                </div>
+            </details>
+                </div>
+            </div>
+
+
+{% endblock %}

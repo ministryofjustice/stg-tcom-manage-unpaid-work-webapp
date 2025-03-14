@@ -6,6 +6,19 @@ export default function authRoutes(): Router {
   const get = (path: string | string[], handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
   const post = (path: string | string[], handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
 
+  get('/sign-in-or-create', async (req, res, next) => {
+    res.render('pages/one-login/sign-in-or-create')
+  })
+
+  post('/sign-in-or-create', async (req, res, next) => {
+    const { optionSelected } = req.body
+    if (optionSelected === 'create') {
+      res.redirect('/one-login/enter-email-address')
+    } else {
+      res.redirect('/one-login/enter-email-address-login')
+    }
+  })
+
   get('/enter-email-address', async (req, res, next) => {
     res.render('pages/one-login/enter-email-address')
   })
@@ -43,20 +56,47 @@ export default function authRoutes(): Router {
     res.render('pages/one-login/enter-phone-number')
   })
 
+  post('/enter-phone-number', async (req, res, next) => {
+    res.redirect('/one-login/check-phone')
+  })
+
   get('/check-phone', async (req, res, next) => {
     res.render('pages/one-login/check-phone')
   })
 
   post('/check-phone', async (req, res, next) => {
-    res.render('pages/one-login/account-created')
+    res.redirect('/one-login/account-created')
   })
 
   get('/account-created', async (req, res, next) => {
     res.render('pages/one-login/account-created')
   })
 
+  post('/account-created', async (req, res, next) => {
+    res.redirect('/one-login/enter-email-address-login')
+  })
+
+  get('/enter-email-address-login', async (req, res, next) => {
+    res.render('pages/one-login/enter-email-address-login')
+  })
+
+  post('/enter-email-address-login', async (req, res, next) => {
+    res.redirect('/one-login/enter-password')
+  })
+
   get('/enter-password', async (req, res, next) => {
     res.render('pages/one-login/enter-password')
+  })
+  post('/enter-password', async (req, res, next) => {
+    res.redirect('/one-login/check-phone-login')
+  })
+
+  get('/check-phone-login', async (req, res, next) => {
+    res.render('pages/one-login/check-phone-login')
+  })
+
+  post('/check-phone-login', async (req, res, next) => {
+    res.redirect('/')
   })
 
   return router

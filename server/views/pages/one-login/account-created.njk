@@ -13,7 +13,8 @@
   href: "/one-login/enter-phone-number"
 }) }}
 
-        <form class="form" action="" method="post">
+        <form class="form" action="/one-login/account-created" method="post">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
             <h1 class="govuk-heading-l">
                 You’ve created your GOV.UK One Login
@@ -32,7 +33,7 @@
 
     <div class="govuk-grid-column-full">
         <p class="govuk-body-s">
-            <a href="account-created-email.html" target="_blank" style="color: orange;">View account created email</a>
+            <a href="#" target="_blank" style="color: orange;">View account created email</a>
         </p>
     </div>
 
