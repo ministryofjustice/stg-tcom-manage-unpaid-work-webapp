@@ -1,5 +1,8 @@
 import { type RequestHandler, Router } from 'express'
+import fs from 'fs'
+import pathModule from 'path'
 import asyncMiddleware from '../middleware/asyncMiddleware'
+import logger from '../../logger'
 
 export default function routes(): Router {
   const router = Router()
@@ -11,6 +14,13 @@ export default function routes(): Router {
 
   // this is a route that is also defined in hmpps auth middleware so beware of future clashes when that gets included.
   get('/sign-out', async (req, res, next) => {
+    const uploadDir = pathModule.join(__dirname, '..', '..', 'assets', 'uploads', req.session.user_id)
+    try {
+      await fs.promises.access(uploadDir)
+      await fs.promises.rmdir(uploadDir, { recursive: true })
+    } catch (err) {
+      logger.error(err, 'Unable to delete directory')
+    }
     req.session.destroy(() => res.redirect('/'))
   })
 
