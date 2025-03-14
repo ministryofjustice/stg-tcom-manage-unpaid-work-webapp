@@ -7,13 +7,15 @@
 {% block content %}
  {{ govukBackLink({
   text: "Back",
-  href: "/one-login/enter-phone-number"
+  href: "/one-login/enter-password"
 }) }}
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-        <form class="form" action="account-created" method="post">
-              {% include "./partials/check-phone.njk" %}
+        <form class="form" action="check-phone-login" method="post">
+
+             {% include "./partials/check-phone.njk" %}
+
         </form>
     </div>
 </div>

@@ -55,5 +55,9 @@ export default function authRoutes(): Router {
     res.render('pages/one-login/account-created')
   })
 
+  get('/enter-password', async (req, res, next) => {
+    res.render('pages/one-login/enter-password')
+  })
+
   return router
 }
