@@ -13,8 +13,6 @@
     <div class="govuk-grid-column-two-thirds">
 
         <form class="form" action="/one-login/check-phone-login" method="post">
-            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-
              {% include "./partials/check-phone.njk" %}
 
         </form>

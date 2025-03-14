@@ -6,7 +6,7 @@ export default function authRoutes(): Router {
   const get = (path: string | string[], handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
   const post = (path: string | string[], handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
 
-  get('/sign-in-or-create', async (req, res, next) => {
+  get('/', async (req, res, next) => {
     res.render('pages/one-login/sign-in-or-create')
   })
 
@@ -73,7 +73,7 @@ export default function authRoutes(): Router {
   })
 
   post('/account-created', async (req, res, next) => {
-    res.redirect('/one-login/enter-email-address-login')
+    res.redirect('/pop')
   })
 
   get('/enter-email-address-login', async (req, res, next) => {
@@ -96,7 +96,7 @@ export default function authRoutes(): Router {
   })
 
   post('/check-phone-login', async (req, res, next) => {
-    res.redirect('/')
+    res.redirect('/pop')
   })
 
   return router
