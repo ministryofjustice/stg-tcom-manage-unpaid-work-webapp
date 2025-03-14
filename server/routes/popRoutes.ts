@@ -5,14 +5,7 @@ import { pastAppointments, upcomingAppointments } from './data/appointments'
 import messages from './data/messages'
 import setUpMultipartFormDataParsing from '../middleware/setUpMultipartFormDataParsing'
 
-interface MessageItem {
-  html: string
-  type: string
-  timestamp: string
-  sender: string
-}
-
-export default function popRoutes(): Router {
+export default function routes(): Router {
   const router = Router()
   const get = (routePath: string | string[], handler: RequestHandler) => router.get(routePath, asyncMiddleware(handler))
   const post = (routePath: string | string[], handler: RequestHandler) =>
@@ -99,7 +92,7 @@ export default function popRoutes(): Router {
       }
 
       if (messageText || req.file) {
-        const newMessage: MessageItem = {
+        const newMessage: Express.MessageItem = {
           html: messageText,
           type: 'sent',
           timestamp: new Date().toLocaleString(),

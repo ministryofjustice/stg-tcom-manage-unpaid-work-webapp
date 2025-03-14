@@ -20,5 +20,12 @@ export declare global {
       id: string
       logout(done: (err: unknown) => void): void
     }
+
+    interface MessageItem {
+      html: string
+      type: string
+      timestamp: string
+      sender: string
+    }
   }
 }
