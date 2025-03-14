@@ -36,6 +36,14 @@ export default function setUpWebSession(): Router {
     next()
   })
 
+  // Generate and store a unique user ID in the session
+  router.use((req, res, next) => {
+    if (!req.session.user_id) {
+      req.session.user_id = randomUUID()
+    }
+    next()
+  })
+
   router.use((req, res, next) => {
     const headerName = 'X-Request-Id'
     const oldValue = req.get(headerName)
