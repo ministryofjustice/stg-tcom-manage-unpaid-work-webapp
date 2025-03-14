@@ -5,7 +5,7 @@ ARG BUILD_NUMBER
 ARG GIT_REF
 ARG GIT_BRANCH
 
-LABEL maintainer="HMPPS Digital Studio <info@digital.justice.gov.uk>"
+LABEL maintainer="MOJ Strategic Service Transformation Team <TechforCOM@justice.gov.uk>"
 
 ENV TZ=Europe/London
 RUN ln -snf "/usr/share/zoneinfo/$TZ" /etc/localtime && echo "$TZ" > /etc/timezone

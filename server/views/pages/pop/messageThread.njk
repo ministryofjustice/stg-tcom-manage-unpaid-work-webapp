@@ -1,9 +1,10 @@
-{% extends "../../partials/layout.njk" %}
+{% extends "../../layouts/layout.njk" %}
 
 {%- from "govuk/components/button/macro.njk" import govukButton %}
-{%- from "moj/components/messages/macro.njk" import mojMessages -%}
+{%- from "moj/components/messages/macro.njk" import mojMessages %}
+{%- from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
-{% set pageTitle = applicationName + " - Messages" %}
+{% set pageTitle = applicationName + " - Message Thread" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
@@ -15,6 +16,16 @@
       <div class="govuk-grid-row govuk-!-margin-top-6 govuk-!-paddin-bottom-4">
           <h1 class="govuk-heading-l govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-6 ">{{message.subject}}</h1>
       </div>
+
+      {% if error and error != "" %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: [{
+            text: error,
+            href: "#attachment"
+          }]
+        }) }}
+      {% endif %}
 
       <div id="reply-form" class="govuk-grid-row govuk-!-margin-top-6">
           <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-6 border box-shadow">

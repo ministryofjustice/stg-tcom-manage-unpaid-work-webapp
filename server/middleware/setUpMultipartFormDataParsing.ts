@@ -1,26 +1,24 @@
-import { Router, ErrorRequestHandler } from 'express'
+import { Request, Response, NextFunction, Router, ErrorRequestHandler } from 'express'
 import multer, { MulterError } from 'multer'
-import fs from 'fs'
+import flash from 'connect-flash'
 import path from 'path'
+import fs from 'fs'
+
+interface FileUploadRequest extends Request {
+  uploadDir?: string
+}
 
 export default function setUpMultipartFormDataParsing(): Router {
   const router = Router({ mergeParams: true })
-  const uploadsDir = path.join(__dirname, '..', '..', 'assets', 'uploads')
-  try {
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true, mode: 0o755 })
-    }
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error(`Error creating uploads directory: ${error.message}`)
-  }
+
+  router.use(setUpSessionUploadsDir)
 
   const storage = multer.diskStorage({
-    destination(req, file, cb) {
-      if (!fs.existsSync(uploadsDir)) {
-        return cb(new Error(`Uploads directory does not exist: ${uploadsDir}`), null)
+    destination(req: FileUploadRequest, file, cb) {
+      if (!fs.existsSync(req.uploadDir)) {
+        return cb(new Error(`Uploads directory does not exist: ${req.uploadDir}`), null)
       }
-      cb(null, uploadsDir)
+      cb(null, req.uploadDir)
       return true
     },
     filename(req, file, cb) {
@@ -31,7 +29,7 @@ export default function setUpMultipartFormDataParsing(): Router {
     },
   })
 
-  const fileFilter = (req: Express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+  const fileFilter = (req: FileUploadRequest, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
     cb(null, true)
   }
 
@@ -39,19 +37,47 @@ export default function setUpMultipartFormDataParsing(): Router {
     storage,
     fileFilter,
     limits: {
-      fileSize: 10 * 1024 * 1024, // 10MB
+      fileSize: 2 * 1024 * 1024,
     },
   })
 
+  router.use(flash())
   router.use(upload.single('attachment'))
   router.use(uploadedFileTooLargeHandler)
 
   return router
 }
 
-const uploadedFileTooLargeHandler: ErrorRequestHandler = (err: Error, req, res, next): void => {
+const uploadedFileTooLargeHandler: ErrorRequestHandler = (
+  err: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): void => {
   if (err instanceof MulterError && err.code === 'LIMIT_FILE_SIZE') {
-    return res.status(400).json({ error: 'The selected file must be smaller than 10MB' })
+    req.flash('error', 'The selected file must be smaller than 2MB')
+    res.redirect(req.originalUrl)
+    return
   }
-  return next(err)
+  next(err)
+}
+
+const setUpSessionUploadsDir = (req: FileUploadRequest, res: Response, next: NextFunction): void => {
+  if (!req.session.user_id) {
+    req.flash('error', 'User ID is not defined in session')
+    res.redirect(req.originalUrl)
+    return
+  }
+  const uploadDir = path.join(__dirname, '..', '..', 'assets', 'uploads', req.session.user_id)
+  try {
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true, mode: 0o755 })
+    }
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error(`Error creating uploads directory: ${error.message}`)
+  }
+
+  req.uploadDir = uploadDir
+  next()
 }

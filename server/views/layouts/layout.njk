@@ -10,8 +10,8 @@
 {% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}
 
 {% block header %}
-  {% include "./header.njk" %}
-  {% include "./phaseBanner.njk" %}
+  {% include "../partials/header.njk" %}
+  {% include "../partials/phaseBanner.njk" %}
 {% endblock %}
 
 {% block bodyStart %}

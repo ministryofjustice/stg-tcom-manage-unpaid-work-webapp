@@ -3,7 +3,6 @@ import cookieParser from 'cookie-parser'
 import createError from 'http-errors'
 import nunjucksSetup from './utils/nunjucksSetup'
 import errorHandler from './errorHandler'
-import { appInsightsMiddleware } from './utils/azureAppInsights'
 import setUpCsrf from './middleware/setUpCsrf'
 import setUpStaticResources from './middleware/setUpStaticResources'
 import setUpWebRequestParsing from './middleware/setupRequestParsing'
@@ -24,13 +23,13 @@ export default function createApp(): express.Application {
 
   app.use(express.urlencoded({ extended: false }))
 
-  app.use(appInsightsMiddleware())
   app.use(setUpWebSecurity())
   app.use(setUpWebSession())
   app.use(setUpWebRequestParsing())
   app.use(setUpStaticResources())
   nunjucksSetup(app)
   app.use(setUpCsrf())
+
   // temporarily disable password protection as cookies cannot be set on edge for non-localhost domains
   app.use(cookieParser())
   app.use(basicAuthentication())

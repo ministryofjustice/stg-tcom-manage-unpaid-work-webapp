@@ -17,7 +17,7 @@ export default function popRoutes(): Router {
   const get = (routePath: string | string[], handler: RequestHandler) => router.get(routePath, asyncMiddleware(handler))
   const post = (routePath: string | string[], handler: RequestHandler) =>
     router.post(routePath, asyncMiddleware(handler))
-  router.use('/messages/thread/:id', setUpMultipartFormDataParsing())
+  router.use(setUpMultipartFormDataParsing())
 
   get('/', async (req, res, next) => {
     // /pop?scenario=missed
@@ -74,7 +74,7 @@ export default function popRoutes(): Router {
   get('/messages/thread/:id', async (req, res, next) => {
     const message = messages.find(msg => msg.id === req.params.id)
     if (message) {
-      res.render('pages/pop/messageThread', { message })
+      res.render('pages/pop/messageThread', { message, error: req.flash('error') })
     } else {
       res.status(404).send('Message not found')
     }
@@ -87,7 +87,7 @@ export default function popRoutes(): Router {
 
       if (req.file) {
         try {
-          const relativePath = `/assets/uploads/${path.basename(req.file.path)}`
+          const relativePath = `/assets/uploads/${req.session.user_id}/${path.basename(req.file.path)}`
           const attachmentLink = `<a href="${relativePath}" target="_blank">${req.file.originalname}</a>`
           messageText = messageText
             ? ` ${messageText}<br><br>Attachment: <br> ${attachmentLink}`

@@ -1,4 +1,4 @@
-{% extends "../../partials/layout.njk" %}
+{% extends "../../layouts/layout.njk" %}
 {%- from "moj/components/progress-bar/macro.njk" import mojProgressBar -%}
 
 {% set pageTitle = applicationName + " - Your progress" %}
@@ -39,7 +39,7 @@
           <div class="govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-start govuk-!-padding-bottom-4">
             <div>
               <p class="govuk-body govuk-!-font-size-19 govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-bottom-2">Next session</p>
-              
+
             </div>
                     <button class="govuk-button govuk-button--success govuk-!-width-full govuk-!-font-size-14 govuk-!-margin-top-1 govuk-!-margin-bottom-0">Find placements near you</button>
           </div>
