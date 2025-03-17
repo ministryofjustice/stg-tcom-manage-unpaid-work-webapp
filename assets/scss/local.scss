@@ -43,6 +43,12 @@ h4 {
   @include govuk-responsive-padding(1,'bottom');
 }
 
+ol.standard-conditions li {
+  @include govuk-responsive-padding(4,'bottom');
+  @include govuk-responsive-padding(2,'top');
+  border-bottom: 1px $govuk-border-colour solid !important;
+}
+
 .gem-c-cards__list-item-wrapper {
   background-color: white;
   border: 1px solid #dcdcdc;
@@ -86,6 +92,6 @@ h4 {
 }
 
 .govuk-box--rounded {
-  border: 1px #000 solid;
+  border: 1px $govuk-border-colour solid;
   border-radius: 5px;
 }
