@@ -1,6 +1,6 @@
 {% extends "govuk/template.njk" %}
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
-{% from "govuk/components/header/macro.njk" import govukHeader %}
+
 
 {% block head %}
   <meta charset="UTF-8">
@@ -12,11 +12,8 @@
 {% block pageTitle %}{{pageTitle | default(applicationName)}}{% endblock %}
 
 {% block header %}
-{{ govukHeader({
-  homepageUrl: "/",
-  serviceName: "One Login",
-  serviceUrl: "/"
-}) }}
+  {% include "../partials/header.njk" %}
+  {% include "../partials/phaseBanner.njk" %}
 {% endblock %}
 
 {% block bodyStart %}
@@ -27,7 +24,7 @@
 meta: {
 items: [
 {
-href: "/sign-out",
+href: "#",
 text: "Clear data"
 }
 ]

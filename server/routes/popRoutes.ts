@@ -60,6 +60,10 @@ export default function routes(): Router {
     res.render('pages/pop/view-appointment')
   })
 
+  get('/view-past-appointment', async (req, res, next) => {
+    res.render('pages/pop/view-past-appointment')
+  })
+
   get('/messages', async (req, res, next) => {
     res.render('pages/pop/messages', { messages })
   })

@@ -1,6 +1,6 @@
 export const pastAppointments = [
   {
-    date: 'Thursday 20 Jan 2025',
+    date: 'Monday 20 Jan 2025',
     time: '10:00am',
     title: 'Community Garden Maintenance',
     location: '123 Garden Street, London SE1 7TH',
@@ -9,7 +9,7 @@ export const pastAppointments = [
     category: 'Unpaid Work',
   },
   {
-    date: 'Thursday 15 Jan 2025',
+    date: 'Wednesday 15 Jan 2025',
     time: '2:00pm',
     title: 'Probation appointment',
     location: 'National Probation Service, 235 Greenwich High Road, London SE10 8NB',
@@ -33,7 +33,7 @@ export const upcomingAppointments = [
   },
 
   {
-    date: 'Thursday 21 March 2025',
+    date: 'Friday 21 March 2025',
     time: '2:00pm',
     title: 'Probation appointment',
     location: 'National Probation Service, 235 Greenwich High Road, London SE10 8NB',
