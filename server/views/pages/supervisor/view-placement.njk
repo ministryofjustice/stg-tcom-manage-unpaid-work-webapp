@@ -1,0 +1,101 @@
+{% extends "../../layouts/layout.njk" %}
+{%- from "moj/components/progress-bar/macro.njk" import mojProgressBar -%}
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
+{%- from "moj/components/badge/macro.njk" import mojBadge -%}
+{%- from "govuk/components/table/macro.njk" import govukTable -%}
+
+{% set pageTitle = applicationName + " - View Placement" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+{{ mojAlert({
+  variant: "success",
+  title: "John has been checked in!",
+  showTitleAsHeading: true,
+  dismissible: true,
+  html: ''
+}) }}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column govuk-!-margin-bottom-2">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Community Garden Maintenance</h1>
+                <p class="govuk-body  govuk-hint govuk-!-font-size-16 govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1">Monday 15 April 2024, 09:00 - 16:00</p>
+                                <p class="govuk-body  govuk-hint govuk-!-font-size-16 govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">123 Green Lane, London SE1</p>
+
+    </div>
+  </div>
+</div>
+
+<div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-4 govuk-!-margin-top-2">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-third">
+          <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0">Booked slots</p>
+          <p class="govuk-heading-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 govuk-!-padding-top-2">3/15</p>
+          {{ mojProgressBar({ completed: progress.completedHours, total: progress.totalHours, classes: "govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-4" }) }}
+        </div>
+        <div class="govuk-grid-column-one-third">
+          <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0">Slots remaining</p>
+          <p class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0  govuk-!-padding-bottom-1 govuk-!-padding-top-2">12</p>
+        </div>
+        <div class="govuk-grid-column-one-third">
+          <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0">Predicted turnout based on attendance history</p>
+          <p class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0  govuk-!-padding-bottom-1 govuk-!-padding-top-2">3 people</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row govuk-!-margin-top-8">
+  <div class="govuk-grid-column-three-quarters">
+    <p class="govuk-body govuk-!-font-weight-bold govuk-!-padding-0 govuk-!-margin-0">Attendee list</p>
+  </div>
+  <div class="govuk-grid-column-one-quarter govuk-!-text-align-right ">
+    <a href="#" class="govuk-button">Add attendee</a>
+  </div>
+</div>
+
+<div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-top-1 govuk-!-padding-right-4 govuk-!-padding-left-4 govuk-!-margin-top-1">
+<div class="govuk-grid-row govuk-!-margin-top-4">
+  <div class="govuk-grid-column-full">
+    {{ govukTable({
+      head: [
+        { text: "User ID" },
+        { text: "Name" },
+        { text: "Attended" },
+        { text: "Risk" },
+        { text: "Actions" }
+      ],
+      rows: [
+        [
+          { text: "P258053P" },
+          { text: "John Smith" },
+          { text: "7 hours" },
+          { html: mojBadge({ text: "HIGH ROSH 9.0", classes: "moj-badge--red" }) },
+          { html: '<a href="#" class="govuk-link">View</a> <a href="#" class="govuk-link">Remove</a>' }
+        ],
+        [
+          { text: "P258054P" },
+          { text: "Sarah Johnson" },
+          { text: "3 hours" },
+          { html: mojBadge({ text: "MEDIUM RSR 5.3", classes: "moj-badge--bright-purple" }) },
+          { html: '<a href="#" class="govuk-link">View</a> <a href="#" class="govuk-link">Remove</a>' }
+        ],
+        [
+          { text: "P258055P" },
+          { text: "Michael Brown" },
+          { text: "15 hours" },
+          { html: mojBadge({ text: "LOW ROSH 2.1", classes: "moj-badge--green" }) },
+          { html: '<a href="#" class="govuk-link">View</a> <a href="#" class="govuk-link">Remove</a>' }
+        ]
+      ]
+    }) }}
+  </div>
+</div>
+</div>
+
+{% endblock %}
