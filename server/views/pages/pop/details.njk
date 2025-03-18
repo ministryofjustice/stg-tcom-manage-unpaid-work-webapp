@@ -1,16 +1,21 @@
 {% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% set pageTitle = applicationName + " - Your details" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
 
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/pop">&lt; Back to homepage</a>
-      <h1 class="govuk-heading-l govuk-!-margin-top-4 govuk-!-margin-bottom-2">Your details</h1>
-    </div>
+     {{ govukBackLink({
+      text: "Back to homepage",
+      href: "/pop"
+    }) }}
+  </div>
+  <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l">Your details</h1>
   </div>
 </div>
 
@@ -27,20 +32,20 @@
 
       <div class="">
         <div class="govuk-!-border-bottom">
-          <p class="govuk-heading-m govuk-!-font-size-16 govuk-!-font-weight-bold govuk-!-margin-bottom-2">Personal information</p>
+          <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Personal information</h2>
           <p class="govuk-body-xs govuk-!-margin-bottom-2 govuk-!-color-light">To change your personal information, please contact your responsible officer.</p>
           <div class="govuk-!-margin-top-4">
             <div class="govuk-!-margin-bottom-4">
-              <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Name</p>
-              <p class="govuk-body govuk-!-font-size-16">{{ userProfile.name }}</p>
+              <h3 class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Name</h3>
+              <p class="govuk-body-s">{{ userProfile.name }}</p>
             </div>
             <div class="govuk-!-margin-bottom-4">
-              <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Requirements</p>
-              <p class="govuk-body govuk-!-font-size-16">{{ userProfile.hoursRequired }} Unpaid work - 100 hours</p>
+              <h3 class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Requirements</h3>
+              <p class="govuk-body-s">{{ userProfile.hoursRequired }} Unpaid work - 100 hours</p>
             </div>
             <div class="govuk-!-margin-bottom-1">
-              <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Address</p>
-              <p class="govuk-body govuk-!-font-size-16">{{ userProfile.address | replace('\n', '<br>') | safe }}</p>
+              <h3 class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Address</h3>
+              <p class="govuk-body-s">{{ userProfile.address | replace('\n', '<br>') | safe }}</p>
             </div>
           </div>
         </div>
@@ -48,21 +53,21 @@
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-color-light govuk-!-background-color-light">
 
         <div class="govuk-!-padding-bottom-4">
-          <p class="govuk-heading-m govuk-!-font-size-16 govuk-!-font-weight-bold govuk-!-margin-bottom-2">Contact details</p>
+          <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Contact details</h2>
           <div class="govuk-!-margin-top-4">
             <div class="govuk-!-margin-bottom-4 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
               <div>
-                <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Email</p>
-                <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-bottom-0">{{ userProfile.email }}</p>
+                <h3 class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Email</h3>
+                <p class="govuk-body-s govuk-!-margin-bottom-0">{{ userProfile.email }}</p>
               </div>
-              <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-14 govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
+              <a class="govuk-link govuk-link--no-visited-state govuk-body-xs govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
             </div>
             <div class="govuk-!-margin-bottom-1 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
               <div>
-                <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Phone number</p>
-                <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-bottom-0">{{ userProfile.phone }}</p>
+                <h3 class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Phone number</h3>
+                <p class="govuk-body-s govuk-!-margin-bottom-0">{{ userProfile.phone }}</p>
               </div>
-              <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-14 govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
+              <a class="govuk-link govuk-link--no-visited-state govuk-body-xs govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
             </div>
           </div>
         </div>
