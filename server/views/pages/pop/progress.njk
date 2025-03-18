@@ -29,10 +29,12 @@
             <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Hours completed</p>
           </div>
           <div class="govuk-grid-column-one-quarter">
-            <span class="govuk-body-l govuk-!-margin-0 govuk-!-padding-0">{{ progress.completedHours }}/{{ progress.totalHours }}</span>
+            <span class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0">{{ progress.completedHours }}/{{ progress.totalHours }}</span>
           </div>
         </div>
-        {{ mojProgressBar({ completed: progress.completedHours, total: progress.totalHours, classes: "" }) }}
+        <div class="govuk-box total-hours">
+          <div class="completed-hours" style="width: {{progress.percentCompleted}}%"></div>
+        </div>
         <p class="govuk-body-xs govuk-!-margin-bottom-2 govuk-!-color-light">You get credit for every hour of community payback completed.</p>
       </div>
     </div>
