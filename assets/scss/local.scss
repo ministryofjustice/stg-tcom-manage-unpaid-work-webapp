@@ -43,10 +43,28 @@ h4 {
   @include govuk-responsive-padding(1,'bottom');
 }
 
-ol.standard-conditions li {
-  @include govuk-responsive-padding(4,'bottom');
-  @include govuk-responsive-padding(2,'top');
-  border-bottom: 1px $govuk-border-colour solid !important;
+.govuk-box--rounded {
+  border: 1px $govuk-border-colour solid;
+  border-radius: 5px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile .prefix {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 20px;
+  background-color: #dcdcdc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
 
 .gem-c-cards__list-item-wrapper {
@@ -72,26 +90,3 @@ ol.standard-conditions li {
   margin: 0;
 }
 
-.profile {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.profile .prefix {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 20px;
-  background-color: #dcdcdc;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
-.govuk-box--rounded {
-  border: 1px $govuk-border-colour solid;
-  border-radius: 5px;
-}
