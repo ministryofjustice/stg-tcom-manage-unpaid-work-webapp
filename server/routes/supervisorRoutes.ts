@@ -1,6 +1,6 @@
 import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../middleware/asyncMiddleware'
-import placements from './data/staff-placements'
+import placements from './data/supervisor-placements'
 
 export default function routes(): Router {
   const router = Router()
