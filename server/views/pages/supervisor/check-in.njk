@@ -1,0 +1,93 @@
+{% extends "../../layouts/layout.njk" %}
+{%- from "govuk/components/back-link/macro.njk" import govukBackLink -%}
+{%- from "moj/components/badge/macro.njk" import mojBadge -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+{% set pageTitle = applicationName + " - Check-in Attendee" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    {{ govukBackLink({
+      href: "/supervisor/view-placement/" + placement.id,
+      text: "Back to Placement"
+    }) }}
+  </div>
+</div>
+<div class="govuk-grid-row">
+
+<div class="govuk-grid-column-full">
+  <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-3 govuk-!-margin-bottom-6 govuk-!-padding-top-4 border box-shadow">
+    <div class="profile">
+      <div class="prefix">{{ attendee.name.charAt(0) }}</div>
+      <div class="name">
+        <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{ attendee.name }}</h2>
+        <p class="govuk-body govuk-!-margin-top-1 govuk-!-margin-bottom-1  govuk-!-margin-0  govuk-!-padding-0 govuk-!-font-size-16"> {{ attendee.userId }}</p>
+        {{ mojBadge({ text: "ID VERIFIED", classes: "moj-badge--green govuk-!-font-size-16" }) }}
+        <div class="govuk-!-margin-top-2">
+          {{ mojBadge({ text: "Arsonist", classes: "moj-badge--blue" }) }}
+          {{ mojBadge({ text: "Chemical Attacker", classes: "moj-badge--blue" }) }}
+          {{ mojBadge({ text: "Gang Member", classes: "moj-badge--blue" }) }}
+          {{ mojBadge({ text: "Risk to LGBT", classes: "moj-badge--red" }) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-6 govuk-!-margin-bottom-6 govuk-!-padding-top-4 border box-shadow">
+      <h1 class="govuk-heading-m">Checkin</h1>
+
+            <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 govuk-!-font-weight-bold ">Hours remaining</p>
+            <p class="govuk-body govuk-!-padding-bottom-4">45 hours</p>
+            
+      <form method="post" action="/supervisor/check-in/{{ placement.id }}/{{ attendee.userId }}/confirm">
+              <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+<legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
+        <h3 class="govuk-fieldset__heading">Start time</h3>
+      </legend>
+  <div class="govuk-form-group govuk-!-display-inline-block govuk-!-margin-right-2">
+    {{ govukInput({
+      id: "hours",
+      name: "hours",
+      type: "number",
+      classes: "govuk-input--width-2",
+      attributes: {
+        min: "0",
+        max: "23"
+      }
+    }) }}
+  </div>
+
+  <div class="govuk-form-group govuk-!-display-inline-block govuk-!-margin-right-2">
+    {{ govukInput({
+      id: "minutes",
+      name: "minutes",
+      type: "number",
+      classes: "govuk-input--width-2",
+      attributes: {
+        min: "0",
+        max: "59"
+      }
+    }) }}
+  </div>
+  <div class="govuk-form-group">
+
+  {{ govukButton({
+    text: "Confirm",
+    type: "submit",
+    classes: ""
+  }) }}
+  </div>
+</form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
