@@ -5,10 +5,6 @@
   min-height: 100px;
 }
 
-.gem-c-cards__list li {
-  list-style: none;
-}
-
 h3 {
   font-weight: bold !important;
 }
@@ -67,7 +63,7 @@ h4 {
   font-weight: bold;
 }
 
-.gem-c-cards__list-item-wrapper {
+ul.navigation-list li a{
   background-color: white;
   border: 1px solid #dcdcdc;
   padding: 25px;
@@ -76,17 +72,5 @@ h4 {
   align-items: center;
   cursor: pointer;
   position: relative;
-}
-
-.gem-c-cards__list-item-wrapper::after {
-  content: '→';
-  position: absolute;
-  right: 20px;
-  font-size: 20px;
-  color: #005ea5;
-}
-
-.gem-c-cards__sub-heading {
-  margin: 0;
 }
 
