@@ -1,4 +1,5 @@
 {% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {%- from "moj/components/progress-bar/macro.njk" import mojProgressBar -%}
 
 {% set pageTitle = applicationName + " - Your progress" %}
@@ -8,11 +9,14 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/pop">&lt; Back to homepage</a>
-      <h1 class="govuk-heading-l govuk-!-margin-top-4 govuk-!-margin-bottom-1">Your progress</h1>
-      <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-top-1 govuk-!-padding-top-1">Track your community payback progress and manage your appointments</p>
-    </div>
+     {{ govukBackLink({
+      text: "Back to homepage",
+      href: "/pop"
+    }) }}
+  </div>
+  <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l">Your progress</h1>
+      <p class="govuk-body-s sub-heading">Track your community payback progress and manage your appointments</p>
   </div>
 </div>
 
@@ -22,10 +26,10 @@
       <div class="govuk-box govuk-box--rounded govuk-!-padding-4 border box-shadow">
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-three-quarters">
-            <p class="govuk-body govuk-!-font-size-18 govuk-!-font-weight-bold govuk-!-margin-bottom-0">Hours completed</p>
+            <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Hours completed</p>
           </div>
           <div class="govuk-grid-column-one-quarter">
-            <span class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0">{{ progress.completedHours }}/{{ progress.totalHours }}</span>
+            <span class="govuk-body-l govuk-!-margin-0 govuk-!-padding-0">{{ progress.completedHours }}/{{ progress.totalHours }}</span>
           </div>
         </div>
         {{ mojProgressBar({ completed: progress.completedHours, total: progress.totalHours, classes: "" }) }}
@@ -38,13 +42,13 @@
         {% if appointment %}
           <div class="govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-start govuk-!-padding-bottom-4">
             <div>
-              <p class="govuk-body govuk-!-font-size-19 govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-bottom-2">Next session</p>
+              <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-bottom-2">Next session</p>
 
             </div>
-                    <button class="govuk-button govuk-button--success govuk-!-width-full govuk-!-font-size-14 govuk-!-margin-top-1 govuk-!-margin-bottom-0">Find placements near you</button>
+            <button class="govuk-button govuk-button--success govuk-!-width-full govuk-!-font-size-14 govuk-!-margin-top-1 govuk-!-margin-bottom-0">Find placements near you</button>
           </div>
         {% else %}
-          <p class="govuk-body govuk-!-font-size-19 govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-bottom-2">Next session</p>
+          <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-bottom-2">Next session</p>
           <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">No upcoming sessions</p>
           <button class="govuk-button govuk-button--success govuk-!-width-full govuk-!-font-size-14 govuk-!-margin-top-1 govuk-!-margin-bottom-0">Find placements near you</button>
         {% endif %}
@@ -57,7 +61,7 @@
 <div class="govuk-grid-row govuk-!-margin-top-6">
   <div class="govuk-grid-column-full">
     <div class="govuk-box govuk-box--rounded govuk-!-padding-4 border box-shadow">
-      <p class="govuk-body govuk-!-font-size-19 govuk-!-font-weight-bold">Previous attendance</p>
+      <p class="govuk-body govuk-!-font-weight-bold">Previous attendance</p>
       <p class="govuk-body-xs govuk-!-margin-bottom-2 govuk-!-color-light">Your previous attendance will be shown here after your first session.</p>
     </div>
   </div>
