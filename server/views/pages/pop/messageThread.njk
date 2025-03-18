@@ -4,6 +4,8 @@
 {%- from "moj/components/messages/macro.njk" import mojMessages %}
 {%- from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
 {% set pageTitle = applicationName + " - Message Thread" %}
 {% set mainClasses = "app-container govuk-body" %}
 
@@ -11,11 +13,19 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/pop/messages">&lt; Back to messages</a>
-      <div class="govuk-grid-row govuk-!-margin-top-6 govuk-!-paddin-bottom-4">
-          <h1 class="govuk-heading-l govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-6 ">{{message.subject}}</h1>
-      </div>
+     {{ govukBackLink({
+      text: "Back to messages",
+      href: "/pop/messages"
+    }) }}
+  </div>
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l ">{{message.subject}}</h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
 
       {% if error and error != "" %}
         {{ govukErrorSummary({
@@ -28,40 +38,38 @@
       {% endif %}
 
       <div id="reply-form" class="govuk-grid-row govuk-!-margin-top-6">
-          <div class="govuk-box govuk-box--rounded govuk-!-padding-6 border box-shadow">
-
-            <div id="message-list">
-        {{ mojMessages({
-          items: message.items
-        }) }}
-      </div>
-
-            <form id="replyForm" class="govuk-!-margin-top-2" method="post" action="/pop/messages/thread/{{message.id}}" enctype="multipart/form-data">
+        <div class="govuk-box govuk-box--rounded govuk-!-padding-4 ">
+          <div id="message-list">
+            {{ mojMessages({
+              items: message.items
+            }) }}
+          </div>
+          <form id="replyForm" class="govuk-!-margin-top-2" method="post" action="/pop/messages/thread/{{message.id}}" enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-              <div class="govuk-form-group">
-                <textarea class="govuk-textarea" id="message" name="message" rows="5" placeholder="Enter your message"></textarea>
-              </div>
-               <div class="govuk-form-group">
-            <label class="govuk-label" for="attachment">Attach supporting evidence (optional)</label>
-            <input class="govuk-file-upload" id="attachment" name="attachment" type="file" accept="image/*">
-          </div>
-              <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full govuk-!-text-align-right">
+            <div class="govuk-form-group">
+              <textarea class="govuk-textarea" id="message" name="message" rows="5" placeholder="Enter your message"></textarea>
+            </div>
+            <div class="govuk-form-group">
+              <label class="govuk-label" for="attachment">Attach supporting evidence (optional)</label>
+              <input class="govuk-file-upload" id="attachment" name="attachment" type="file" accept="image/*">
+            </div>
+            <div class="govuk-grid-row">
+              <div class="govuk-grid-column-full govuk-!-text-align-right">
 
-                  {{ govukButton({
-                    text: "Cancel",
-                    href: "/pop/messages",
-                    classes: "govuk-button--secondary govuk-!-margin-right-2 govuk-!-margin-left-2"
-                  }) }}
-                  {{ govukButton({
-                    text: "Reply",
-                    type: "submit"
-                  }) }}
-                </div>
+                {{ govukButton({
+                  text: "Cancel",
+                  href: "/pop/messages",
+                  classes: "govuk-button--secondary govuk-!-margin-right-2 govuk-!-margin-left-2"
+                }) }}
+                {{ govukButton({
+                  text: "Reply",
+                  type: "submit"
+                }) }}
               </div>
-            </form>
-          </div>
-      </div>
+            </div>
+          </form>
+        </div>
+
     </div>
   </div>
 </div>
