@@ -1,4 +1,5 @@
 {% extends "govuk/template.njk" %}
+{% from "govuk/components/footer/macro.njk" import govukFooter %}
 
 {% block head %}
   <meta charset="UTF-8">
@@ -19,4 +20,17 @@
 
 {% block bodyEnd %}
   <script type="module" src="{{ '/assets/js/app.js' | assetMap }}"></script>
+{% endblock %}
+
+{% block footer %}
+{{ govukFooter({
+meta: {
+items: [
+{
+href: "/sign-out",
+text: "Clear data"
+}
+]
+}
+}) }}
 {% endblock %}
