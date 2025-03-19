@@ -1,6 +1,6 @@
 {
-  "name": "stg-tcom-manage-unpaid-work-webapp",
-  "version": "0.0.1",
+  "name": "stg-manage-community-sentence-ui",
+  "version": "1.2.0",
   "description": "Manage my community sentence",
   "repository": "git@github.com:ministryofjustice/stg-tcom-manage-unpaid-work-webapp.git",
   "license": "MIT",

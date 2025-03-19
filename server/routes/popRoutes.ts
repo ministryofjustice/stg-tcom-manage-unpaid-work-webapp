@@ -35,8 +35,9 @@ export default function routes(): Router {
 
   get('/your-progress', async (req, res, next) => {
     const progress = {
-      completedHours: 0,
+      completedHours: 10,
       totalHours: 100,
+      percentCompleted: (10 / 100) * 100,
     }
 
     const appointment = {
