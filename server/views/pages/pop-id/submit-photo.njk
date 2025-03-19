@@ -1,0 +1,30 @@
+{% extends "../../layouts/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Submit an ID photo" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{# there is no back button here, we cannot reenter the one login journey #}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+      <h1 class="govuk-heading-l govuk-!-margin-top-8 govuk-!-margin-bottom-1">Submit a photo of yourself</h1>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <p class="govuk-body">We&apos;ll need a photo of you to complete your account setup. This photo will be used to confirm your identity.</p>
+    <p class="govuk-body">Once you&apos;ve uploaded your photo, we&apos;ll format it and check if it&apos;s ok.</p>
+    {{ govukButton({
+        text: "Continue",
+        href: "/pop/verify/options",
+      }) }}
+  </div>
+</div>
+
+
+{% endblock %}

@@ -12,6 +12,7 @@ import { basicAuthentication } from './middleware/basicAuthentication'
 
 import adminRoutes from './routes/adminRoutes'
 import popRoutes from './routes/popRoutes'
+import popVerifyRoutes from './routes/popVerifyRoutes'
 import indexRoutes from './routes/index'
 import authRoutes from './routes/authRoutes'
 import supervisorRoutes from './routes/supervisorRoutes'
@@ -38,6 +39,7 @@ export default function createApp(): express.Application {
   app.use('/', indexRoutes())
   app.use('/admin', adminRoutes())
   app.use('/pop', popRoutes())
+  app.use('/pop/verify', popRoutes())
   app.use('/one-login', authRoutes())
   app.use('/supervisor', supervisorRoutes())
 

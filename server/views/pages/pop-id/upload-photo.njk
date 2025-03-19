@@ -1,0 +1,36 @@
+{% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% set pageTitle = applicationName + " - Upload a photo" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+      {{ govukBackLink({
+        text: "Back",
+        href: "/pop/verify/options"
+      }) }}
+      <h1 class="govuk-heading-l govuk-!-margin-top-8 govuk-!-margin-bottom-1">How do you want to provide your photo?</h1>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <form method="post" action="/pop/verify/upload-photo">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+
+
+      {{ govukButton({
+        text: "Continue",
+        type: "submit"
+      }) }}
+    </form>
+  </div>
+</div>
+
+{% endblock %}
