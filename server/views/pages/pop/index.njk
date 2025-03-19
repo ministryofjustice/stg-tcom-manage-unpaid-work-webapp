@@ -36,7 +36,8 @@
   title: "Account pending verififcation",
   showTitleAsHeading: true,
   dismissible: false,
-  html: 'Your account has been created and is will be verified at your next face to face appointment with your probation practitioner.'
+  html: 'Your account has been created and is will be verified at your next face to face appointment with your probation practitioner.
+  <br /> Once your account is activated you will be able to acccess the links below.'
 }) }}
 {% endif %}
 
@@ -47,31 +48,46 @@
         <li >
           <p class="govuk-heading-s">
             {% if scenario == "pending" %}
-              Your details
+              <a class="govuk-link govuk-link--no-underline" href="#">Your details</a>
             {% else %}
-              <a class="govuk-link govuk-link--no-underline " href="/pop/your-details">Your details</a>
+              <a class="govuk-link govuk-link--no-underline" href="/pop/your-details">Your details</a>
             {% endif %}
           </p>
         </li>
         <li >
             <p class="govuk-heading-s">
-              <a class="govuk-link govuk-link--no-underline " href="/pop/your-progress">Your progress</a>
+            {% if scenario == "pending" %}
+              <a class="govuk-link govuk-link--no-underline" href="#">Your progress</a>
+            {% else %}
+              <a class="govuk-link govuk-link--no-underline" href="/pop/your-progress">Your progress</a>
+            {% endif %}
             </p>
         </li>
         <li >
             <p class="govuk-heading-s">
-              <a class="govuk-link govuk-link--no-underline " href="/pop/appointments">Past and upcoming appointments</a>
+            {% if scenario == "pending" %}
+              <a class="govuk-link govuk-link--no-underline" href="#">Past and upcoming appointments</a>
+            {% else %}
+              <a class="govuk-link govuk-link--no-underline" href="/pop/appointments">Past and upcoming appointments</a>
+            {% endif %}
             </p>
         </li>
          <li >
             <p class="govuk-heading-s">
-              <a class="govuk-link govuk-link--no-underline " href="/pop/messages">Messages</a>
+            {% if scenario == "pending" %}
+              <a class="govuk-link govuk-link--no-underline" href="#">Messages</a>
+            {% else %}
+              <a class="govuk-link govuk-link--no-underline" href="/pop/messages">Messages</a>
+            {% endif %}
             </p>
-
         </li>
         <li >
             <p class="govuk-heading-s">
-              <a class="govuk-link govuk-link--no-underline " href="pop/conditions">Your conditions</a>
+            {% if scenario == "pending" %}
+              <a class="govuk-link govuk-link--no-underline" href="#">Your conditions</a>
+            {% else %}
+              <a class="govuk-link govuk-link--no-underline" href="pop/conditions">Your conditions</a>
+            {% endif %}
             </p>
         </li>
       </ul>
