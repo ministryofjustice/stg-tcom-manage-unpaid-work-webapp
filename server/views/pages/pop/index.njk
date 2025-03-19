@@ -30,6 +30,16 @@
 }) }}
 {% endif %}
 
+{% if scenario == "pending" %}
+{{ mojAlert({
+  variant: "warning",
+  title: "Account pending verififcation",
+  showTitleAsHeading: true,
+  dismissible: false,
+  html: 'Your account has been created and is will be verified at your next face to face appointment with your probation practitioner.'
+}) }}
+{% endif %}
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <div class="gem-c-cards">
@@ -37,35 +47,55 @@
         <li class="gem-c-cards__list-item">
           <div class="gem-c-cards__list-item-wrapper">
             <h3 class="gem-c-cards__sub-heading govuk-heading-s">
+              {% if scenario == "pending" %}
+              <p>Your details</p>
+              {% else %}
               <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/pop/your-details">Your details</a>
+              {% endif %}
             </h3>
           </div>
         </li>
         <li class="gem-c-cards__list-item">
           <div class="gem-c-cards__list-item-wrapper">
             <h3 class="gem-c-cards__sub-heading govuk-heading-s">
+              {% if scenario == "pending" %}
+              <p>Your progress</p>
+              {% else %}
               <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/pop/your-progress">Your progress</a>
+              {% endif %}
             </h3>
           </div>
         </li>
         <li class="gem-c-cards__list-item">
           <div class="gem-c-cards__list-item-wrapper">
             <h3 class="gem-c-cards__sub-heading govuk-heading-s">
+              {% if scenario == "pending" %}
+              <p>Past and upcoming appointments</p>
+              {% else %}
               <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/pop/appointments">Past and upcoming appointments</a>
+              {% endif %}
             </h3>
           </div>
         </li>
          <li class="gem-c-cards__list-item">
           <div class="gem-c-cards__list-item-wrapper">
             <h3 class="gem-c-cards__sub-heading govuk-heading-s">
+              {% if scenario == "pending" %}
+              <p>Messages</p>
+              {% else %}
               <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/pop/messages">Messages</a>
+              {% endif %}
             </h3>
           </div>
         </li>
         <li class="gem-c-cards__list-item">
           <div class="gem-c-cards__list-item-wrapper">
             <h3 class="gem-c-cards__sub-heading govuk-heading-s">
-              <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="pop/conditions">Your conditions</a>
+              {% if scenario == "pending" %}
+                <p>Your conditions</p>
+              {% else %}
+                <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="pop/conditions">Your conditions</a>
+              {% endif %}
             </h3>
           </div>
         </li>
