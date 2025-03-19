@@ -16,32 +16,14 @@
     }) }}
   </div>
 </div>
-<div class="govuk-grid-row">
-
-<div class="govuk-grid-column-full">
-  <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-3 govuk-!-margin-bottom-6 govuk-!-padding-top-4 border box-shadow">
-    <div class="profile">
-      <div class="prefix">{{ attendee.name.charAt(0) }}</div>
-      <div class="name govuk-!-margin-left-2">
-        <h2 class="govuk-heading-m govuk-!-margin-bottom-0">{{ attendee.name }}</h2>
-        <p class="govuk-body govuk-!-margin-top-1 govuk-!-margin-bottom-1  govuk-!-margin-0  govuk-!-padding-0 govuk-!-font-size-16"> {{ attendee.userId }}</p>
-        {{ mojBadge({ text: "ID VERIFIED", classes: "moj-badge--green govuk-!-font-size-16" }) }}
-        <div class="govuk-!-margin-top-2">
-          {{ mojBadge({ text: "Arsonist", classes: "moj-badge--blue" }) }}
-          {{ mojBadge({ text: "Chemical Attacker", classes: "moj-badge--blue" }) }}
-          {{ mojBadge({ text: "Gang Member", classes: "moj-badge--blue" }) }}
-          {{ mojBadge({ text: "Risk to LGBT", classes: "moj-badge--red" }) }}
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
+  
+  {% include "./partials/profile-banner.njk" %}
+
     <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-6 govuk-!-margin-bottom-6 govuk-!-padding-top-4 border box-shadow">
-      <h1 class="govuk-heading-m">Checkin</h1>
+      <h1 class="govuk-heading-m">Check in</h1>
 
             <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 govuk-!-font-weight-bold ">Hours remaining</p>
             <p class="govuk-body govuk-!-padding-bottom-4">45 hours</p>

@@ -15,7 +15,8 @@ export default function routes(): Router {
     const placementId = decodeURIComponent(req.params.id)
     const placement = placements.find(p => p.id === placementId)
     if (placement) {
-      const message = req.flash('success')
+      const message = req.session.success
+      delete req.session.success
       res.render('pages/supervisor/view-placement', { placement, message })
     } else {
       res.redirect('/supervisor')
@@ -46,7 +47,7 @@ export default function routes(): Router {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {
         attendee.status = 'Checked in'
-        req.flash('success', `${attendee.name} has been checked in!`)
+        req.session.success = `${attendee.name} has been checked in!`
         res.redirect(`/supervisor/view-placement/${placementId}`)
       } else {
         res.redirect('/supervisor')
@@ -56,14 +57,14 @@ export default function routes(): Router {
     }
   })
 
-  get('/checkout/:placementId/:userId', async (req, res, next) => {
+  get('/check-out/:placementId/:userId', async (req, res, next) => {
     const placementId = decodeURIComponent(req.params.placementId)
     const userId = decodeURIComponent(req.params.userId)
     const placement = placements.find(p => p.id === placementId)
     if (placement) {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {
-        res.render('pages/supervisor/checkout', { placement, attendee })
+        res.render('pages/supervisor/check-out', { placement, attendee })
       } else {
         res.redirect('/supervisor')
       }
@@ -72,7 +73,7 @@ export default function routes(): Router {
     }
   })
 
-  post('/checkout/:placementId/:userId/confirm', async (req, res, next) => {
+  post('/check-out/:placementId/:userId/confirm', async (req, res, next) => {
     const placementId = decodeURIComponent(req.params.placementId)
     const userId = decodeURIComponent(req.params.userId)
     const placement = placements.find(p => p.id === placementId)
@@ -80,7 +81,7 @@ export default function routes(): Router {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {
         attendee.status = 'Checked out'
-        req.flash('success', `${attendee.name} has been checked out!`)
+        req.session.success = `${attendee.name} has been checked out!`
         res.redirect(`/supervisor/view-placement/${placementId}`)
       } else {
         res.redirect('/supervisor')
@@ -96,7 +97,7 @@ export default function routes(): Router {
     const placement = placements.find(p => p.id === placementId)
     if (placement) {
       placement.attendees = placement.attendees.filter(a => a.userId !== userId)
-      req.flash('success', `Attendee has been removed!`)
+      req.session.success = `Attendee has been removed!`
       res.redirect(`/supervisor/view-placement/${placementId}`)
     } else {
       res.redirect('/supervisor')

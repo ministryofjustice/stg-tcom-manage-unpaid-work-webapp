@@ -4,6 +4,7 @@ export declare module 'express-session' {
     returnTo: string
     nowInMinutes: number
     user_id: string
+    success: string
   }
 }
 

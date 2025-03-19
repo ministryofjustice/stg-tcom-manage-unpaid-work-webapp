@@ -10,7 +10,7 @@ const placements = [
     attendees: [
       {
         userId: 'P258053P',
-        name: 'John Smith',
+        name: 'Joe Briggs',
         attended: '7 hours',
         risk: 'HIGH ROSH 9.0',
         riskClass: 'moj-badge--red',
@@ -45,7 +45,7 @@ const placements = [
     attendees: [
       {
         userId: 'P258053P',
-        name: 'John Smith',
+        name: 'Joe Briggs',
         attended: '7 hours',
         risk: 'HIGH ROSH 9.0',
         riskClass: 'moj-badge--red',
@@ -80,7 +80,7 @@ const placements = [
     attendees: [
       {
         userId: 'P258053P',
-        name: 'John Smith',
+        name: 'Joe Briggs',
         attended: '7 hours',
         risk: 'HIGH ROSH 9.0',
         riskClass: 'moj-badge--red',

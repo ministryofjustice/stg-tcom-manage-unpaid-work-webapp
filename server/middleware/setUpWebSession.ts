@@ -2,7 +2,6 @@ import session, { MemoryStore, Store } from 'express-session'
 import { RedisStore } from 'connect-redis'
 import express, { Router } from 'express'
 import { randomUUID } from 'crypto'
-import flash from 'connect-flash'
 import { createRedisClient } from '../data/redisClient'
 import config from '../config'
 import logger from '../../logger'
@@ -29,8 +28,6 @@ export default function setUpWebSession(): Router {
       rolling: true,
     }),
   )
-
-  router.use(flash())
 
   // Update a value in the cookie so that the set-cookie will be sent.
   // Only changes every minute so that it's not sent with every request.
