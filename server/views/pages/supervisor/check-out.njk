@@ -3,6 +3,10 @@
 {%- from "moj/components/badge/macro.njk" import mojBadge -%}
 {%- from "govuk/components/input/macro.njk" import govukInput -%}
 {%- from "govuk/components/button/macro.njk" import govukButton -%}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+
 {% set pageTitle = applicationName + " - Checkout Attendee" %}
 {% set mainClasses = "app-container govuk-body" %}
 
@@ -30,9 +34,7 @@
 
       <form method="post" action="/supervisor/check-out/{{ placement.id }}/{{ attendee.userId }}/confirm">
               <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-        <h3 class="govuk-fieldset__heading">End time</h3>
-      </legend>
+        <h3 class="govuk-label--m">End time</h3>
   <div class="govuk-form-group govuk-!-display-inline-block govuk-!-margin-right-2">
     {{ govukInput({
       id: "hours",
@@ -59,39 +61,50 @@
     }) }}
   </div>
 
-
   <div class="govuk-form-group">
-    <fieldset class="govuk-fieldset">
-      <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-        <h2 class="govuk-fieldset__heading">How did they do</h2>
-      </legend>
-      <div class="govuk-radios">
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="Unsatisfactory" name="performance" type="radio" value="Good">
-          <label class="govuk-label govuk-radios__label" for="Unsatisfactory">Unsatisfactory</label>
-        </div>
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="Adequate" name="performance" type="radio" value="Average">
-          <label class="govuk-label govuk-radios__label" for="Adequate">Adequate</label>
-        </div>
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="Good" name="performance" type="radio" value="Bad">
-          <label class="govuk-label govuk-radios__label" for="Good">Good</label>
-        </div>
-         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="Excellent" name="performance" type="radio" value="Bad">
-          <label class="govuk-label govuk-radios__label" for="Excellent">Excellent</label>
-        </div>
-      </div>
-    </fieldset>
+   {{ govukRadios({
+  name: "whereDoYouLive",
+  fieldset: {
+    legend: {
+      text: "How did they do",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+          {
+            value: "Unsatisfactory",
+            text: "Unsatisfactory"
+          },
+          {
+            value: "Adequate",
+            text: "Adequate"
+          },
+          {
+            value: "Good",
+            text: "Good"
+          },
+          {
+            value: "Excellent",
+            text: "Excellent"
+          }
+        ]
+}) }}
   </div>
 
   <div class="govuk-form-group">
-  <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-        <h2 class="govuk-fieldset__heading">Comments</h2>
-      </legend>
-          <span class="govuk-hint">This will be shared with POPs</span>
-    <textarea class="govuk-textarea" id="comments" name="comments" rows="5"></textarea>
+ {{ govukTextarea({
+  name: "comments",
+  id: "comments",
+  label: {
+    text: "Comments",
+    classes: "govuk-label--m",
+    isPageHeading: true
+  },
+  hint: {
+    text: "This will be shared with POPs"
+  }
+}) }}
   </div>
 
   <div class="govuk-form-group">

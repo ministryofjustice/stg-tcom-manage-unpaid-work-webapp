@@ -15,8 +15,8 @@ export default function routes(): Router {
     const placementId = decodeURIComponent(req.params.id)
     const placement = placements.find(p => p.id === placementId)
     if (placement) {
-      const message = req.session.success
-      delete req.session.success
+      const message = req.session.successMessage
+      delete req.session.successMessage
       res.render('pages/supervisor/view-placement', { placement, message })
     } else {
       res.redirect('/supervisor')
@@ -47,7 +47,7 @@ export default function routes(): Router {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {
         attendee.status = 'Checked in'
-        req.session.success = `${attendee.name} has been checked in!`
+        req.session.successMessage = `${attendee.name} has been checked in!`
         res.redirect(`/supervisor/view-placement/${placementId}`)
       } else {
         res.redirect('/supervisor')
@@ -81,7 +81,7 @@ export default function routes(): Router {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {
         attendee.status = 'Checked out'
-        req.session.success = `${attendee.name} has been checked out!`
+        req.session.successMessage = `${attendee.name} has been checked out!`
         res.redirect(`/supervisor/view-placement/${placementId}`)
       } else {
         res.redirect('/supervisor')
@@ -97,8 +97,26 @@ export default function routes(): Router {
     const placement = placements.find(p => p.id === placementId)
     if (placement) {
       placement.attendees = placement.attendees.filter(a => a.userId !== userId)
-      req.session.success = `Attendee has been removed!`
+      req.session.successMessage = `Attendee has been removed!`
       res.redirect(`/supervisor/view-placement/${placementId}`)
+    } else {
+      res.redirect('/supervisor')
+    }
+  })
+
+  get('/no-show/:placementId/:userId', async (req, res, next) => {
+    const placementId = decodeURIComponent(req.params.placementId)
+    const userId = decodeURIComponent(req.params.userId)
+    const placement = placements.find(p => p.id === placementId)
+    if (placement) {
+      const attendee = placement.attendees.find(a => a.userId === userId)
+      if (attendee) {
+        attendee.status = 'No show'
+        req.session.successMessage = 'Status changed to No Show!'
+        res.redirect(`/supervisor/view-placement/${placementId}`)
+      } else {
+        res.redirect('/supervisor')
+      }
     } else {
       res.redirect('/supervisor')
     }
