@@ -90,5 +90,18 @@ export default function routes(): Router {
     }
   })
 
+  get('/remove/:placementId/:userId', async (req, res, next) => {
+    const placementId = decodeURIComponent(req.params.placementId)
+    const userId = decodeURIComponent(req.params.userId)
+    const placement = placements.find(p => p.id === placementId)
+    if (placement) {
+      placement.attendees = placement.attendees.filter(a => a.userId !== userId)
+      req.flash('success', `Attendee has been removed!`)
+      res.redirect(`/supervisor/view-placement/${placementId}`)
+    } else {
+      res.redirect('/supervisor')
+    }
+  })
+
   return router
 }

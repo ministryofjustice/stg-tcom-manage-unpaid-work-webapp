@@ -3,6 +3,7 @@
 {%- from "moj/components/alert/macro.njk" import mojAlert -%}
 {%- from "moj/components/badge/macro.njk" import mojBadge -%}
 {%- from "govuk/components/table/macro.njk" import govukTable -%}
+{%- from "govuk/components/back-link/macro.njk" import govukBackLink -%}
 
 {% set pageTitle = applicationName + " - View Placement" %}
 {% set mainClasses = "app-container govuk-body" %}
@@ -22,6 +23,10 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <div class="govuk-grid-column govuk-!-margin-bottom-2">
+     {{ govukBackLink({
+      href: "/supervisor",
+      text: "Back to Placements"
+    }) }}
       <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ placement.title }}</h1>
       <p class="govuk-body govuk-hint govuk-!-font-size-16 govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1">{{ placement.nextSession }}</p>
       <p class="govuk-body govuk-hint govuk-!-font-size-16 govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">{{ placement.address }}</p>
@@ -69,7 +74,7 @@
   {% set checkinLink = '<a href="/supervisor/check-in/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link">Check-in</a>' %}
   {% set checkoutLink = '<a href="/supervisor/checkout/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link">Checkout</a>' %}
 
-  {% set actions = '<a href="#" class="govuk-link">View</a> <a href="#" class="govuk-link">Remove</a>' %}
+  {% set actions = '<a href="#" class="govuk-link">View</a> <a href="/supervisor/remove/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link">Remove</a>' %}
 
   {% if attendee.status == 'Checked in' %}
     {% set actions = actions + ' ' + checkoutLink %}
