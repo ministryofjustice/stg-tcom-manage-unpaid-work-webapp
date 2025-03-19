@@ -1,9 +1,8 @@
 {% extends "../../layouts/layout.njk" %}
 
-{%- from "moj/components/ticket-panel/macro.njk" import mojTicketPanel -%}
-{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 {%- from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/tag/macro.njk" import govukTag %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% set pageTitle = applicationName + " - Create new message" %}
 {% set mainClasses = "app-container govuk-body" %}
@@ -12,17 +11,23 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/pop/messages">&lt; Back to messages</a>
-      <div class="govuk-grid-row govuk-!-margin-top-6 govuk-!-paddin-bottom-4">
-          <h1 class="govuk-heading-l govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2  ">Write new message</h1>
-          <p class="govuk-body-s govuk-!-color-muted">Send a message to your probation practitioner</p>
-      </div>
-      <div class="govuk-grid-row govuk-!-margin-top-6 ">
-          <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-6 border box-shadow">
+     {{ govukBackLink({
+      text: "Back to messages",
+      href: "/pop/messages"
+    }) }}
+  </div>
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l ">Write new message</h1>
+    <p class="govuk-body-s sub-heading">Send a message to your probation practitioner</p>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      <div class="govuk-box govuk-box--rounded govuk-!-padding-6 border box-shadow">
 
         <form method="post" action="/pop/new-message">
-              <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+          <input type="hidden" name="_csrf" value="{{ csrfToken }}">
           <div class="govuk-form-group">
             <label class="govuk-label" for="subject">Subject</label>
             <input class="govuk-input" id="subject" name="subject" type="text" placeholder="">
@@ -49,9 +54,7 @@
             </div>
           </div>
         </form>
-        </div>
       </div>
-    </div>
   </div>
 </div>
 
