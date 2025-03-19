@@ -2,7 +2,6 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-{%- from "govuk/components/button/macro.njk" import govukButton %}
 
 
 {% set pageTitle = applicationName + " - Appointments" %}
@@ -18,17 +17,7 @@
     }) }}
   </div>
   <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column-two-thirds govuk-!-padding-left-0">
-      <h1 class="govuk-heading-l">Appointments</h1>
-    </div>
-    <div class="govuk-grid-column-one-third govuk-!-text-align-right">
-
-      {{ govukButton({
-        text: "Book appointment",
-        href: "#",
-        class: "govuk-!-text-align-right"
-      }) }}
-    </div>
+    <h1 class="govuk-heading-l">Appointments</h1>
   </div>
 </div>
 
