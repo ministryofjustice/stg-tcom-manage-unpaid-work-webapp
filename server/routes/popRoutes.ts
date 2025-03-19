@@ -23,11 +23,11 @@ export default function routes(): Router {
 
   get('/your-details', async (req, res, next) => {
     const userProfile = {
-      name: 'Carolina Pizatto Girardi',
+      name: 'Joe Bloggs',
       userId: 'P258053P',
       hoursRequired: 100,
-      address: 'Flat 1\n1 Example St\nLondon\nSE1 1AA',
-      email: 'carolinapizatto@example.com',
+      address: 'Flat 1, 1 Example St, London, SE1 1AA',
+      email: 'joe.bloggs@example.com',
       phone: '07777 012345',
     }
     res.render('pages/pop/details', { userProfile })
