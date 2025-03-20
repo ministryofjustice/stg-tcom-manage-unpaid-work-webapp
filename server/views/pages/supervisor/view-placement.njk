@@ -1,5 +1,4 @@
 {% extends "../../layouts/layout.njk" %}
-{%- from "moj/components/progress-bar/macro.njk" import mojProgressBar -%}
 {%- from "moj/components/alert/macro.njk" import mojAlert -%}
 {%- from "moj/components/badge/macro.njk" import mojBadge -%}
 {%- from "govuk/components/table/macro.njk" import govukTable -%}
@@ -40,8 +39,7 @@
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-third">
           <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0">Booked slots</p>
-          <p class="govuk-heading-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 govuk-!-padding-top-2">{{ placement.slotsBooked }}/{{ placement.totalSlots }}</p>
-          {{ mojProgressBar({ completed: placement.slotsBooked, total: placement.totalSlots, classes: "govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-4" }) }}
+          <p class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 govuk-!-padding-top-2">{{ placement.slotsBooked }}/{{ placement.totalSlots }}</p>
         </div>
         <div class="govuk-grid-column-one-third">
           <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0">Slots remaining</p>
@@ -73,12 +71,12 @@
 {% for attendee in placement.attendees %}
   {% set checkinLink = '<a href="/supervisor/check-in/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link">Check-in</a>' %}
   {% set checkoutLink = '<a href="/supervisor/check-out/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link">Checkout</a>' %}
-  {% set nowShowLink = '<a href="/supervisor/no-show/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link">No Show</a>' %}
+  {% set nowShowLink = '<a href="/supervisor/no-show/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link">Did not attend</a>' %}
 
-  {% set actions = '<a href="#" class="govuk-link">View</a> <a href="/supervisor/remove/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link">Remove</a>' %}
+  {% set actions = '<a href="/supervisor/remove/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link">Remove</a>' %}
 
   {% if (attendee.status == 'Checked in') %}
-    {% set actions = actions + ' ' + checkoutLink  %}
+    {% set actions = checkoutLink  %}
     {% elseif (attendee.status == 'pending') %}
         {% set actions = actions + ' ' + checkinLink + ' ' + nowShowLink  %}
   {% endif %}
@@ -86,8 +84,8 @@
   {% set displayRows = (displayRows.push([
     { text: attendee.userId },
     { text: attendee.name },
-    { text: ' ' if attendee.status === 'pending' else attendee.status },
     { html: mojBadge({ text: attendee.risk, classes: attendee.riskClass }) },
+    { text: ' ' if attendee.status === 'pending' else ('Attended 7 hours' if attendee.status === 'Checked out' else attendee.status) },
     { html: actions }
   ]), displayRows) %}
 {% endfor %}
@@ -97,8 +95,8 @@
         head: [
           { text: "User ID" },
           { text: "Name" },
-          { text: "Status" },
           { text: "Risk" },
+          { text: "Status" },
           { text: "Actions" }
         ],
         rows: displayRows
