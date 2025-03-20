@@ -1,5 +1,6 @@
 import { type RequestHandler, Router } from 'express'
 import path from 'path'
+import { randomUUID } from 'crypto'
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import { pastAppointments, upcomingAppointments } from './data/appointments'
 import messages from './data/messages'
@@ -117,7 +118,45 @@ export default function routes(): Router {
   })
 
   post('/new-message', async (req, res, next) => {
-    res.redirect(`/pop/messages/thread/c8ab26a7-e4d3-4f78-82a2-98fec61e79e5`)
+    const { subject } = req.body
+    let { message: messageText } = req.body
+
+    if (req.file) {
+      try {
+        const relativePath = `/assets/uploads/${req.session.user_id}/${path.basename(req.file.path)}`
+        const attachmentLink = `<a href="${relativePath}" target="_blank">${req.file.originalname}</a>`
+        messageText = messageText
+          ? `${messageText}<br><br>Attachment: <br>${attachmentLink}`
+          : `Attachment: ${attachmentLink}`
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(`Error processing uploaded file: ${error.message}`)
+      }
+    }
+
+    if (subject && messageText) {
+      const newMessage = {
+        id: randomUUID(),
+        subject,
+        date: '11 March 2024',
+        status: 'new',
+        description: messageText,
+        items: [
+          {
+            html: messageText,
+            type: 'sent',
+            timestamp: '11 March 2024',
+            sender: 'You',
+          },
+        ],
+      }
+      messages.push(newMessage)
+      res.redirect(`/pop/messages/thread/${newMessage.id}`)
+    } else {
+      const { successMessage } = req.session
+      delete req.session.successMessage
+      res.render('pages/pop/new-message', { message: successMessage })
+    }
   })
 
   return router

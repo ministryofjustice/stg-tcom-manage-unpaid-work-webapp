@@ -36,7 +36,7 @@
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
 
-  {% for message in messages %}
+  {% for message in messages | reverse %}
     <div class="govuk-box govuk-box--rounded message-summary">
   <div class="govuk-!-display-flex govuk-!-justify-content-space-between govuk-!-align-items-center">
     <h3 class="govuk-heading-m">{{message.subject}}
@@ -46,7 +46,7 @@
     </h3>
   </div>
   <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0 govuk-!-margin-bottom-4">{{message.date}}</p>
-  <p class="govuk-body-s">{{message.description}}</p>
+  <p class="govuk-body-s">{{message.description | safe}}</p>
   <a class="govuk-link" href="/pop/messages/thread/{{message.id}}">View message</a></div>
   {% endfor %}
   </div>

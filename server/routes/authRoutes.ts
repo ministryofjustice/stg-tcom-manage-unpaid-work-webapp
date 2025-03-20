@@ -7,34 +7,52 @@ export default function authRoutes(): Router {
   const post = (path: string | string[], handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
 
   get('/', async (req, res, next) => {
-    res.render('pages/one-login/sign-in-or-create')
+    return res.render('pages/one-login/sign-in-or-create')
   })
 
   post('/sign-in-or-create', async (req, res, next) => {
     const { optionSelected } = req.body
     if (optionSelected === 'create') {
-      res.redirect('/one-login/enter-email-address')
-    } else {
-      res.redirect('/one-login/enter-email-address-login')
+      return res.redirect('/one-login/enter-email-address')
     }
+    return res.redirect('/one-login/enter-email-address-login')
   })
 
   get('/enter-email-address', async (req, res, next) => {
-    res.render('pages/one-login/enter-email-address')
+    const { errorMessage } = req.session
+    delete req.session.errorMessage
+    res.render('pages/one-login/enter-email-address', { errorMessage })
   })
 
   post('/enter-email-address', async (req, res, next) => {
     const { email } = req.body
-    res.redirect(`/one-login/verify-security-code?email=${encodeURIComponent(email)}`)
+    if (!email.endsWith('@gov.uk')) {
+      req.session.errorMessage = 'You must enter a valid email address with gov.uk domain'
+      return res.redirect('/one-login/enter-email-address')
+    }
+    return res.redirect(`/one-login/verify-security-code?email=${encodeURIComponent(email)}`)
   })
 
   get('/verify-security-code', async (req, res, next) => {
     const { email } = req.query
-    res.render('pages/one-login/verify-security-code', { email })
+    if (!email) {
+      return res.redirect('/one-login/enter-email-address')
+    }
+    const { errorMessage } = req.session
+    delete req.session.errorMessage
+    return res.render('pages/one-login/verify-security-code', { email, errorMessage })
   })
 
   post('/verify-security-code', async (req, res, next) => {
-    res.redirect('/one-login/create-password')
+    const { code } = req.body
+    const email = req.query.email || req.body.email
+    if (code !== process.env.VALID_OTP) {
+      req.session.errorMessage = 'Invalid OTP code. Please try again.'
+      const { errorMessage } = req.session
+      delete req.session.errorMessage
+      return res.render('pages/one-login/verify-security-code', { email, errorMessage })
+    }
+    return res.redirect('/one-login/create-password')
   })
 
   get('/create-password', async (req, res, next) => {
@@ -42,14 +60,14 @@ export default function authRoutes(): Router {
   })
 
   post('/create-password', async (req, res, next) => {
-    res.redirect('/one-login/get-security-code')
+    return res.redirect('/one-login/get-security-code')
   })
 
   get('/get-security-code', async (req, res, next) => {
     res.render('pages/one-login/get-security-code')
   })
   post('/get-security-code', async (req, res, next) => {
-    res.redirect('/one-login/enter-phone-number')
+    return res.redirect('/one-login/enter-phone-number')
   })
 
   get('/enter-phone-number', async (req, res, next) => {
@@ -57,7 +75,7 @@ export default function authRoutes(): Router {
   })
 
   post('/enter-phone-number', async (req, res, next) => {
-    res.redirect('/one-login/check-phone')
+    return res.redirect('/one-login/check-phone')
   })
 
   get('/check-phone', async (req, res, next) => {
@@ -65,7 +83,7 @@ export default function authRoutes(): Router {
   })
 
   post('/check-phone', async (req, res, next) => {
-    res.redirect('/one-login/account-created')
+    return res.redirect('/one-login/account-created')
   })
 
   get('/account-created', async (req, res, next) => {
@@ -73,30 +91,52 @@ export default function authRoutes(): Router {
   })
 
   post('/account-created', async (req, res, next) => {
-    res.redirect('/pop')
+    return res.redirect('/pop')
   })
 
   get('/enter-email-address-login', async (req, res, next) => {
-    res.render('pages/one-login/enter-email-address-login')
+    const { errorMessage } = req.session
+    delete req.session.errorMessage
+    res.render('pages/one-login/enter-email-address-login', { errorMessage })
   })
 
   post('/enter-email-address-login', async (req, res, next) => {
-    res.redirect('/one-login/enter-password')
+    const { email } = req.body
+    if (!email.endsWith('@gov.uk')) {
+      req.session.errorMessage = 'You must enter a valid email address with gov.uk domain'
+      return res.redirect('/one-login/enter-email-address-login')
+    }
+    return res.redirect('/one-login/enter-password')
   })
 
   get('/enter-password', async (req, res, next) => {
-    res.render('pages/one-login/enter-password')
+    const { errorMessage } = req.session
+    delete req.session.errorMessage
+    res.render('pages/one-login/enter-password', { errorMessage })
   })
   post('/enter-password', async (req, res, next) => {
-    res.redirect('/one-login/check-phone-login')
+    const { password } = req.body
+
+    if (password !== process.env.POP_PASSWORD) {
+      req.session.errorMessage = 'Invalid password. Please try again.'
+      return res.redirect('/one-login/enter-password')
+    }
+    return res.redirect('/one-login/check-phone-login')
   })
 
   get('/check-phone-login', async (req, res, next) => {
-    res.render('pages/one-login/check-phone-login')
+    const { errorMessage } = req.session
+    delete req.session.errorMessage
+    res.render('pages/one-login/check-phone-login', { errorMessage })
   })
 
   post('/check-phone-login', async (req, res, next) => {
-    res.redirect('/pop')
+    const { otp } = req.body
+    if (otp !== process.env.POP_LOGIN_OTP) {
+      req.session.errorMessage = 'Invalid OTP code. Please try again.'
+      return res.redirect('/one-login/check-phone-login')
+    }
+    return res.redirect('/pop')
   })
 
   return router
