@@ -1,0 +1,104 @@
+{% from "govuk/components/tabs/macro.njk" import govukTabs %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
+{% set Overview %}
+<h2 class="govuk-heading-m">Overview</h2>
+{% set html %}
+  <p class="govuk-notification-banner__heading">
+    You need to <a class="govuk-notification-banner__link" href="#">verify</a> the identity for this person.
+  </p>
+{% endset %}
+
+{{ govukNotificationBanner({
+  html: html
+}) }}
+{% endset %}
+
+{% set Appointments %}
+<h2 class="govuk-heading-m">Appointments</h2>
+{% endset %}
+
+{% set PersonalDetails %}
+<h2 class="govuk-heading-m">Personal details</h2>
+{% endset %}
+
+{% set Risk %}
+<h2 class="govuk-heading-m">Risk</h2>
+{% endset %}
+
+{% set Sentence %}
+<h2 class="govuk-heading-m">Sentence</h2>
+{% endset %}
+
+{% set ActivityLog %}
+<h2 class="govuk-heading-m">Activity log</h2>
+{% endset %}
+
+{% set Compliance %}
+<h2 class="govuk-heading-m">Compliance</h2>
+{% endset %}
+
+{% set Interventions %}
+<h2 class="govuk-heading-m">Interventions</h2>
+{% endset %}
+
+{{ govukTabs({
+  items: [
+    {
+      label: "Overview",
+      id: "overview",
+      panel: {
+        html: Overview
+      }
+    },
+    {
+      label: "Appointments",
+      id: "appointments",
+      panel: {
+        html: Appointments
+      }
+    },
+    {
+      label: "Personal details",
+      id: "personal-details",
+      panel: {
+        html: PersonalDetails
+      }
+    },
+    {
+      label: "Risk",
+      id: "risk",
+      panel: {
+        html: Risk
+      }
+    }, 
+    {
+      label: "Sentence",
+      id: "sentence",
+      panel: {
+        html: Sentence
+      }
+    },
+    {
+      label: "Activity log",
+      id: "activity-log",
+      panel: {
+        html: ActivityLog
+      }
+    },
+    {
+      label: "Compliance",
+      id: "compliance",
+      panel: {
+        html: Compliance
+      }
+    }, 
+    {
+      label: "Interventions",
+      id: "interventions",
+      panel: {
+        html: Interventions
+      }
+    }
+  ]
+}) }}

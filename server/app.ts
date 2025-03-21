@@ -15,6 +15,7 @@ import popRoutes from './routes/popRoutes'
 import indexRoutes from './routes/index'
 import authRoutes from './routes/authRoutes'
 import supervisorRoutes from './routes/supervisorRoutes'
+import staffRoutes from './routes/staffRoutes'
 
 export default function createApp(): express.Application {
   const app = express()
@@ -40,6 +41,7 @@ export default function createApp(): express.Application {
   app.use('/pop', popRoutes())
   app.use('/one-login', authRoutes())
   app.use('/supervisor', supervisorRoutes())
+  app.use('/staff', staffRoutes())
 
   app.use((req, res, next) => next(createError(404, 'Not found')))
   app.use(errorHandler(process.env.NODE_ENV === 'production'))
