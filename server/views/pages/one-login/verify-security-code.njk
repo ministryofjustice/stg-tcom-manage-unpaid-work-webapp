@@ -2,6 +2,7 @@
 {% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
 
 {% set pageTitle = applicationName + " - Verify security code" %}
 {% set mainClasses = "app-auth-container govuk-body" %}
@@ -15,7 +16,17 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
-        <form class="form" action="/one-login/verify-security-code" method="post">
+        {% if errorMessage and errorMessage.length > 0 %}
+          {{ mojAlert({
+            variant: "error",
+            title: errorMessage,
+            showTitleAsHeading: true,
+            dismissible: true,
+            html: ''
+          }) }}
+        {% endif %}
+
+        <form class="form" action="/one-login/verify-security-code?email={{ email }}" method="post">
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
             <h1 class="govuk-heading-l">Check your email</h1>

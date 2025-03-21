@@ -1,0 +1,18 @@
+ <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-margin-bottom-6 border box-shadow profile-container govuk-!-padding-right-10">
+    <div class="profile-top">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-0">{{ attendee.name }}</h1>
+      <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-size-18">{{ attendee.userId }}</p>
+    </div>
+    
+    <img src="{{ attendee.profileImage | default('/assets/images/default-avatar.png') }}" alt="{{ attendee.name }}'s profile" class="profile-image">
+    
+    <div class="profile-bottom ">
+      {{ mojBadge({ text: "ID VERIFIED", classes: "govuk-!-font-size-16 moj-badge--green" }) }}
+      <div class="govuk-!-margin-top-2">
+        {{ mojBadge({ text: "Arsonist", classes: "moj-badge--blue profile-badge" }) }}
+        {{ mojBadge({ text: "Chemical attacker", classes: "moj-badge--blue profile-badge" }) }}
+        {{ mojBadge({ text: "Gang member", classes: "moj-badge--blue profile-badge" }) }}
+        {{ mojBadge({ text: "Risk to LGBT", classes: "moj-badge--red profile-badge" }) }}
+      </div>
+    </div>
+  </div>

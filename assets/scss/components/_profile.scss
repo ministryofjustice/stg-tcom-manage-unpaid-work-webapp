@@ -1,0 +1,51 @@
+.profile {
+  &-container {
+    position: relative;
+  }
+
+  &-bottom {
+    background-color: #e8eced; // can be govuk-colour("light-grey") once white background is applied 
+    min-height: 10vh; 
+    max-height: 18vh;
+    padding: 20px 50px 20px 180px;
+  }
+
+  &-top {
+    color: govuk-colour("white");
+    background-color: govuk-colour("blue");
+    min-height: 10vh; 
+    max-height: 18vh;
+    padding: 20px 50px 20px 180px;
+      h1, p {
+      color: govuk-colour("white") !important; 
+    }
+    @include govuk-media-query($until: tablet) {
+      padding: 30px 50px 20px 180px;
+    }
+  }
+  &-image {
+    width: 125px;
+    height: 140px;
+    object-fit: cover;
+    position: absolute;
+    left: 8%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    border: 2px solid govuk-colour("mid-grey");
+    z-index: 10;
+
+    @include govuk-media-query($until: tablet) {
+      left: 26%;
+      top: 38%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &-badge{
+    background-color: govuk-colour("white");
+    border-radius: 10%;
+    text-transform: none;
+    font-weight: normal;
+    color: govuk-colour("black");
+  }
+}
