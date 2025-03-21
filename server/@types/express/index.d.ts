@@ -6,6 +6,7 @@ export declare module 'express-session' {
     user_id: string
     successMessage: string
     errorMessage: string
+    is_pop_login: boolean
   }
 }
 

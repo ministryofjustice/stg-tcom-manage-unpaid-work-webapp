@@ -7,6 +7,9 @@ export default function authRoutes(): Router {
   const post = (path: string | string[], handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
 
   get('/', async (req, res, next) => {
+    if (req.session.is_pop_login) {
+      return res.redirect('/pop')
+    }
     return res.render('pages/one-login/sign-in-or-create')
   })
 
@@ -56,33 +59,89 @@ export default function authRoutes(): Router {
   })
 
   get('/create-password', async (req, res, next) => {
-    res.render('pages/one-login/create-password')
+    const { errorMessage } = req.session
+    delete req.session.errorMessage
+    res.render('pages/one-login/create-password', { errorMessage })
   })
 
   post('/create-password', async (req, res, next) => {
-    return res.redirect('/one-login/get-security-code')
-  })
-
-  get('/get-security-code', async (req, res, next) => {
-    res.render('pages/one-login/get-security-code')
-  })
-  post('/get-security-code', async (req, res, next) => {
+    const { password, confirmPassword } = req.body
+    if (password !== confirmPassword) {
+      req.session.errorMessage = 'Passwords do not match. Please try again.'
+      return res.redirect('/one-login/create-password')
+    }
+    if (password.length < 8) {
+      req.session.errorMessage = 'Password must be at least 6 characters long. Please try again.'
+      return res.redirect('/one-login/create-password')
+    }
     return res.redirect('/one-login/enter-phone-number')
   })
 
   get('/enter-phone-number', async (req, res, next) => {
-    res.render('pages/one-login/enter-phone-number')
+    const { errorMessage } = req.session
+    delete req.session.errorMessage
+    res.render('pages/one-login/enter-phone-number', { errorMessage })
   })
 
   post('/enter-phone-number', async (req, res, next) => {
+    const { phoneNumber, hasInternationalPhoneNumber, internationalPhoneNumber } = req.body
+    let errorMessage = null
+
+    if (hasInternationalPhoneNumber && !internationalPhoneNumber) {
+      errorMessage = 'You must enter an international phone number.'
+    } else if (!hasInternationalPhoneNumber && !phoneNumber) {
+      errorMessage = 'You must enter a UK mobile phone number.'
+    }
+
+    if (errorMessage) {
+      req.session.errorMessage = errorMessage
+      return res.redirect('/one-login/enter-phone-number')
+    }
+
+    return res.redirect('/one-login/get-security-code')
+  })
+
+  get('/get-security-code', async (req, res, next) => {
+    const { errorMessage } = req.session
+    delete req.session.errorMessage
+    res.render('pages/one-login/get-security-code', { errorMessage })
+  })
+
+  post('/get-security-code', async (req, res, next) => {
+    const { 'choose-security-codes': chooseSecurityCodes } = req.body
+    let errorMessage = null
+
+    if (!chooseSecurityCodes) {
+      errorMessage = 'You must choose a method to get code.'
+    }
+
+    if (errorMessage) {
+      req.session.errorMessage = errorMessage
+      return res.redirect('/one-login/get-security-code')
+    }
+
     return res.redirect('/one-login/check-phone')
   })
 
   get('/check-phone', async (req, res, next) => {
-    res.render('pages/one-login/check-phone')
+    const { errorMessage } = req.session
+    delete req.session.errorMessage
+    res.render('pages/one-login/check-phone', { errorMessage })
   })
 
   post('/check-phone', async (req, res, next) => {
+    const { otp } = req.body
+    let errorMessage = null
+
+    if (otp !== process.env.POP_LOGIN_OTP) {
+      errorMessage = 'Invalid OTP code. Please try again.'
+    }
+
+    if (errorMessage) {
+      req.session.errorMessage = errorMessage
+      return res.redirect('/one-login/check-phone')
+    }
+
     return res.redirect('/one-login/account-created')
   })
 
@@ -91,6 +150,7 @@ export default function authRoutes(): Router {
   })
 
   post('/account-created', async (req, res, next) => {
+    req.session.is_pop_login = true
     return res.redirect('/pop')
   })
 
@@ -136,6 +196,7 @@ export default function authRoutes(): Router {
       req.session.errorMessage = 'Invalid OTP code. Please try again.'
       return res.redirect('/one-login/check-phone-login')
     }
+    req.session.is_pop_login = true
     return res.redirect('/pop')
   })
 

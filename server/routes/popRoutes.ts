@@ -13,6 +13,14 @@ export default function routes(): Router {
     router.post(routePath, asyncMiddleware(handler))
   router.use(setUpMultipartFormDataParsing())
 
+  router.use((req, res, next) => {
+    if (req.session.is_pop_login) {
+      next()
+    } else {
+      res.redirect('/one-login/')
+    }
+  })
+
   get('/', async (req, res, next) => {
     // /pop?scenario=missed
     // /pop?scenario=reminder
