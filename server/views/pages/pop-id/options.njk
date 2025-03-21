@@ -1,6 +1,7 @@
 {% extends "../../layouts/layout.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
+{%- from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageTitle = applicationName + " - How to provide your photo" %}
 {% set mainClasses = "app-container govuk-body" %}
@@ -33,11 +34,13 @@
         items: [
           {
             value: "upload",
-            text: "Upload a file"
+            text: "Upload a file",
+            checked: selectedOption == 'upload'
           },
           {
             value: "take",
-            text: "I need to take a photo"
+            text: "I need to take a photo",
+            checked: selectedOption == 'take'
           }
         ],
         errorMessage: {

@@ -39,7 +39,7 @@ export default function createApp(): express.Application {
   app.use('/', indexRoutes())
   app.use('/admin', adminRoutes())
   app.use('/pop', popRoutes())
-  app.use('/pop/verify', popRoutes())
+  app.use('/pop/verify', popVerifyRoutes())
   app.use('/one-login', authRoutes())
   app.use('/supervisor', supervisorRoutes())
 

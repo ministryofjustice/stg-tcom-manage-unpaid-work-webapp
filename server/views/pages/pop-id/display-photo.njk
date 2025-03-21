@@ -1,0 +1,66 @@
+{% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% set pageTitle = applicationName + " - Display Photo" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+      {{ govukBackLink({
+        text: "Back",
+        href: "/pop/verify/upload-photo"
+      }) }}
+      <h1 class="govuk-heading-l govuk-!-margin-top-8 govuk-!-margin-bottom-1">Do you want to submit this photo?</h1>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <img src="http://localhost:3000/assets/uploads/9f515801-4732-42ac-aab5-454e3ce380b6/attachment-1742574420371-970869775.jpg" alt="Uploaded Photo" class="govuk-!-width-one-quarter" />
+
+ <div class="govuk-form-group govuk-!-margin-top-6">
+   {{ govukWarningText({
+  html: "By confirming you confirm that your photo meets the <a href='#'>photo rules</a>",
+  iconFallbackText: "Warning"
+}) }}
+   {{ govukRadios({
+  name: "meetRules",
+  fieldset: {
+    legend: {
+      text: "",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+          {
+            value: "Unsatisfactory",
+            text: "Yes the photo meet the rules"
+          },
+          {
+            value: "Adequate",
+            text: "No I want to get another photo"
+          }
+        ]
+}) }}
+ <div class="govuk-form-group govuk-!-margin-top-4">
+
+{{ govukButton({
+        text: "Continue",
+        type: "submit"
+      }) }}
+      </div>
+  </div>
+  </div>
+
+ 
+</div>
+
+{% endblock %}

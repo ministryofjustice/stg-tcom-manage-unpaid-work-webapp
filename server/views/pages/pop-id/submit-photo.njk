@@ -1,9 +1,9 @@
 {% extends "../../layouts/layout.njk" %}
+{%- from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageTitle = applicationName + " - Submit an ID photo" %}
 {% set mainClasses = "app-container govuk-body" %}
 
-{# there is no back button here, we cannot reenter the one login journey #}
 
 {% block content %}
 
@@ -21,8 +21,8 @@
     <p class="govuk-body">Once you&apos;ve uploaded your photo, we&apos;ll format it and check if it&apos;s ok.</p>
     {{ govukButton({
         text: "Continue",
-        href: "/pop/verify/options",
-      }) }}
+        href: "/pop/verify/options"
+    }) }}
   </div>
 </div>
 
