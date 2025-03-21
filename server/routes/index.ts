@@ -16,8 +16,13 @@ export default function routes(): Router {
   get('/sign-out', async (req, res, next) => {
     const uploadDir = pathModule.join(__dirname, '..', '..', 'assets', 'uploads', req.session.user_id)
     try {
-      await fs.promises.access(uploadDir)
-      await fs.promises.rmdir(uploadDir, { recursive: true })
+      const dirExists = await fs.promises
+        .access(uploadDir)
+        .then(() => true)
+        .catch(() => false)
+      if (dirExists) {
+        await fs.promises.rmdir(uploadDir, { recursive: true })
+      }
     } catch (err) {
       logger.error(err, 'Unable to delete directory')
     }

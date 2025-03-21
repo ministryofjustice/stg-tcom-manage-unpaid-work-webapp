@@ -1,5 +1,6 @@
 {% extends "./layouts/layout.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
 
 {% set pageTitle = applicationName + " - Get security code" %}
 {% set mainClasses = "app-container govuk-body" %}
@@ -8,11 +9,21 @@
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+      {% if errorMessage and errorMessage.length > 0 %}
+          {{ mojAlert({
+            variant: "error",
+            title: errorMessage,
+            showTitleAsHeading: true,
+            dismissible: true,
+            html: ''
+          }) }}
+        {% endif %}
+
  {{ govukBackLink({
         text: "Back",
-        href: "/one-login/create-password"
+        href: "/one-login/enter-phone-number"
         }) }}
-        <form class="form" action="enter-phone-number" method="post">
+        <form class="form" action="/one-login/get-security-code" method="post">
 
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
 
