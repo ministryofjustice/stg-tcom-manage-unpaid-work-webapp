@@ -1,17 +1,8 @@
 {% from "govuk/components/tabs/macro.njk" import govukTabs %}
-{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+
 
 {% set Overview %}
-<h2 class="govuk-heading-m">Overview</h2>
-{% set html %}
-  <p class="govuk-notification-banner__heading">
-    You need to <a class="govuk-notification-banner__link" href="#">verify</a> the identity for this person.
-  </p>
-{% endset %}
-
-{{ govukNotificationBanner({
-  html: html
-}) }}
+{% include './overview.njk' %}
 {% endset %}
 
 {% set Appointments %}
@@ -71,7 +62,7 @@
       panel: {
         html: Risk
       }
-    }, 
+    },
     {
       label: "Sentence",
       id: "sentence",
@@ -92,7 +83,7 @@
       panel: {
         html: Compliance
       }
-    }, 
+    },
     {
       label: "Interventions",
       id: "interventions",
