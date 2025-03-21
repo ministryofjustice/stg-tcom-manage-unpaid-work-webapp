@@ -8,7 +8,7 @@ export declare module 'express-session' {
     successMessage: string
     errorMessage: string
     is_pop_login: boolean
-    verificationPhoto: string // Changed from any to string
+    verificationPhoto: string
   }
 }
 
