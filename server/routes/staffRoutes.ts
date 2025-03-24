@@ -15,7 +15,23 @@ export default function routes(): Router {
   })
 
   post('/verify-pop-photo', async (req, res, next) => {
-    res.render('pages/index')
+    const { matchingPhoto } = req.body
+    if (matchingPhoto === 'yes') {
+      return res.redirect('/staff/verify-success')
+    }
+    if (matchingPhoto === 'no') {
+      return res.redirect('/staff/verify-reject')
+    }
+    const errorMessage = 'An option must be selected below'
+    return res.render('pages/staff/verify-pop-photo', { errorMessage })
+  })
+
+  get('/verify-success', async (req, res, next) => {
+    res.render('pages/staff/verify-success')
+  })
+
+  get('/verify-reject', async (req, res, next) => {
+    res.render('pages/staff/verify-reject')
   })
 
   return router

@@ -30,6 +30,17 @@
 }) }}
 {% endif %}
 
+{% if scenario == "verified" %}
+{{ mojAlert({
+  variant: "success",
+  title: "Account verified",
+  showTitleAsHeading: true,
+  dismissible: true,
+  html: 'Your account has been verified by your probation practitioner'
+}) }}
+{% endif %}
+
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
       <ul class="govuk-list navigation-list">

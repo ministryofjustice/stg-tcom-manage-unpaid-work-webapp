@@ -1,7 +1,8 @@
 {% extends "../../layouts/layout.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {%- from "govuk/components/button/macro.njk" import govukButton %}
-{%- from "moj/components/alert/macro.njk" import mojAlert -%}
+{%- from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 
 {% set pageTitle = applicationName + " - Verify Photo" %}
 {% set mainClasses = "app-container govuk-body" %}
@@ -12,13 +13,13 @@
   <div class="govuk-grid-column-two-thirds">
 
     {% if errorMessage and errorMessage.length > 0 %}
-      {{ mojAlert({
-        variant: "error",
-        title: errorMessage,
-        showTitleAsHeading: true,
-        dismissible: true,
-        html: ''
-      }) }}
+      {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: [{
+            text: errorMessage,
+            href: ""
+          }]
+        }) }}
     {% endif %}
 
     {{ govukBackLink({
@@ -28,6 +29,30 @@
     <h1 class="govuk-heading-l">Is this a true likeness of Joe Bloggs?</h1>
     <form class="form" action="/staff/verify-pop-photo" method="post">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      <div class="govuk-grid-row govuk-!-margin-bottom-4">
+        <div class="govuk-grid-column-full">
+          <img src="/assets/images/photo-id.png" alt="portrait photo for id" width="50%" height="50%"/>
+        </div>
+      </div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            {{ govukRadios({
+              name: "matchingPhoto",
+              fieldset: {
+              },
+              items: [
+                      {
+                        value: "yes",
+                        text: "Yes"
+                      },
+                      {
+                        value: "no",
+                        text: "No"
+                      }
+                    ]
+            }) }}
+        </div>
+      </div>
       <div class="govuk-grid-row">
           <div class="govuk-grid-column-full">
             {{ govukButton({
