@@ -18,6 +18,9 @@ services:
       - INGRESS_URL=http://localhost:3000
       - NO_HTTPS=true
       - POC_PASSWORD=supersecure
+      - VALID_OTP=123456
+      - POP_LOGIN_OTP=123456
+      - POP_PASSWORD=supersecure
 
 networks:
   tcom:

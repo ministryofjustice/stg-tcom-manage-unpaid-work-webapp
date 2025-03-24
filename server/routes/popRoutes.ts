@@ -31,7 +31,7 @@ export default function routes(): Router {
 
     const { scenario } = req.query
 
-    res.render('pages/pop/index', { scenario })
+    res.render('pages/pop/index', { scenario, session: req.session })
   })
 
   get('/your-details', async (req, res, next) => {

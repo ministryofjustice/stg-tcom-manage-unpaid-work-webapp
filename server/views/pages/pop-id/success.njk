@@ -1,0 +1,29 @@
+{% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% set pageTitle = applicationName + " - Success" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    {{ govukPanel({
+      titleText: "Photo submitted successfully",
+      html: "<p class='govuk-body'></p>"
+    }) }}
+
+    <p class="govuk-body govuk-!-font-weight-bold">What happens next</p>
+    <p class="govuk-body">Your account will be pending verification until your next face to face appointment with your probation practitioner</p>
+    <div class="govuk-form-group govuk-!-margin-top-4">
+      {{ govukButton({
+        text: "Continue",
+        href: "/pop/verify/set-pending-verification"
+      }) }}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

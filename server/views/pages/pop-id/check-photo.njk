@@ -1,0 +1,18 @@
+{% extends "../../layouts/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Checking Photo" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full center-content govuk-!-margin-bottom-4 ">
+    {% include "./partials/loader.njk" %}
+        <h1 class="govuk-heading-l govuk-!-margin-top-4">Checking photo</h1>
+    <form id="csrf-form">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}
