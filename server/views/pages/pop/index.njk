@@ -30,6 +30,7 @@
 }) }}
 {% endif %}
 
+
 {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
 {{ mojAlert({
   variant: "warning",
@@ -42,12 +43,13 @@
 {% endif %}
 
 {% if (session.popVerificationStatus == "verified" or scenario == "verified") %}
+
 {{ mojAlert({
   variant: "success",
   title: "Account verified",
   showTitleAsHeading: true,
-  dismissible: false,
-  html: 'Your account has been successfully verified.'
+  dismissible: true,
+  html: 'Your account has been verified by your probation practitioner'
 }) }}
 {% endif %}
 

@@ -1,0 +1,23 @@
+{% extends "../../layouts/layout.njk" %}
+
+{% from "govuk/components/panel/macro.njk" import govukPanel %}
+
+{% set pageTitle = applicationName + " - Verify Photo Rejection" %}
+{% set mainClasses = "app-container govuk-main-wrapper--l govuk-body" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukPanel({
+        titleText: "Identity check - Rejected",
+        html: "Follow the process to escalate this situation"
+      }) }}
+      <p class="govuk-body">
+        <a href="/pop/?bypass=true&scenario=pending" class="govuk-link">For research only: View POP facing index screen - will still be pending</a>
+      </p>
+
+  </div>
+</div>
+{% endblock %}
+

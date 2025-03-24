@@ -1,0 +1,33 @@
+{% from "govuk/components/service-navigation/macro.njk" import govukServiceNavigation %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{{ govukServiceNavigation({
+  navigation: [
+    {
+      href: "#",
+      text: "Home"
+    },
+    {
+      href: "#",
+      text: "Cases",
+      active: true
+    },
+    {
+      href: "#",
+      text: "Search"
+    }
+  ]
+}) }}
+
+{{ govukBreadcrumbs({
+  items: [
+    {
+      text: "My cases",
+      href: "#"
+    },
+    {
+      text: "Joe Bloggs",
+      href: "#"
+    }
+  ]
+}) }}
