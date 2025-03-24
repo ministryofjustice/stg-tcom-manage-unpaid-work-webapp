@@ -9,9 +9,9 @@ import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
 import { basicAuthentication } from './middleware/basicAuthentication'
-
 import adminRoutes from './routes/adminRoutes'
 import popRoutes from './routes/popRoutes'
+import popVerifyRoutes from './routes/popVerifyRoutes'
 import indexRoutes from './routes/index'
 import authRoutes from './routes/authRoutes'
 import supervisorRoutes from './routes/supervisorRoutes'
@@ -38,8 +38,9 @@ export default function createApp(): express.Application {
   app.use(basicAuthentication())
   app.use('/', indexRoutes())
   app.use('/admin', adminRoutes())
-  app.use('/pop', popRoutes())
   app.use('/one-login', authRoutes())
+  app.use('/pop/verify', popVerifyRoutes())
+  app.use('/pop', popRoutes())
   app.use('/supervisor', supervisorRoutes())
   app.use('/staff', staffRoutes())
 

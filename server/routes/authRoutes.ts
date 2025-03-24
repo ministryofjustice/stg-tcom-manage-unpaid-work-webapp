@@ -71,7 +71,7 @@ export default function authRoutes(): Router {
       return res.redirect('/one-login/create-password')
     }
     if (password.length < 8) {
-      req.session.errorMessage = 'Password must be at least 6 characters long. Please try again.'
+      req.session.errorMessage = 'Password must be at least 8 characters long. Please try again.'
       return res.redirect('/one-login/create-password')
     }
     return res.redirect('/one-login/enter-phone-number')
@@ -151,7 +151,7 @@ export default function authRoutes(): Router {
 
   post('/account-created', async (req, res, next) => {
     req.session.is_pop_login = true
-    return res.redirect('/pop')
+    return res.redirect('/pop/verify')
   })
 
   get('/enter-email-address-login', async (req, res, next) => {

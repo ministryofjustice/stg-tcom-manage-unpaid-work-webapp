@@ -27,10 +27,13 @@ export default function setUpWebSecurity(): Router {
           styleSrc: ["'self'", (_req: Request, res: Response) => `'nonce-${res.locals.cspNonce}'`],
           fontSrc: ["'self'"],
           formAction: ["'self'"],
+          mediaSrc: ["'self'", 'data:'],
+          imgSrc: ["'self'", 'data:'],
         },
       },
       crossOriginEmbedderPolicy: true,
     }),
   )
+
   return router
 }
