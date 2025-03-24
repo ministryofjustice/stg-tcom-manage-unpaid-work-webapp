@@ -14,7 +14,7 @@
     <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
       {{ govukBackLink({
         text: "Back",
-        href: "/pop/verify/upload-photo"
+        href: "/pop/verify/options"
       }) }}
       <h1 class="govuk-heading-l govuk-!-margin-top-8 govuk-!-margin-bottom-1">Do you want to submit this photo?</h1>
     </div>
@@ -23,44 +23,44 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <img src="{{verificationPhoto}}" alt="Uploaded Photo" class="govuk-!-width-one-quarter" />
+    <img src="{{verificationPhoto}}" alt="Uploaded Photo" class="photo-container" />
 
- <div class="govuk-form-group govuk-!-margin-top-6">
-   {{ govukWarningText({
-  html: "By confirming you confirm that your photo meets the <a href='#'>photo rules</a>",
-  iconFallbackText: "Warning"
-}) }}
-   {{ govukRadios({
-  name: "meetRules",
-  fieldset: {
-    legend: {
-      text: "",
-      isPageHeading: true,
-      classes: "govuk-fieldset__legend--m"
-    }
-  },
-  items: [
-          {
-            value: "Unsatisfactory",
-            text: "Yes the photo meet the rules"
+    <form method="post" action="/pop/verify/display-photo">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      <div class="govuk-form-group govuk-!-margin-top-2">
+        {{ govukWarningText({
+          html: "By confirming you confirm that your photo meets the <a href='#'>photo rules</a>",
+          iconFallbackText: "Warning"
+        }) }}
+        {{ govukRadios({
+          name: "meetRules",
+          fieldset: {
+            legend: {
+              text: "",
+              isPageHeading: true,
+              classes: "govuk-fieldset__legend--m"
+            }
           },
-          {
-            value: "Adequate",
-            text: "No I want to get another photo"
-          }
-        ]
-}) }}
- <div class="govuk-form-group govuk-!-margin-top-4">
-
-{{ govukButton({
-        text: "Continue",
-        type: "submit"
-      }) }}
+          items: [
+            {
+              value: "OkayWithIt",
+              text: "Yes, this photo meet the rules"
+            },
+            {
+              value: "WantAnotherOne",
+              text: "No, I want to get another photo"
+            }
+          ]
+        }) }}
+        <div class="govuk-form-group govuk-!-margin-top-4">
+          {{ govukButton({
+            text: "Continue",
+            type: "submit"
+          }) }}
+        </div>
       </div>
+    </form>
   </div>
-  </div>
-
- 
 </div>
 
 {% endblock %}

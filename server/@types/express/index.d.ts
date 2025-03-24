@@ -9,6 +9,7 @@ export declare module 'express-session' {
     errorMessage: string
     is_pop_login: boolean
     verificationPhoto: string
+    isPendingVerification: boolean
   }
 }
 

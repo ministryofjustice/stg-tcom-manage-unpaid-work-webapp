@@ -41,6 +41,15 @@
 }) }}
 {% endif %}
 
+{% if session.isPendingVerification %}
+{{ mojAlert({
+  variant: "warning",
+  title: "Account pending verification",
+  showTitleAsHeading: true,
+  dismissible: false,
+  html: 'Your account has been created and will be verified after your next face-to-face appointment with your probation practitioner.'
+}) }}
+{% endif %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">

@@ -4,6 +4,7 @@ import asyncMiddleware from '../middleware/asyncMiddleware'
 
 export default function routes(): Router {
   const router = Router()
+
   const get = (routePath: string | string[], handler: RequestHandler) => router.get(routePath, asyncMiddleware(handler))
   const post = (routePath: string | string[], handler: RequestHandler) =>
     router.post(routePath, asyncMiddleware(handler))
@@ -48,32 +49,68 @@ export default function routes(): Router {
   get('/display-photo', async (req, res, next) => {
     const { verificationPhoto } = req.session
     if (!verificationPhoto) {
-      return res.redirect(`/pop/verify/upload-photo`)
+      return res.redirect(`/pop/verify/options`)
     }
     return res.render('pages/pop-id/display-photo', { verificationPhoto })
   })
 
   post('/display-photo', async (req, res, next) => {
     const { meetRules } = req.body
-    if (meetRules === 'Adequate') {
+    if (meetRules === 'WantAnotherOne') {
       return res.redirect('/pop/verify/options')
     }
-    return res.redirect('/pop/verify/checking-photo')
+    return res.redirect('/pop/verify/check-photo')
   })
 
   get('/take-photo', async (req, res, next) => {
     res.render('pages/pop-id/take-photo')
   })
-  post('/take-photo', async (req, res, next) => {
-    return res.redirect(`/pop/verify/confirm-photo`)
+
+  post('/save-photo', async (req, res, next) => {
+    const { photo } = req.body
+    if (photo) {
+      req.session.verificationPhoto = photo
+      res.json({ success: true })
+    } else {
+      res.status(400).json({ success: false, error: 'No photo' })
+    }
+  })
+
+  get('/check-photo', async (req, res, next) => {
+    const { verificationPhoto } = req.session
+    if (!verificationPhoto) {
+      return res.redirect(`/pop/verify/options`)
+    }
+    return res.render('pages/pop-id/check-photo', {
+      autoRedirect: true,
+      redirectUrl: '/pop/verify/reject-photo',
+      redirectDelay: 2500,
+      cspNonce: res.locals.cspNonce,
+    })
+  })
+
+  get('/reject-photo', async (req, res, next) => {
+    const { verificationPhoto } = req.session
+    if (!verificationPhoto) {
+      return res.redirect(`/pop/verify/options`)
+    }
+    return res.render('pages/pop-id/reject-photo', { verificationPhoto })
+  })
+  get('/uploading-photo', async (req, res, next) => {
+    const { verificationPhoto } = req.session
+    if (!verificationPhoto) {
+      return res.redirect(`/pop/verify/options`)
+    }
+    return res.render('pages/pop-id/uploading-photo', {
+      autoRedirect: true,
+      redirectUrl: '/pop/verify/success',
+      redirectDelay: 2500,
+      cspNonce: res.locals.cspNonce,
+    })
   })
 
   get('/confirm-photo', async (req, res, next) => {
     res.render('pages/pop-id/confirm-photo')
-  })
-
-  get('/reject-photo', async (req, res, next) => {
-    res.render('pages/pop-id/reject-photo')
   })
 
   get('/success', async (req, res, next) => {

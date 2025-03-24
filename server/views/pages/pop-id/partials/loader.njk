@@ -1,0 +1,9 @@
+<div class="ccms-loader"></div>
+
+{% if autoRedirect %}
+<script nonce="{{ cspNonce }}">
+  setTimeout(function() {
+    window.location.href = '{{ redirectUrl }}';
+  }, {{ redirectDelay }});
+</script>
+{% endif %}

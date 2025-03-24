@@ -25,13 +25,18 @@ export default function routes(): Router {
     }
   })
 
+  get('/set-pending-verification', async (req, res, next) => {
+    req.session.isPendingVerification = true
+    res.redirect('/pop')
+  })
+
   get('/', async (req, res, next) => {
     // /pop?scenario=missed
     // /pop?scenario=reminder
 
     const { scenario } = req.query
 
-    res.render('pages/pop/index', { scenario })
+    res.render('pages/pop/index', { scenario, session: req.session })
   })
 
   get('/your-details', async (req, res, next) => {

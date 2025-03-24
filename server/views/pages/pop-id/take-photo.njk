@@ -15,23 +15,28 @@
         text: "Back",
         href: "/pop/verify/options"
       }) }}
-      <h1 class="govuk-heading-l govuk-!-margin-top-8 govuk-!-margin-bottom-1">How do you want to provide your photo?</h1>
+      <h1 class="govuk-heading-l govuk-!-margin-top-8 govuk-!-margin-bottom-1">Take a photo</h1>
     </div>
   </div>
 </div>
 
 <div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
+  <div class="govuk-grid-column-full center-content">
+   <div id="video-container">
+      <!-- Camera stream -->
+    </div>
+     {{ govukButton({
+        text: "Capture",
+        type: "button",
+        id: "take-photo",
+        classes: "govuk-!-margin-top-4"
+      }) }}
     <form method="post" action="/pop/verify/take-photo">
       <input type="hidden" name="_csrf" value="{{ csrfToken }}">
-    
-
-      {{ govukButton({
-        text: "Continue",
-        type: "submit"
-      }) }}
     </form>
+   
   </div>
 </div>
 
 {% endblock %}
+
