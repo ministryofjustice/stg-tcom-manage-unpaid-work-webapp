@@ -27,9 +27,6 @@
       {{ govukRadios({
         name: "option",
         fieldset: {
-          legend: {
-            text: "Options"
-          }
         },
         items: [
           {
@@ -42,10 +39,7 @@
             text: "I need to take a photo",
             checked: selectedOption == 'take'
           }
-        ],
-        errorMessage: {
-          text: "Please select an option before continuing"
-        }
+        ]
       }) }}
 
       {{ govukButton({
