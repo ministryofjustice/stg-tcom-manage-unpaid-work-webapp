@@ -4,7 +4,7 @@ const placements = [
     title: 'Local Park Clean-up',
     address: '45 Park Road, London E2',
     nextSession: 'Today, 9am - 5pm',
-    slotsBooked: 12,
+    slotsBooked: 8,
     totalSlots: 20,
     predictedTurnout: 5,
     attendees: [
