@@ -1,0 +1,53 @@
+{% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{%- from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitle = applicationName + " - How to provide your photo" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
+      {{ govukBackLink({
+        text: "Back",
+        href: "/pop/verify"
+      }) }}
+      <h1 class="govuk-heading-l govuk-!-margin-top-8 govuk-!-margin-bottom-1">How do you want to provide your photo?</h1>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <form method="post" action="/pop/verify/options">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      {{ govukRadios({
+        name: "option",
+        fieldset: {
+        },
+        items: [
+          {
+            value: "upload",
+            text: "Upload a file",
+            checked: selectedOption == 'upload'
+          },
+          {
+            value: "take",
+            text: "I need to take a photo",
+            checked: selectedOption == 'take'
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue",
+        type: "submit"
+      }) }}
+    </form>
+  </div>
+</div>
+
+{% endblock %}

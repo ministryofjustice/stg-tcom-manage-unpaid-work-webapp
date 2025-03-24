@@ -1,0 +1,33 @@
+{% extends "./layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
+
+{% set pageTitle = applicationName + " - Check phone" %}
+{% set mainClasses = "app-auth-container govuk-body" %}
+
+{% block content %}
+
+  {% if errorMessage and errorMessage.length > 0 %}
+          {{ mojAlert({
+            variant: "error",
+            title: errorMessage,
+            showTitleAsHeading: true,
+            dismissible: true,
+            html: ''
+          }) }}
+        {% endif %}
+
+ {{ govukBackLink({
+  text: "Back",
+  href: "/one-login/enter-password"
+}) }}
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <form class="form" action="/one-login/check-phone-login" method="post">
+             {% include "./partials/check-phone.njk" %}
+
+        </form>
+    </div>
+</div>
+{% endblock %}

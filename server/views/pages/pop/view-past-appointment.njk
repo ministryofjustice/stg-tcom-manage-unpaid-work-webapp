@@ -1,0 +1,78 @@
+{% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+
+{% set pageTitle = applicationName + " - View Past Appointment" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+     {{ govukBackLink({
+      text: "Back to Your appointments",
+      href: "/pop/appointments"
+    }) }}
+    <h1 class="govuk-heading-l govuk-!-margin-top-8 govuk-!-margin-bottom-1">View past appointment</h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row govuk-!-margin-top-6">
+  <div class="govuk-grid-column-full">
+
+    <div class="govuk-box govuk-box--rounded govuk-!-padding-4 border box-shadow">
+      <div class="govuk-grid-row govuk-!-margin-bottom-4">
+        <div class="govuk-grid-column-one-third">
+          <h3 class="govuk-heading-s">Meeting point</h3>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-!-color-muted govuk-!-padding-0 govuk-!-margin-0">123 Garden Street, London SE1 7TH</p>
+        </div>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+
+      <div class="govuk-grid-row govuk-!-margin-bottom-2">
+        <div class="govuk-grid-column-one-third">
+          <h3 class="govuk-heading-s">Date</h3>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body">Monday 20 Jan 2025</p>
+        </div>
+      </div>
+      <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+
+      <div class="govuk-grid-row govuk-!-margin-bottom-2">
+        <div class="govuk-grid-column-one-third">
+          <h3 class="govuk-heading-s">Time</h3>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body">9am - 5pm</p>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+
+      <div class="govuk-grid-row govuk-!-margin-bottom-2">
+        <div class="govuk-grid-column-one-third">
+          <h3 class="govuk-heading-s">Your behavior and attitude</h3>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body">Excellent</p>
+        </div>
+      </div>
+
+      <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-4 govuk-!-color-light">
+
+      <div class="govuk-grid-row govuk-!-margin-bottom-2">
+        <div class="govuk-grid-column-one-third">
+          <h3 class="govuk-heading-s">Supervisor comments</h3>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body">Great work on the skirting board. Appreciate you keeping the energy up even after 3pm</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

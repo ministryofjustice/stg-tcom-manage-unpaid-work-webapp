@@ -1,0 +1,124 @@
+{% extends "../../layouts/layout.njk" %}
+{%- from "govuk/components/back-link/macro.njk" import govukBackLink -%}
+{%- from "moj/components/badge/macro.njk" import mojBadge -%}
+{%- from "govuk/components/input/macro.njk" import govukInput -%}
+{%- from "govuk/components/button/macro.njk" import govukButton -%}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+
+
+{% set pageTitle = applicationName + " - Checkout Attendee" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    {{ govukBackLink({
+      href: "/supervisor/view-placement/" + placement.id,
+      text: "Back to Placement"
+    }) }}
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+  {% include "./partials/profile-banner.njk" %}
+
+    <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-6 govuk-!-margin-bottom-6 govuk-!-padding-top-4 border box-shadow">
+      <h1 class="govuk-heading-m">Check out</h1>
+
+            <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 govuk-!-font-weight-bold ">Hours remaining</p>
+            <p class="govuk-body govuk-!-padding-bottom-4">45 hours</p>
+
+      <form method="post" action="/supervisor/check-out/{{ placement.id }}/{{ attendee.userId }}/confirm">
+              <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+        <h3 class="govuk-label--m">End time</h3>
+  <div class="govuk-form-group govuk-!-display-inline-block govuk-!-margin-right-2">
+    {{ govukInput({
+      id: "hours",
+      name: "hours",
+      type: "number",
+      classes: "govuk-input--width-2",
+      attributes: {
+        min: "0",
+        max: "23"
+      }
+    }) }}
+  </div>
+
+  <div class="govuk-form-group govuk-!-display-inline-block govuk-!-margin-right-2">
+    {{ govukInput({
+      id: "minutes",
+      name: "minutes",
+      type: "number",
+      classes: "govuk-input--width-2",
+      attributes: {
+        min: "0",
+        max: "59"
+      }
+    }) }}
+  </div>
+
+  <div class="govuk-form-group">
+   {{ govukRadios({
+  name: "howDidTheyDo",
+  fieldset: {
+    legend: {
+      text: "How did they do",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--m"
+    }
+  },
+  items: [
+          {
+            value: "Unsatisfactory",
+            text: "Unsatisfactory"
+          },
+          {
+            value: "Adequate",
+            text: "Adequate"
+          },
+          {
+            value: "Good",
+            text: "Good"
+          },
+          {
+            value: "Excellent",
+            text: "Excellent"
+          }
+        ]
+}) }}
+  </div>
+
+  <div class="govuk-form-group">
+ {{ govukTextarea({
+  name: "comments",
+  id: "comments",
+  label: {
+    text: "Comments",
+    classes: "govuk-label--m",
+    isPageHeading: true
+  },
+  hint: {
+    text: "This will be shared with POPs"
+  }
+}) }}
+  </div>
+
+  <div class="govuk-form-group">
+
+  {{ govukButton({
+    text: "Confirm",
+    type: "submit",
+    classes: ""
+  }) }}
+  </div>
+</form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

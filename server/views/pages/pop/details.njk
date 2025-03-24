@@ -1,46 +1,56 @@
 {% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
 {% set pageTitle = applicationName + " - Your details" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
 
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/pop">&lt; Back to homepage</a>
-      <h1 class="govuk-heading-l govuk-!-margin-top-4 govuk-!-margin-bottom-2">Your details</h1>
-    </div>
+     {{ govukBackLink({
+      text: "Back to homepage",
+      href: "/pop"
+    }) }}
+  </div>
+  <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l">Your details</h1>
+      <p class="govuk-body subhead">Last updated on 10 March 2025, 2.29pm</p>
   </div>
 </div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-3 govuk-!-margin-bottom-6 govuk-!-padding-top-4 border box-shadow">
+    <div class="govuk-box govuk-box--rounded govuk-!-padding-3 govuk-!-margin-bottom-6 govuk-!-padding-top-4 border box-shadow">
       <div class="profile">
-        <div class="prefix">C</div>
+        <div class="prefix">J</div>
         <div class="name">
           <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold govuk-!-font-size-16">{{ userProfile.name }}</p>
-          <p class="govuk-body-xs govuk-!-margin-top-0 govuk-!-font-size-14">User ID: {{ userProfile.userId }}</p>
+          <p class="govuk-!-margin-top-0 govuk-!-font-size-14">User ID: {{ userProfile.userId }}</p>
         </div>
       </div>
 
       <div class="">
         <div class="govuk-!-border-bottom">
-          <p class="govuk-heading-m govuk-!-font-size-16 govuk-!-font-weight-bold govuk-!-margin-bottom-2">Personal information</p>
-          <p class="govuk-body-xs govuk-!-margin-bottom-2 govuk-!-color-light">To change your personal information, please contact your responsible officer.</p>
+          <h2 class="govuk-!-margin-bottom-2">Personal information</h2>
+          <p class="govuk-!-margin-bottom-2 govuk-!-color-light">To change your personal information, <a href="/pop/new-message">contact your probation practitioner</a>.</p>
           <div class="govuk-!-margin-top-4">
             <div class="govuk-!-margin-bottom-4">
-              <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Name</p>
-              <p class="govuk-body govuk-!-font-size-16">{{ userProfile.name }}</p>
+              <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Name</h3>
+              <p class="">{{ userProfile.name }}</p>
             </div>
             <div class="govuk-!-margin-bottom-4">
-              <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Requirements</p>
-              <p class="govuk-body govuk-!-font-size-16">{{ userProfile.hoursRequired }} Unpaid work - 100 hours</p>
+              <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Date of birth</h3>
+              <p class="">21 November 1992</p>
+            </div>
+            <div class="govuk-!-margin-bottom-4">
+              <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Order type</h3>
+              <p class="">Community order</p>
             </div>
             <div class="govuk-!-margin-bottom-1">
-              <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Address</p>
-              <p class="govuk-body govuk-!-font-size-16">{{ userProfile.address | replace('\n', '<br>') | safe }}</p>
+              <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Address</h3>
+              <p class="">{{ userProfile.address | safe }}</p>
             </div>
           </div>
         </div>
@@ -48,24 +58,73 @@
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-color-light govuk-!-background-color-light">
 
         <div class="govuk-!-padding-bottom-4">
-          <p class="govuk-heading-m govuk-!-font-size-16 govuk-!-font-weight-bold govuk-!-margin-bottom-2">Contact details</p>
+          <h2 class=" govuk-!-margin-bottom-2">Contact details</h2>
           <div class="govuk-!-margin-top-4">
             <div class="govuk-!-margin-bottom-4 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
               <div>
-                <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Email</p>
-                <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-bottom-0">{{ userProfile.email }}</p>
+                <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Email</h3>
+                <p class="govuk-!-margin-bottom-0">{{ userProfile.email }}</p>
               </div>
-              <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-14 govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
+              <a class="govuk-link govuk-link--no-visited-state govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
             </div>
             <div class="govuk-!-margin-bottom-1 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
               <div>
-                <p class="govuk-body-xs govuk-!-margin-bottom-0 govuk-!-color-light">Phone number</p>
-                <p class="govuk-body govuk-!-font-size-16 govuk-!-margin-bottom-0">{{ userProfile.phone }}</p>
+                <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Phone number</h3>
+                <p class="govuk-!-margin-bottom-0">{{ userProfile.phone }}</p>
               </div>
-              <a class="govuk-link govuk-link--no-visited-state govuk-!-font-size-14 govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
+              <a class="govuk-link govuk-link--no-visited-state govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
             </div>
           </div>
         </div>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-color-light govuk-!-background-color-light">
+
+        <div class="govuk-!-padding-bottom-4">
+          <h2 class="govuk-!-margin-bottom-2">Emergency contact details</h2>
+          <div class="govuk-!-margin-top-4">
+            <div class="govuk-!-margin-bottom-4 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
+              <div>
+                <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Name</h3>
+                <p class="govuk-!-margin-bottom-0">Harold Bloggs</p>
+              </div>
+            </div>
+            <div class="govuk-!-margin-bottom-1 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
+              <div>
+                <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Phone number</h3>
+                <p class="govuk-!-margin-bottom-0">07777 345123</p>
+              </div>
+              <a class="govuk-link govuk-link--no-visited-state govuk-!-padding-0 govuk-!-text-decoration-none" href="#">Change</a>
+            </div>
+          </div>
+        </div>
+
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-color-light govuk-!-background-color-light">
+
+        <div class="govuk-!-padding-bottom-4">
+          <h2 class="govuk-!-margin-bottom-2">Probation practitioner details</h2>
+          <div class="govuk-!-margin-top-4">
+            <div class="govuk-!-margin-bottom-4 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
+              <div>
+                <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Name</h3>
+                <p class="govuk-!-margin-bottom-0">Julie Myers</p>
+              </div>
+            </div>
+              <div class="govuk-!-margin-bottom-4 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
+              <div>
+                <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Office address</h3>
+                <p class="govuk-!-margin-bottom-0">National Probation Service, 235 Greenwich High Road,  London SE10 8NB</p>
+
+              </div>
+            </div>
+            <div class="govuk-!-margin-bottom-1 govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-center">
+              <div>
+                <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Office phone number</h3>
+                <p class="govuk-!-margin-bottom-0">020 999 1234</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>

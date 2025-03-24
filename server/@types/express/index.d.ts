@@ -3,6 +3,13 @@ export declare module 'express-session' {
   interface SessionData {
     returnTo: string
     nowInMinutes: number
+    user_id: string
+    idOption: string
+    successMessage: string
+    errorMessage: string
+    is_pop_login: boolean
+    verificationPhoto: string
+    popVerificationStatus: 'pending' | 'failed' | 'verified'
   }
 }
 
@@ -18,6 +25,13 @@ export declare global {
       verified?: boolean
       id: string
       logout(done: (err: unknown) => void): void
+    }
+
+    interface MessageItem {
+      html: string
+      type: string
+      timestamp: string
+      sender: string
     }
   }
 }

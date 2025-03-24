@@ -1,12 +1,29 @@
 import { type RequestHandler, Router } from 'express'
+import path from 'path'
+import { randomUUID } from 'crypto'
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import { pastAppointments, upcomingAppointments } from './data/appointments'
 import messages from './data/messages'
+import setUpMultipartFormDataParsing from '../middleware/setUpMultipartFormDataParsing'
 
-export default function popRoutes(): Router {
+export default function routes(): Router {
   const router = Router()
-  const get = (path: string | string[], handler: RequestHandler) => router.get(path, asyncMiddleware(handler))
-  const post = (path: string | string[], handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
+  const get = (routePath: string | string[], handler: RequestHandler) => router.get(routePath, asyncMiddleware(handler))
+  const post = (routePath: string | string[], handler: RequestHandler) =>
+    router.post(routePath, asyncMiddleware(handler))
+  router.use(setUpMultipartFormDataParsing())
+
+  router.use((req, res, next) => {
+    const { bypass } = req.query
+    if (bypass) {
+      req.session.is_pop_login = true
+    }
+    if (req.session.is_pop_login) {
+      next()
+    } else {
+      res.redirect('/one-login/')
+    }
+  })
 
   get('/', async (req, res, next) => {
     // /pop?scenario=missed
@@ -14,16 +31,16 @@ export default function popRoutes(): Router {
 
     const { scenario } = req.query
 
-    res.render('pages/pop/index', { scenario })
+    res.render('pages/pop/index', { scenario, session: req.session })
   })
 
   get('/your-details', async (req, res, next) => {
     const userProfile = {
-      name: 'Carolina Pizatto Girardi',
+      name: 'Joe Bloggs',
       userId: 'P258053P',
       hoursRequired: 100,
-      address: 'Flat 1\n1 Example St\nLondon\nSE1 1AA',
-      email: 'carolinapizatto@example.com',
+      address: 'Flat 1, 1 Example St, London, SE1 1AA',
+      email: 'joe.bloggs@example.com',
       phone: '07777 012345',
     }
     res.render('pages/pop/details', { userProfile })
@@ -33,6 +50,7 @@ export default function popRoutes(): Router {
     const progress = {
       completedHours: 0,
       totalHours: 100,
+      percentCompleted: (0 / 100) * 100,
     }
 
     const appointment = {
@@ -56,6 +74,10 @@ export default function popRoutes(): Router {
     res.render('pages/pop/view-appointment')
   })
 
+  get('/view-past-appointment', async (req, res, next) => {
+    res.render('pages/pop/view-past-appointment')
+  })
+
   get('/messages', async (req, res, next) => {
     res.render('pages/pop/messages', { messages })
   })
@@ -63,7 +85,7 @@ export default function popRoutes(): Router {
   get('/messages/thread/:id', async (req, res, next) => {
     const message = messages.find(msg => msg.id === req.params.id)
     if (message) {
-      res.render('pages/pop/messageThread', { message })
+      res.render('pages/pop/messageThread', { message, error: req.flash('error') })
     } else {
       res.status(404).send('Message not found')
     }
@@ -72,13 +94,31 @@ export default function popRoutes(): Router {
   post('/messages/thread/:id', async (req, res, next) => {
     const message = messages.find(msg => msg.id === req.params.id)
     if (message) {
-      const newMessage = {
-        text: req.body.message,
-        type: 'sent',
-        timestamp: new Date().toLocaleString(),
-        sender: 'You',
+      let messageText = req.body.message
+
+      if (req.file) {
+        try {
+          const relativePath = `/assets/uploads/${req.session.user_id}/${path.basename(req.file.path)}`
+          const attachmentLink = `<a href="${relativePath}" target="_blank">${req.file.originalname}</a>`
+          messageText = messageText
+            ? ` ${messageText}<br><br>Attachment: <br> ${attachmentLink}`
+            : `Attachment: ${attachmentLink}`
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(`Error processing uploaded file: ${error.message}`)
+        }
       }
-      message.items.push(newMessage)
+
+      if (messageText || req.file) {
+        const newMessage: Express.MessageItem = {
+          html: messageText,
+          type: 'sent',
+          timestamp: new Date().toLocaleString(),
+          sender: 'You',
+        }
+        message.items.push(newMessage as unknown as { html: string; type: string; timestamp: string; sender: string })
+      }
+
       res.redirect(`/pop/messages/thread/${req.params.id}`)
     } else {
       res.status(404).send('Message not found')
@@ -90,7 +130,45 @@ export default function popRoutes(): Router {
   })
 
   post('/new-message', async (req, res, next) => {
-    res.redirect(`/pop/messages/thread/c8ab26a7-e4d3-4f78-82a2-98fec61e79e5`)
+    const { subject } = req.body
+    let { message: messageText } = req.body
+
+    if (req.file) {
+      try {
+        const relativePath = `/assets/uploads/${req.session.user_id}/${path.basename(req.file.path)}`
+        const attachmentLink = `<a href="${relativePath}" target="_blank">${req.file.originalname}</a>`
+        messageText = messageText
+          ? `${messageText}<br><br>Attachment: <br>${attachmentLink}`
+          : `Attachment: ${attachmentLink}`
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(`Error processing uploaded file: ${error.message}`)
+      }
+    }
+
+    if (subject && messageText) {
+      const newMessage = {
+        id: randomUUID(),
+        subject,
+        date: '11 March 2024',
+        status: 'new',
+        description: messageText,
+        items: [
+          {
+            html: messageText,
+            type: 'sent',
+            timestamp: '11 March 2024',
+            sender: 'You',
+          },
+        ],
+      }
+      messages.push(newMessage)
+      res.redirect(`/pop/messages/thread/${newMessage.id}`)
+    } else {
+      const { successMessage } = req.session
+      delete req.session.successMessage
+      res.render('pages/pop/new-message', { message: successMessage })
+    }
   })
 
   return router

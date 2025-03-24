@@ -1,36 +1,63 @@
-.govuk-frontend-supported {
-  background-color: #F3F2F1;
-}
-
 .govuk-main-wrapper {
   min-height: 800px;
 }
-
-.gem-c-cards__list li {
-  list-style: none;
+.app-auth-container{
+  min-height: 100px;
 }
 
-.gem-c-cards__list-item-wrapper {
-  background-color: white;
-  border: 1px solid #dcdcdc;
-  padding: 25px;
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  position: relative;
+h3 {
+  font-weight: bold !important;
 }
 
-.gem-c-cards__list-item-wrapper::after {
-  content: '→';
-  position: absolute;
-  right: 20px;
-  font-size: 20px;
-  color: #005ea5;
+h4 {
+  font-weight: bold !important;
 }
 
-.gem-c-cards__sub-heading {
-  margin: 0;
+.total-hours {
+  border: 1px $govuk-border-colour solid;
+  background-color: govuk-colour("mid-grey");
+  @include govuk-responsive-margin(5,'bottom');
+  @include govuk-responsive-margin(5,'top');
+}
+
+.completed-hours {
+  background-color: $govuk-success-colour;
+  height: 0.5em;
+}
+
+// override in one place using mixins to reduce repeated classes in njks
+.appointment-summary p, .appointment-summary h4 {
+  @include govuk-responsive-margin(0);
+  @include govuk-responsive-padding(0);
+  @include govuk-responsive-padding(1,'bottom');
+}
+
+.appointment-description {
+  @include govuk-responsive-margin(0);
+  @include govuk-responsive-margin(4,'bottom');
+  @include govuk-responsive-margin(3,'top');
+  @include govuk-responsive-padding(0);
+  @include govuk-responsive-padding(1,'bottom');
+}
+
+.appointment-summary, .message-summary {
+  @include govuk-responsive-padding(4);
+  @include govuk-responsive-margin(6,'bottom');
+}
+
+.message-summary h3 {
+  @include govuk-responsive-margin(0);
+  @include govuk-responsive-padding(0);
+  @include govuk-responsive-padding(1,'bottom');
+}
+
+.govuk-box--rounded {
+  border: 1px $govuk-border-colour solid;
+  border-radius: 5px;
+}
+
+.subhead {
+  color:  $govuk-secondary-text-colour;
 }
 
 .profile {
@@ -52,20 +79,14 @@
   font-weight: bold;
 }
 
-.govuk-box--white {
-  background-color: govuk-colour("white");;
-}
-.govuk-text--blue {
-  color: govuk-colour("blue");;
-}
-.govuk-box--rounded {
-  border-radius: 5px;
-}
-
-.govuk-button--primary {
-  background-color: #005ea5; 
+ul.navigation-list li a{
+  background-color: white;
+  border: 1px solid $govuk-border-colour;
+  padding: 25px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
 }
 
-.govuk-button--primary:hover {
-  background-color: #387EBF;
-}

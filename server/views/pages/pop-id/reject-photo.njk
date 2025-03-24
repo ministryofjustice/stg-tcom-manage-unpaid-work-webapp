@@ -1,0 +1,37 @@
+{% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
+
+{% set pageTitle = applicationName + " - Reject Photo" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row govuk-!-margin-top-8">
+  <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column govuk-!-margin-bottom-4">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-1">You can't use this photo</h1>
+    </div>
+    <p class="govuk-body">Your photo did not meet the required standards. Please try again.</p>
+    <div class="govuk-form-group govuk-!-margin-top-4">
+      {{ govukButton({
+        text: "Choose another photo",
+        href: "/pop/verify/options"
+      }) }}
+      </br>
+      <a href="/pop/verify/uploading-photo">For research only: By-pass rejected photo</a>
+    </div>
+  </div>
+  <div class="govuk-grid-column-one-third">
+{{ mojAlert({
+  variant: "error",
+  title: "Your Photo",
+  showTitleAsHeading: true,
+  dismissible: false,
+  text: ""
+}) }}    <img src="{{ verificationPhoto }}" class="photo-container"  alt="Your Photo" class="govuk-!-margin-top-8 govuk-!-margin-bottom-1">
+  </div>
+</div>
+
+{% endblock %}

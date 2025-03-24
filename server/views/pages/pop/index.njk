@@ -7,7 +7,7 @@
 
 {% block content %}
 
-<h1 class="govuk-heading-l">Welcome, Carolina</h1>
+<h1 class="govuk-heading-l">Welcome, Joe</h1>
 <p class="govuk-body">View and manage your community payback</p>
 
 {% if scenario == "missed" %}
@@ -30,47 +30,78 @@
 }) }}
 {% endif %}
 
+
+{% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
+{{ mojAlert({
+  variant: "warning",
+  title: "Account pending verification",
+  showTitleAsHeading: true,
+  dismissible: false,
+  html: 'Your account has been created and will be verified after your next face-to-face appointment with your probation practitioner.
+  <br /> Once your account is activated you will be able to acccess the links below.'
+}) }}
+{% endif %}
+
+{% if (session.popVerificationStatus == "verified" or scenario == "verified") %}
+
+{{ mojAlert({
+  variant: "success",
+  title: "Account verified",
+  showTitleAsHeading: true,
+  dismissible: true,
+  html: 'Your account has been verified by your probation practitioner'
+}) }}
+{% endif %}
+
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="gem-c-cards">
-      <ul class="gem-c-cards__list gem-c-cards__list--one-column govuk-!-margin-0 govuk-!-padding-0">
-        <li class="gem-c-cards__list-item">
-          <div class="gem-c-cards__list-item-wrapper">
-            <h3 class="gem-c-cards__sub-heading govuk-heading-s">
-              <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/pop/your-details">Your details</a>
-            </h3>
-          </div>
+      <ul class="govuk-list navigation-list">
+        <li >
+          <p class="govuk-heading-s">
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
+              <a class="govuk-link govuk-link--no-underline" href="#">Your details</a>
+            {% else %}
+              <a class="govuk-link govuk-link--no-underline" href="/pop/your-details">Your details</a>
+            {% endif %}
+          </p>
         </li>
-        <li class="gem-c-cards__list-item">
-          <div class="gem-c-cards__list-item-wrapper">
-            <h3 class="gem-c-cards__sub-heading govuk-heading-s">
-              <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/pop/your-progress">Your progress</a>
-            </h3>
-          </div>
+        <li >
+            <p class="govuk-heading-s">
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending")%}
+              <a class="govuk-link govuk-link--no-underline" href="#">Your progress</a>
+            {% else %}
+              <a class="govuk-link govuk-link--no-underline" href="/pop/your-progress">Your progress</a>
+            {% endif %}
+            </p>
         </li>
-        <li class="gem-c-cards__list-item">
-          <div class="gem-c-cards__list-item-wrapper">
-            <h3 class="gem-c-cards__sub-heading govuk-heading-s">
-              <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/pop/appointments">Past and upcoming appointments</a>
-            </h3>
-          </div>
+        <li >
+            <p class="govuk-heading-s">
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
+              <a class="govuk-link govuk-link--no-underline" href="#">Past and upcoming appointments</a>
+            {% else %}
+              <a class="govuk-link govuk-link--no-underline" href="/pop/appointments">Past and upcoming appointments</a>
+            {% endif %}
+            </p>
         </li>
-         <li class="gem-c-cards__list-item">
-          <div class="gem-c-cards__list-item-wrapper">
-            <h3 class="gem-c-cards__sub-heading govuk-heading-s">
-              <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="/pop/messages">Messages</a>
-            </h3>
-          </div>
+         <li >
+            <p class="govuk-heading-s">
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
+              <a class="govuk-link govuk-link--no-underline" href="#">Messages</a>
+            {% else %}
+              <a class="govuk-link govuk-link--no-underline" href="/pop/messages">Messages</a>
+            {% endif %}
+            </p>
         </li>
-        <li class="gem-c-cards__list-item">
-          <div class="gem-c-cards__list-item-wrapper">
-            <h3 class="gem-c-cards__sub-heading govuk-heading-s">
-              <a class="govuk-link govuk-link--no-underline gem-c-cards__link" href="pop/conditions">Your conditions</a>
-            </h3>
-          </div>
+        <li >
+            <p class="govuk-heading-s">
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
+              <a class="govuk-link govuk-link--no-underline" href="#">Your conditions</a>
+            {% else %}
+              <a class="govuk-link govuk-link--no-underline" href="pop/conditions">Your conditions</a>
+            {% endif %}
+            </p>
         </li>
       </ul>
-    </div>
   </div>
 </div>
 

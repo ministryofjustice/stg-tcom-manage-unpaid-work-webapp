@@ -1,0 +1,38 @@
+{% extends "../../layouts/layout.njk" %}
+{% set pageTitle = applicationName + " - Placements" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-1">
+      <h1 class="govuk-heading-l">My supervising rota for this week</h1>
+    </div>
+  </div>
+</div>
+
+<div class="govuk-grid-row govuk-!-margin-top-1">
+  <div class="govuk-grid-column-full">
+    {% for placement in placements %}
+    <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-4 govuk-!-margin-bottom-4">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+          <h4 class="govuk-heading-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-4">{{ placement.title }}</h4>
+          <p class="govuk-body  govuk-hint govuk-!-font-size-16 govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">{{ placement.address }}</p>
+          <div class="govuk-body govuk-hint govuk-!-font-size-16 govuk-!-color-muted govuk-!-margin-0 govuk-!-margin-top-1 govuk-!-padding-0 ">
+            <span class="">{{ placement.nextSession }}</span>
+            <span class="govuk-!-padding-left-2 govuk-!-padding-right-2">-</span>
+            <span class="govuk-!-padding-right-2">{{ placement.slotsBooked }}/{{ placement.totalSlots }} slots booked</span>
+          </div>
+        </div>
+        <div class="govuk-grid-column-one-quarter govuk-!-text-align-right">
+            <a href="/supervisor/view-placement/{{ placement.id }}" class="govuk-button">View details</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

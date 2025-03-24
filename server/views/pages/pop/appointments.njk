@@ -1,8 +1,7 @@
 {% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
-{%- from "moj/components/ticket-panel/macro.njk" import mojTicketPanel -%}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
-{%- from "govuk/components/button/macro.njk" import govukButton %}
 
 
 {% set pageTitle = applicationName + " - Appointments" %}
@@ -12,130 +11,49 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column govuk-!-margin-top-2 govuk-!-margin-bottom-4">
-      <a class="govuk-link" href="/pop">&lt; Back to homepage</a>
-      <div class="govuk-grid-row govuk-!-margin-top-6 govuk-!-paddin-bottom-4">
-        <div class="govuk-grid-column-two-thirds">
-          <h1 class="govuk-heading-l">Appointments</h1>
-        </div>
-        <div class="govuk-grid-column-one-third govuk-!-text-align-right">
-
-           {{ govukButton({
-    text: "Book appointment",
-    href: "#",
-    class: "govuk-!-text-align-right"
-  }) }}
-        </div>
-      </div>
-
-     <div class="govuk-grid-row">
-       <div class="govuk-grid-column-full">
-
-{{ govukWarningText({
-             html: '
-            <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0" >
-            Attending probation appointments is part of complying with your conditions.</p>
-<p class=" govuk-body-s govuk-!-margin-0 govuk-!-padding-0">If you have a problem attending an appointment, you need to tell your probation worker as soon as possible.</p>',
-  iconFallbackText: "Warning"
-}) }}
-
-      </div>
-    </div>
+     {{ govukBackLink({
+      text: "Back to homepage",
+      href: "/pop"
+    }) }}
   </div>
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l">Appointments</h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+  {{ govukWarningText({
+              html: '
+              <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0" >
+              Attending probation appointments is part of complying with your conditions.</p>
+  <p class=" govuk-body-s govuk-!-margin-0 govuk-!-padding-0">If you have a problem attending an appointment, you need to tell your probation worker as soon as possible.</p>',
+    iconFallbackText: "Warning"
+  }) }}
+
    </div>
 </div>
 
 <div class="govuk-grid-row ">
   <div class="govuk-grid-column-full govuk-!-margin-top-1">
-     <h1 class="govuk-heading-m">Upcoming Appointments</h1>
- {% for appointment in upcomingAppointments %}
-
-    <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-4 border box-shadow govuk-!-margin-bottom-6">
-      <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold govuk-!-padding-bottom-1 ">{{appointment.date}}</p>
-      <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold  govuk-!-padding-bottom-1 ">{{appointment.time}}</p>
-
-       <div class="govuk-!-margin-top-3">
-  <p class="govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold govuk-!-padding-bottom-1 ">Appointment type</p>
-
-      <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 ">{{ appointment.category }}</p>
-      <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 ">{{ appointment.title }}</p>
-       </div>
-      <div class="govuk-!-margin-top-3">
-        <p class="govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold  govuk-!-padding-bottom-1">Key contact</p>
-        <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 ">{{ appointment.contact }}</p>
-
-       <span class="govuk-body-s govuk-!-font-weight-normal govuk-!-padding-bottom-1  ">
-          {% if appointment.contactLink %}
-            <a class="govuk-link govuk-link--no-visited-state" href="#">Message</a>
-          {% endif %}
-        </span>
-      </div>
-       <div class="govuk-!-margin-top-3">
-         <p class="govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold  ">Location</p>
-          <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0  govuk-!-padding-bottom-1 ">{{ appointment.location }}</p>
-       </div>
-
-      <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0 govuk-!-margin-bottom-4 govuk-!-padding-bottom-1 govuk-!-margin-top-3  ">{{ appointment.description }}</p>
-      <div class="govuk-!-margin-top-2 govuk-!-display-flex govuk-!-align-items-center">
-        <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 govuk-!-margin-right-3">
-          View on map
-        </button>
-        <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 govuk-!-margin-right-3">
-          Add to calendar
-        </button>
-        <a class="govuk-link" href="/pop/view-appointment">View</a>
-
-      </div>
-    </div>
-
-   {% endfor %}
+     <h2 class="govuk-heading-m">Upcoming Appointments</h2>
+    {% for appointment in upcomingAppointments %}
+      {% set isUpcoming = true %}
+      {% include "./partials/appointmentSummary.njk" %}
+    {% endfor %}
      </div>
 
 </div>
 
 <div class="govuk-grid-row ">
   <div class="govuk-grid-column-full govuk-!-margin-top-1">
-     <h1 class="govuk-heading-m">Past appointments</h1>
- {% for appointment in pastAppointments %}
-
-    <div class="govuk-box govuk-box--white govuk-box--rounded govuk-!-padding-4 border box-shadow govuk-!-margin-bottom-6">
-      <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold govuk-!-padding-bottom-1 ">{{appointment.date}}</p>
-      <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold  govuk-!-padding-bottom-1 ">{{appointment.time}}</p>
-
-       <div class="govuk-!-margin-top-3">
-  <p class="govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold govuk-!-padding-bottom-1 ">Appointment type</p>
-
-      <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 ">{{appointment.category}}</p>
-      <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 ">{{ appointment.title }}</p>
-       </div>
-      <div class="govuk-!-margin-top-3">
-        <p class="govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold  govuk-!-padding-bottom-1">Key contact</p>
-        <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1 ">{{ appointment.contact }}</p>
-
-       <span class="govuk-body-s govuk-!-font-weight-normal govuk-!-padding-bottom-1  ">
-          {% if appointment.contactLink %}
-            <a class="govuk-link govuk-link--no-visited-state" href="#">Message</a>
-          {% endif %}
-        </span>
-      </div>
-
-       <div class="govuk-!-margin-top-3">
-         <p class="govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-font-weight-bold  ">Location</p>
-          <p class="govuk-body govuk-!-margin-0 govuk-!-padding-0  govuk-!-padding-bottom-1 ">{{ appointment.location }}</p>
-       </div>
-
-      <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0 govuk-!-margin-bottom-4 govuk-!-padding-bottom-1 govuk-!-margin-top-3  ">{{ appointment.description }}</p>
-      <div class="govuk-!-margin-top-2 govuk-!-display-flex govuk-!-align-items-center">
-        <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 govuk-!-margin-right-3">
-          View on map
-        </button>
-
-      </div>
-    </div>
-
-   {% endfor %}
-     </div>
-
+     <h2 class="govuk-heading-m">Past appointments</h2>
+    {% for appointment in pastAppointments %}
+      {% set isUpcoming = false %}
+      {% include "./partials/appointmentSummary.njk" %}
+    {% endfor %}
+  </div>
 </div>
 
 {% endblock %}
