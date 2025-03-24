@@ -162,8 +162,8 @@ export default function authRoutes(): Router {
 
   post('/enter-email-address-login', async (req, res, next) => {
     const { email } = req.body
-    if (!email.endsWith('@gov.uk')) {
-      req.session.errorMessage = 'You must enter a valid email address with gov.uk domain'
+    if (!email.endsWith('@example.com')) {
+      req.session.errorMessage = 'You must enter a valid email address with example.com domain'
       return res.redirect('/one-login/enter-email-address-login')
     }
     return res.redirect('/one-login/enter-password')
