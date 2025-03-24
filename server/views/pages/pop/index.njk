@@ -41,13 +41,23 @@
 }) }}
 {% endif %}
 
-{% if session.isPendingVerification %}
+{% if session.popVerificationStatus == "pending" %}
 {{ mojAlert({
   variant: "warning",
   title: "Account pending verification",
   showTitleAsHeading: true,
   dismissible: false,
   html: 'Your account has been created and will be verified after your next face-to-face appointment with your probation practitioner.'
+}) }}
+{% endif %}
+
+{% if session.popVerificationStatus == "verified" %}
+{{ mojAlert({
+  variant: "success",
+  title: "Account verified",
+  showTitleAsHeading: true,
+  dismissible: false,
+  html: 'Your account has been successfully verified.'
 }) }}
 {% endif %}
 

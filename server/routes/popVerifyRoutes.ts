@@ -1,6 +1,7 @@
 import { type RequestHandler, Router } from 'express'
 import path from 'path'
 import asyncMiddleware from '../middleware/asyncMiddleware'
+import setUpMultipartFormDataParsing from '../middleware/setUpMultipartFormDataParsing'
 
 export default function routes(): Router {
   const router = Router()
@@ -8,6 +9,7 @@ export default function routes(): Router {
   const get = (routePath: string | string[], handler: RequestHandler) => router.get(routePath, asyncMiddleware(handler))
   const post = (routePath: string | string[], handler: RequestHandler) =>
     router.post(routePath, asyncMiddleware(handler))
+  router.use(setUpMultipartFormDataParsing())
 
   get('/', async (req, res, next) => {
     res.render('pages/pop-id/submit-photo')
@@ -117,5 +119,10 @@ export default function routes(): Router {
     res.render('pages/pop-id/success')
   })
 
+  get('/set-pending-verification', async (req, res, next) => {
+    req.session.popVerificationStatus = 'pending'
+    req.session.is_pop_login = true
+    res.redirect('/pop')
+  })
   return router
 }

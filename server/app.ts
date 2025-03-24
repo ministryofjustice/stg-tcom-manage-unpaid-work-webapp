@@ -9,7 +9,6 @@ import setUpWebRequestParsing from './middleware/setupRequestParsing'
 import setUpWebSecurity from './middleware/setUpWebSecurity'
 import setUpWebSession from './middleware/setUpWebSession'
 import { basicAuthentication } from './middleware/basicAuthentication'
-
 import adminRoutes from './routes/adminRoutes'
 import popRoutes from './routes/popRoutes'
 import popVerifyRoutes from './routes/popVerifyRoutes'
@@ -38,9 +37,9 @@ export default function createApp(): express.Application {
   app.use(basicAuthentication())
   app.use('/', indexRoutes())
   app.use('/admin', adminRoutes())
-  app.use('/pop', popRoutes())
-  app.use('/pop/verify', popVerifyRoutes())
   app.use('/one-login', authRoutes())
+  app.use('/pop/verify', popVerifyRoutes())
+  app.use('/pop', popRoutes())
   app.use('/supervisor', supervisorRoutes())
 
   app.use((req, res, next) => next(createError(404, 'Not found')))
