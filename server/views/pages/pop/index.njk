@@ -30,28 +30,18 @@
 }) }}
 {% endif %}
 
-{% if scenario == "pending" %}
-{{ mojAlert({
-  variant: "warning",
-  title: "Account pending verififcation",
-  showTitleAsHeading: true,
-  dismissible: false,
-  html: 'Your account has been created and is will be verified at your next face to face appointment with your probation practitioner.
-  <br /> Once your account is activated you will be able to acccess the links below.'
-}) }}
-{% endif %}
-
-{% if session.popVerificationStatus == "pending" %}
+{% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
 {{ mojAlert({
   variant: "warning",
   title: "Account pending verification",
   showTitleAsHeading: true,
   dismissible: false,
-  html: 'Your account has been created and will be verified after your next face-to-face appointment with your probation practitioner.'
+  html: 'Your account has been created and will be verified after your next face-to-face appointment with your probation practitioner.
+  <br /> Once your account is activated you will be able to acccess the links below.'
 }) }}
 {% endif %}
 
-{% if session.popVerificationStatus == "verified" %}
+{% if (session.popVerificationStatus == "verified" or scenario == "verified") %}
 {{ mojAlert({
   variant: "success",
   title: "Account verified",
@@ -66,7 +56,7 @@
       <ul class="govuk-list navigation-list">
         <li >
           <p class="govuk-heading-s">
-            {% if scenario == "pending" %}
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
               <a class="govuk-link govuk-link--no-underline" href="#">Your details</a>
             {% else %}
               <a class="govuk-link govuk-link--no-underline" href="/pop/your-details">Your details</a>
@@ -75,7 +65,7 @@
         </li>
         <li >
             <p class="govuk-heading-s">
-            {% if scenario == "pending" %}
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending")%}
               <a class="govuk-link govuk-link--no-underline" href="#">Your progress</a>
             {% else %}
               <a class="govuk-link govuk-link--no-underline" href="/pop/your-progress">Your progress</a>
@@ -84,7 +74,7 @@
         </li>
         <li >
             <p class="govuk-heading-s">
-            {% if scenario == "pending" %}
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
               <a class="govuk-link govuk-link--no-underline" href="#">Past and upcoming appointments</a>
             {% else %}
               <a class="govuk-link govuk-link--no-underline" href="/pop/appointments">Past and upcoming appointments</a>
@@ -93,7 +83,7 @@
         </li>
          <li >
             <p class="govuk-heading-s">
-            {% if scenario == "pending" %}
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
               <a class="govuk-link govuk-link--no-underline" href="#">Messages</a>
             {% else %}
               <a class="govuk-link govuk-link--no-underline" href="/pop/messages">Messages</a>
@@ -102,7 +92,7 @@
         </li>
         <li >
             <p class="govuk-heading-s">
-            {% if scenario == "pending" %}
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
               <a class="govuk-link govuk-link--no-underline" href="#">Your conditions</a>
             {% else %}
               <a class="govuk-link govuk-link--no-underline" href="pop/conditions">Your conditions</a>
