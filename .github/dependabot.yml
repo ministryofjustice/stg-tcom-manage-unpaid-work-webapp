@@ -10,6 +10,7 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     ignore:
+      - dependency-name: "*"
       - update-types: ["version-update:semver-major"]
     schedule:
       interval: "weekly"
@@ -20,6 +21,7 @@ updates:
   - package-ecosystem: "docker"
     directory: "/"
     ignore:
+      - dependency-name: "*"
       - update-types: ["version-update:semver-major"]
     schedule:
       interval: "weekly"
