@@ -69,26 +69,28 @@
     {% if placement.attendees | length %}
     {% set displayRows = [] %}
 {% for attendee in placement.attendees %}
-  {% set checkinLink = '<a href="/supervisor/check-in/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link govuk-!-margin-right-2">Check-in</a>' %}
-  {% set checkoutLink = '<a href="/supervisor/check-out/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link govuk-!-margin-right-2">Checkout</a>' %}
-  {% set nowShowLink = '<a href="/supervisor/no-show/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link govuk-!-margin-right-2">Did not attend</a>' %}
-  {% set removeLink = '<a href="/supervisor/remove/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link govuk-!-margin-right-2">Remove</a>' %}
+  {% if not attendee.isRemoved %}
+    {% set checkinLink = '<a href="/supervisor/check-in/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link govuk-!-margin-right-2">Check-in</a>' %}
+    {% set checkoutLink = '<a href="/supervisor/check-out/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link govuk-!-margin-right-2">Checkout</a>' %}
+    {% set nowShowLink = '<a href="/supervisor/no-show/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link govuk-!-margin-right-2">Did not attend</a>' %}
+    {% set removeLink = '<a href="/supervisor/remove/' ~ placement.id ~ '/' ~ attendee.userId ~ '" class="govuk-link govuk-!-margin-right-2">Remove</a>' %}
 
-  {% if (attendee.status == 'Checked in') %}
-    {% set actions = checkoutLink  %}
-  {% elseif (attendee.status == 'No Show') %}
-    {% set actions = '' %}
-  {% elseif (attendee.status == 'pending') %}
-    {% set actions = removeLink + ' ' + checkinLink + ' ' + nowShowLink  %}
+    {% if (attendee.status == 'Checked in') %}
+      {% set actions = checkoutLink  %}
+    {% elseif (attendee.status == 'No Show') %}
+      {% set actions = '' %}
+    {% elseif (attendee.status == 'pending') %}
+      {% set actions = removeLink + ' ' + checkinLink + ' ' + nowShowLink  %}
+    {% endif %}
+
+    {% set displayRows = (displayRows.push([
+      { text: attendee.userId },
+      { text: attendee.name },
+      { html: mojBadge({ text: attendee.risk, classes: attendee.riskClass }) },
+      { text: ' ' if attendee.status === 'pending' else ('Attended 7 hours' if attendee.status === 'Checked out' else attendee.status) },
+      { html: actions }
+    ]), displayRows) %}
   {% endif %}
-
-  {% set displayRows = (displayRows.push([
-    { text: attendee.userId },
-    { text: attendee.name },
-    { html: mojBadge({ text: attendee.risk, classes: attendee.riskClass }) },
-    { text: ' ' if attendee.status === 'pending' else ('Attended 7 hours' if attendee.status === 'Checked out' else attendee.status) },
-    { html: actions }
-  ]), displayRows) %}
 {% endfor %}
 
       {{ govukTable({

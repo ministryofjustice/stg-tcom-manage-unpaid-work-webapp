@@ -1,4 +1,4 @@
-const placements = [
+export const getPlacements = () => [
   {
     id: '5cdc4302-3ad3-4378-b3e3-6ae0734534hb4a1',
     title: 'Local Park Clean-up',
@@ -15,6 +15,7 @@ const placements = [
         risk: 'HIGH ROSH 9.0',
         riskClass: 'moj-badge--red',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258054P',
@@ -23,6 +24,7 @@ const placements = [
         risk: 'MEDIUM RSR 5.3',
         riskClass: 'moj-badge--bright-purple',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258055P',
@@ -31,6 +33,7 @@ const placements = [
         risk: 'LOW ROSH 2.1',
         riskClass: 'moj-badge--green',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258056P',
@@ -39,6 +42,7 @@ const placements = [
         risk: 'MEDIUM ROSH 5.1',
         riskClass: 'moj-badge--bright-purple',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258057P',
@@ -47,6 +51,7 @@ const placements = [
         risk: 'MEDIUM RSR 5.4',
         riskClass: 'moj-badge--bright-purple',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258063P',
@@ -55,6 +60,7 @@ const placements = [
         risk: 'LOW ROSH 2.1',
         riskClass: 'moj-badge--green',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258028P',
@@ -63,6 +69,7 @@ const placements = [
         risk: 'HIGH ROSH 9.0',
         riskClass: 'moj-badge--red',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258094P',
@@ -71,6 +78,7 @@ const placements = [
         risk: 'MEDIUM RSR 5.3',
         riskClass: 'moj-badge--bright-purple',
         status: 'pending',
+        isRemoved: false,
       },
     ],
   },
@@ -90,6 +98,7 @@ const placements = [
         risk: 'HIGH ROSH 9.0',
         riskClass: 'moj-badge--red',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258054P',
@@ -98,6 +107,7 @@ const placements = [
         risk: 'MEDIUM RSR 5.3',
         riskClass: 'moj-badge--bright-purple',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258055P',
@@ -106,6 +116,7 @@ const placements = [
         risk: 'LOW ROSH 2.1',
         riskClass: 'moj-badge--green',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258056P',
@@ -114,6 +125,7 @@ const placements = [
         risk: 'MEDIUM ROSH 5.1',
         riskClass: 'moj-badge--bright-purple',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258057P',
@@ -122,6 +134,7 @@ const placements = [
         risk: 'MEDIUM RSR 5.4',
         riskClass: 'moj-badge--bright-purple',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258063P',
@@ -130,6 +143,7 @@ const placements = [
         risk: 'LOW ROSH 2.1',
         riskClass: 'moj-badge--green',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258028P',
@@ -138,6 +152,7 @@ const placements = [
         risk: 'HIGH ROSH 9.0',
         riskClass: 'moj-badge--red',
         status: 'pending',
+        isRemoved: false,
       },
       {
         userId: 'P258094P',
@@ -146,9 +161,10 @@ const placements = [
         risk: 'MEDIUM RSR 5.3',
         riskClass: 'moj-badge--bright-purple',
         status: 'pending',
+        isRemoved: false,
       },
     ],
   },
 ]
 
-export default placements
+export default getPlacements()
