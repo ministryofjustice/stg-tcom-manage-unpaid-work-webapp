@@ -3,6 +3,8 @@ import fs from 'fs'
 import pathModule from 'path'
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import logger from '../../logger'
+import { getPlacements as fetchPlacements } from './data/supervisor-placements'
+import { placements } from './supervisorRoutes'
 
 export default function routes(): Router {
   const router = Router()
@@ -26,6 +28,10 @@ export default function routes(): Router {
     } catch (err) {
       logger.error(err, 'Unable to delete directory')
     }
+
+    // Reset placements
+    placements.splice(0, placements.length, ...fetchPlacements())
+
     req.session.destroy(() => res.redirect('/'))
   })
 

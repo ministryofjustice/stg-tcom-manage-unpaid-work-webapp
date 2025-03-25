@@ -1,6 +1,8 @@
 import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../middleware/asyncMiddleware'
-import placements from './data/supervisor-placements'
+import { getPlacements } from './data/supervisor-placements'
+
+export const placements = getPlacements()
 
 export default function routes(): Router {
   const router = Router()
@@ -96,8 +98,11 @@ export default function routes(): Router {
     const userId = decodeURIComponent(req.params.userId)
     const placement = placements.find(p => p.id === placementId)
     if (placement) {
-      placement.attendees = placement.attendees.filter(a => a.userId !== userId)
-      req.session.successMessage = `Attendee has been removed!`
+      const attendee = placement.attendees.find(a => a.userId === userId)
+      if (attendee) {
+        attendee.isRemoved = true
+        req.session.successMessage = `Attendee has been marked as removed!`
+      }
       res.redirect(`/supervisor/view-placement/${placementId}`)
     } else {
       res.redirect('/supervisor')
