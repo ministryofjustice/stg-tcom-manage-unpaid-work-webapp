@@ -1,8 +1,6 @@
 import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../middleware/asyncMiddleware'
-import { getPlacements } from './data/supervisor-placements'
-
-export const placements = getPlacements()
+import { Placement } from './data/supervisor-placements'
 
 export default function routes(): Router {
   const router = Router()
@@ -10,12 +8,17 @@ export default function routes(): Router {
   const post = (path: string | string[], handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
 
   get('/', async (req, res, next) => {
+    const placements: Placement[] = req.session.placements || []
     res.render('pages/supervisor/placements', { placements })
   })
 
   get('/view-placement/:id', async (req, res, next) => {
+    const placements: Placement[] = req.session.placements || []
+    if (!placements) {
+      res.redirect('/')
+    }
     const placementId = decodeURIComponent(req.params.id)
-    const placement = placements.find(p => p.id === placementId)
+    const placement = placements.find((p: Placement) => p.id === placementId)
     if (placement) {
       const message = req.session.successMessage
       delete req.session.successMessage
@@ -26,9 +29,10 @@ export default function routes(): Router {
   })
 
   get('/check-in/:placementId/:userId', async (req, res, next) => {
+    const placements: Placement[] = req.session.placements || []
     const placementId = decodeURIComponent(req.params.placementId)
     const userId = decodeURIComponent(req.params.userId)
-    const placement = placements.find(p => p.id === placementId)
+    const placement = placements.find((p: Placement) => p.id === placementId)
     if (placement) {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {
@@ -42,9 +46,10 @@ export default function routes(): Router {
   })
 
   post('/check-in/:placementId/:userId/confirm', async (req, res, next) => {
+    const placements: Placement[] = req.session.placements || []
     const placementId = decodeURIComponent(req.params.placementId)
     const userId = decodeURIComponent(req.params.userId)
-    const placement = placements.find(p => p.id === placementId)
+    const placement = placements.find((p: Placement) => p.id === placementId)
     if (placement) {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {
@@ -60,9 +65,10 @@ export default function routes(): Router {
   })
 
   get('/check-out/:placementId/:userId', async (req, res, next) => {
+    const placements: Placement[] = req.session.placements || []
     const placementId = decodeURIComponent(req.params.placementId)
     const userId = decodeURIComponent(req.params.userId)
-    const placement = placements.find(p => p.id === placementId)
+    const placement = placements.find((p: Placement) => p.id === placementId)
     if (placement) {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {
@@ -76,9 +82,10 @@ export default function routes(): Router {
   })
 
   post('/check-out/:placementId/:userId/confirm', async (req, res, next) => {
+    const placements: Placement[] = req.session.placements || []
     const placementId = decodeURIComponent(req.params.placementId)
     const userId = decodeURIComponent(req.params.userId)
-    const placement = placements.find(p => p.id === placementId)
+    const placement = placements.find((p: Placement) => p.id === placementId)
     if (placement) {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {
@@ -94,9 +101,10 @@ export default function routes(): Router {
   })
 
   get('/remove/:placementId/:userId', async (req, res, next) => {
+    const placements: Placement[] = req.session.placements || []
     const placementId = decodeURIComponent(req.params.placementId)
     const userId = decodeURIComponent(req.params.userId)
-    const placement = placements.find(p => p.id === placementId)
+    const placement = placements.find((p: Placement) => p.id === placementId)
     if (placement) {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {
@@ -110,9 +118,10 @@ export default function routes(): Router {
   })
 
   get('/no-show/:placementId/:userId', async (req, res, next) => {
+    const placements: Placement[] = req.session.placements || []
     const placementId = decodeURIComponent(req.params.placementId)
     const userId = decodeURIComponent(req.params.userId)
-    const placement = placements.find(p => p.id === placementId)
+    const placement = placements.find((p: Placement) => p.id === placementId)
     if (placement) {
       const attendee = placement.attendees.find(a => a.userId === userId)
       if (attendee) {

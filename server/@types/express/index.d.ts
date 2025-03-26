@@ -1,3 +1,5 @@
+import { Placement } from '../../routes/data/supervisor-placements'
+
 export declare module 'express-session' {
   // Declare that the session will potentially contain these additional fields
   interface SessionData {
@@ -10,6 +12,7 @@ export declare module 'express-session' {
     is_pop_login: boolean
     verificationPhoto: string
     popVerificationStatus: 'pending' | 'failed' | 'verified'
+    placements: Placement[]
   }
 }
 
