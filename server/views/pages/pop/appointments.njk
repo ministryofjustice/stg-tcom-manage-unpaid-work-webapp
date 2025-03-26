@@ -1,6 +1,6 @@
 {% extends "../../layouts/layout.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-
+{%- from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 
@@ -11,15 +11,28 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-     {{ govukBackLink({
+    {{ govukBackLink({
       text: "Back to homepage",
       href: "/pop"
     }) }}
   </div>
-  <div class="govuk-grid-column-full">
-    <h1 class="govuk-heading-l">Appointments</h1>
   </div>
-</div>
+  <div class="govuk-grid-row">
+
+ <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2  ">Appointments</h1>
+    </div>
+    <div class="govuk-grid-column-one-third govuk-!-text-align-right">
+        {{ govukButton({
+          text: "Request a callback",
+          href: "#",
+          class: "govuk-!-text-align-right "
+        }) }}
+    </div>
+  </div>
+   </div>
+
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
