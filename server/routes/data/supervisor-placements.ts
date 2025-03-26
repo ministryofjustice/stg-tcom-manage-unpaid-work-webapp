@@ -1,4 +1,24 @@
-export const getPlacements = () => [
+export interface Placement {
+  id: string
+  title: string
+  address: string
+  nextSession: string
+  slotsBooked: number
+  totalSlots: number
+  predictedTurnout: number
+  attendees: Attendee[]
+}
+export interface Attendee {
+  userId: string
+  name: string
+  attended: string
+  risk: string
+  riskClass: string
+  status: string
+  isRemoved: boolean
+}
+
+export const getPlacements = (): Placement[] => [
   {
     id: '5cdc4302-3ad3-4378-b3e3-6ae0734534hb4a1',
     title: 'Local Park Clean-up',
