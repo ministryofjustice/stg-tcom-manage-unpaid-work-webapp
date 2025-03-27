@@ -1,6 +1,6 @@
 import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../middleware/asyncMiddleware'
-import { Placement } from './data/supervisor-placements'
+import { Placement, getPlacements } from './data/supervisor-placements'
 
 export default function routes(): Router {
   const router = Router()
@@ -8,7 +8,8 @@ export default function routes(): Router {
   const post = (path: string | string[], handler: RequestHandler) => router.post(path, asyncMiddleware(handler))
 
   get('/', async (req, res, next) => {
-    const placements: Placement[] = req.session.placements || []
+    req.session.placements = getPlacements()
+    const { placements } = req.session
     res.render('pages/supervisor/placements', { placements })
   })
 
