@@ -15,7 +15,7 @@ export default function routes(): Router {
   get('/view-placement/:id', async (req, res, next) => {
     const placements: Placement[] = req.session.placements || []
     if (!placements) {
-      res.redirect('/')
+      res.redirect('/supervisor')
     }
     const placementId = decodeURIComponent(req.params.id)
     const placement = placements.find((p: Placement) => p.id === placementId)
