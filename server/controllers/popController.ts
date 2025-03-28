@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express'
 import { randomUUID } from 'crypto'
-import getPopService from '../services/serviceInjection'
+import { getPopService } from '../services/serviceInjection'
 import { Message } from '../routes/data/messages'
 
 export const renderIndex: RequestHandler = async (req, res, next) => {
@@ -28,7 +28,7 @@ export const renderPopProgress = (popService = getPopService()): RequestHandler 
     try {
       const userId = req.session.user_id || randomUUID()
       const progressData = await popService.getProgressDetails(userId)
-      res.render('pages/pop/progress', progressData)
+      res.render('pages/pop/progress', { progressData })
     } catch (error) {
       next(error)
     }
