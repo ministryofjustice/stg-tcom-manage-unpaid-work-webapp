@@ -1,0 +1,31 @@
+     {{ govukDetails({
+        summaryText: "Help with my unpaid work hours",
+        html: "<p>You can do up to 30% of your hours through Education, Training and Employment (ETE) programmes on <a href='https://www.communitycampus.online/#/sign-in' class='govuk-link'>Community Campus</a>.</p>" +
+            govukTable({
+                caption: "Type of unpaid work",
+                captionClasses: "govuk-table__caption--m",
+                firstCellIsHeader: false,
+                head: [
+                    { text: "Type of unpaid work" },
+                    { text: "Hours sentenced" },
+                    { text: "Hours completed" }
+                ],
+                rows: [
+                    [
+                        { text: "In person" },
+                        { text: "70" },
+                        { text: "40" }
+                    ],
+                    [
+                        { text: "Education, Training and Employment (ETE) programmes" },
+                        { text: "30" },
+                        { text: "10" }
+                    ],
+                    [
+                        { text: "Total", classes: "govuk-!-font-weight-bold" },
+                        { text: "100", classes: "govuk-!-font-weight-bold" },
+                        { text: "50", classes: "govuk-!-font-weight-bold" }
+                    ]
+                ]
+            })
+    }) }}

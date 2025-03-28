@@ -28,7 +28,7 @@ export const renderPopProgress = (popService = getPopService()): RequestHandler 
     try {
       const userId = req.session.user_id || randomUUID()
       const progressData = await popService.getProgressDetails(userId)
-      res.render('pages/pop/progress', progressData)
+      res.render('pages/pop/progress', { progressData })
     } catch (error) {
       next(error)
     }

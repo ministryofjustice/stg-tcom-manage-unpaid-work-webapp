@@ -1,6 +1,7 @@
 {% extends "../../layouts/layout.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{%- from "moj/components/progress-bar/macro.njk" import mojProgressBar -%}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% set pageTitle = applicationName + " - Your progress" %}
 {% set mainClasses = "app-container govuk-body" %}
@@ -15,57 +16,28 @@
     }) }}
   </div>
   <div class="govuk-grid-column-full">
-      <h1 class="govuk-heading-l">Your progress</h1>
-      <p class="sub-heading">Track your community payback progress and manage your appointments</p>
-      <p class="govuk-body subhead">Last updated on 10 March 2025, 2.29pm</p>
-  </div>
-</div>
-
-<div class="govuk-grid-row">
-  <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column-one-half govuk-!-padding-left-0">
-      <div class="govuk-box govuk-box--rounded govuk-!-padding-4 border box-shadow">
-        <div class="govuk-grid-row">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Your progress</h1>
+      <p class="govuk-body subhead">Last updated on 10 March 2025, 2:29pm</p>
+        <div class="govuk-grid-row govuk-!-margin-top-8">
           <div class="govuk-grid-column-three-quarters">
-            <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Hours completed</p>
+            <p class="govuk-heading-m govuk-!-margin-0">Hours completed</p>
           </div>
           <div class="govuk-grid-column-one-quarter">
-            <span class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0">{{ progress.completedHours }}/{{ progress.totalHours }}</span>
+            <span class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0  govuk-!-text-align-right">{{ progressData.completedHours }}/{{ progressData.totalHours }}</span>
           </div>
         </div>
-        <div class="govuk-box total-hours">
-          <div class="completed-hours" style="width: 0%"></div>
+      <div class="govuk-box total-hours">
+          <div class="not-completed-hours" style="width: 0%"></div>
         </div>
-      </div>
-    </div>
+  {% include "./partials/progress-help.njk" %}
 
-    <div class="govuk-grid-column-one-half govuk-!-padding-right-0">
-      <div class="govuk-box govuk-box--rounded govuk-!-padding-4 border box-shadow">
-        {% if appointment %}
-          <div class="govuk-!-display-flex govuk-!-justify-content-between govuk-!-align-items-start govuk-!-padding-bottom-4">
-            <div>
-              <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-bottom-2">Next session</p>
 
-            </div>
-            <button class="govuk-button govuk-button--success govuk-!-width-full govuk-!-margin-top-1 govuk-!-margin-bottom-0">Request more placements</button>
-          </div>
-        {% else %}
-          <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-bottom-2">Next session</p>
-          <p class="govuk-!-margin-bottom-0 govuk-!-color-light">No upcoming sessions</p>
-          <button class="govuk-button govuk-button--success govuk-!-width-full govuk-!-margin-top-1 govuk-!-margin-bottom-0">Request more placements</button>
-        {% endif %}
-      </div>
-    </div>
+     <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Next Session</h1>
+      <p class="govuk-body subhead">Your next session will be shown here after it has been scheduled</p>
+
+      <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Past attendance</h1>
+      <p class="govuk-body subhead">Your previous attendance will be shown here after your first session</p>
   </div>
-</div>
-
-
-<div class="govuk-grid-row govuk-!-margin-top-6">
-  <div class="govuk-grid-column-full">
-    <div class="govuk-box govuk-box--rounded govuk-!-padding-4 border box-shadow">
-      <p class="govuk-body govuk-!-font-weight-bold">Previous attendance</p>
-      <p class="govuk-!-margin-bottom-2 govuk-!-color-light">Your previous attendance will be shown here after your first session.</p>
-    </div>
   </div>
 </div>
 
