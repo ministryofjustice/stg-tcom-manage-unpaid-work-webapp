@@ -1,3 +1,18 @@
+export type Message = {
+  id: string
+  subject: string
+  date: string
+  status: string
+  description: string
+  recipient?: string
+  items: {
+    html: string
+    type: string
+    timestamp: string
+    sender: string
+  }[]
+}
+
 const messages = [
   {
     subject: 'Missed appointment on 10 March 2025',
