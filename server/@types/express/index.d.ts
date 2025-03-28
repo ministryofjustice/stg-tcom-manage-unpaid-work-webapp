@@ -1,3 +1,4 @@
+import { Message } from '../../routes/data/messages'
 import { Placement } from '../../routes/data/supervisor-placements'
 
 export declare module 'express-session' {
@@ -13,6 +14,7 @@ export declare module 'express-session' {
     verificationPhoto: string
     popVerificationStatus: 'pending' | 'failed' | 'verified'
     placements: Placement[]
+    messages: Message[]
   }
 }
 

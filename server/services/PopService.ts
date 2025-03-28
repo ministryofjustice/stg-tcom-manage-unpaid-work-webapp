@@ -1,7 +1,7 @@
 import path from 'path'
 import { randomUUID } from 'crypto'
 import { PopServiceInterface } from './PopServiceInterface'
-import messages from '../routes/data/messages'
+import messages, { Message } from '../routes/data/messages'
 import { pastAppointments, upcomingAppointments } from '../routes/data/appointments'
 import logger from '../../logger'
 
@@ -17,8 +17,9 @@ const PopService: PopServiceInterface = {
     }
   },
 
-  async getProgressDetails() {
+  async getProgressDetails(userId) {
     return {
+      userId,
       completedHours: 0,
       totalHours: 100,
       percentCompleted: (0 / 100) * 100,
@@ -31,13 +32,13 @@ const PopService: PopServiceInterface = {
     }
   },
 
-  async getMessageById(messageId: string) {
+  async getMessageById(messageId: string, userId: string) {
     const message = messages.find(msg => msg.id === messageId)
     return message || null
   },
 
-  async getAppointments() {
-    return { upcomingAppointments, pastAppointments }
+  async getAppointments(userId) {
+    return { upcomingAppointments, pastAppointments, userId }
   },
 
   async addMessageToThread(
@@ -45,13 +46,14 @@ const PopService: PopServiceInterface = {
     messageText: string,
     fileData?: { path: string; originalname: string },
     userId?: string,
+    sessionMessages?: Message[], // passing session messages so we can update them might not be required in the real implementation
   ): Promise<boolean> {
-    const message = messages.find(msg => msg.id === messageId)
+    const message = sessionMessages?.find(msg => msg.id === messageId)
     if (!message) {
       return false
     }
 
-    let updatedMessageText = messageText // Use a new variable
+    let updatedMessageText = messageText
     if (fileData && userId) {
       try {
         const relativePath = `/assets/uploads/${userId}/${path.basename(fileData.path)}`
@@ -65,13 +67,13 @@ const PopService: PopServiceInterface = {
     }
 
     if (updatedMessageText || fileData) {
-      const newMessage = {
+      const newMessageItem: Message['items'][0] = {
         html: updatedMessageText,
         type: 'sent',
         timestamp: new Date().toLocaleString(),
         sender: 'You',
       }
-      message.items.push(newMessage as unknown as { html: string; type: string; timestamp: string; sender: string })
+      message.items.push(newMessageItem)
     }
 
     return true
@@ -86,6 +88,8 @@ const PopService: PopServiceInterface = {
     messageText: string,
     fileData?: { path: string; originalname: string },
     userId?: string,
+    recipient?: string,
+    sessionMessages?: Message[], // passing session messages so we can update them might not be required in the real implementation
   ): Promise<string> {
     let updatedMessageText = messageText
     if (fileData && userId) {
@@ -100,12 +104,13 @@ const PopService: PopServiceInterface = {
       }
     }
 
-    const newMessage = {
+    const newMessage: Message = {
       id: randomUUID(),
       subject,
       date: new Date().toLocaleDateString(),
       status: 'new',
       description: updatedMessageText,
+      recipient,
       items: [
         {
           html: updatedMessageText,
@@ -115,8 +120,23 @@ const PopService: PopServiceInterface = {
         },
       ],
     }
-    messages.push(newMessage)
+
+    if (sessionMessages) {
+      sessionMessages.push(newMessage)
+    }
+
     return newMessage.id
+  },
+
+  async getAppointmentDetails(appointmentId: string, userId: string) {
+    return {
+      id: appointmentId,
+      title: 'Community Garden Maintenance',
+      date: 'Friday 15 March 2024',
+      time: '09:00',
+      location: '123 Garden Street, London SE1 7TH',
+      description: `This is a fake appointment for user ${userId}.`,
+    }
   },
 }
 

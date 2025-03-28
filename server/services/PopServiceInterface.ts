@@ -1,3 +1,5 @@
+import { Message } from '../routes/data/messages'
+
 export interface PopServiceInterface {
   getUserDetails(userId: string): Promise<{
     name: string
@@ -8,7 +10,7 @@ export interface PopServiceInterface {
     phone: string
   }>
 
-  getProgressDetails(): Promise<{
+  getProgressDetails(userId: string): Promise<{
     completedHours: number
     totalHours: number
     percentCompleted: number
@@ -20,13 +22,9 @@ export interface PopServiceInterface {
     }
   }>
 
-  getMessageById(messageId: string): Promise<{
-    id: string
-    subject: string
-    items: Array<{ html: string; type: string; timestamp: string; sender: string }>
-  } | null>
+  getMessageById(messageId: string, userId: string): Promise<Message | null>
 
-  getAppointments(): Promise<{
+  getAppointments(userId: string): Promise<{
     upcomingAppointments: Array<{ title: string; date: string; time: string }>
     pastAppointments: Array<{ title: string; date: string; time: string }>
   }>
@@ -36,23 +34,29 @@ export interface PopServiceInterface {
     messageText: string,
     fileData?: { path: string; originalname: string },
     userId?: string,
+    sessionMessages?: Message[],
   ): Promise<boolean>
 
-  getAllMessages(): Promise<
-    Array<{
-      id: string
-      subject: string
-      date: string
-      status: string
-      description: string
-      items: Array<{ html: string; type: string; timestamp: string; sender: string }>
-    }>
-  >
+  getAllMessages(): Promise<Message[]>
 
   createNewMessage(
     subject: string,
     messageText: string,
     fileData?: { path: string; originalname: string },
     userId?: string,
+    recipient?: string,
+    sessionMessages?: Message[],
   ): Promise<string>
+
+  getAppointmentDetails(
+    appointmentId: string,
+    userId: string,
+  ): Promise<{
+    id: string
+    title: string
+    date: string
+    time: string
+    location: string
+    description: string
+  }>
 }

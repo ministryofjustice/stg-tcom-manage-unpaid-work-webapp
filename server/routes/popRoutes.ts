@@ -19,10 +19,13 @@ import {
 export default function routes(): Router {
   const router = Router()
   const get = (routePath: string | string[], handler: RequestHandler) => router.get(routePath, asyncMiddleware(handler))
-  const post = (routePath: string | string[], handler: RequestHandler) =>
-    router.post(routePath, asyncMiddleware(handler))
-  router.use(setUpMultipartFormDataParsing())
-
+  const post = (routePath: string | string[], handler: RequestHandler, middleware?: RequestHandler) => {
+    if (middleware) {
+      router.post(routePath, middleware, asyncMiddleware(handler))
+    } else {
+      router.post(routePath, asyncMiddleware(handler))
+    }
+  }
   router.use((req, res, next) => {
     const { bypass } = req.query
     if (bypass) {
@@ -40,15 +43,15 @@ export default function routes(): Router {
   get('/your-progress', renderPopProgress())
   get('/appointments', renderAppointments())
   get('/conditions', renderConditions)
-  get('/view-appointment', renderViewAppointment)
-  get('/view-past-appointment', renderViewPastAppointment)
+  get('/view-appointment', renderViewAppointment())
+  get('/view-past-appointment', renderViewPastAppointment())
 
   get('/messages', renderMessages())
   get('/new-message', renderNewMessage)
-  post('/new-message', handleNewMessage())
+  post('/new-message', handleNewMessage(), setUpMultipartFormDataParsing())
 
   get('/messages/thread/:id', renderMessageThread())
-  post('/messages/thread/:id', handleMessageThread())
+  post('/messages/thread/:id', handleMessageThread(), setUpMultipartFormDataParsing())
 
   return router
 }

@@ -1,5 +1,7 @@
 import { RequestHandler } from 'express'
+import { randomUUID } from 'crypto'
 import getPopService from '../services/serviceInjection'
+import { Message } from '../routes/data/messages'
 
 export const renderIndex: RequestHandler = async (req, res, next) => {
   try {
@@ -24,7 +26,8 @@ export const renderPopDetails = (popService = getPopService()): RequestHandler =
 export const renderPopProgress = (popService = getPopService()): RequestHandler => {
   return async (req, res, next) => {
     try {
-      const progressData = await popService.getProgressDetails()
+      const userId = req.session.user_id || randomUUID()
+      const progressData = await popService.getProgressDetails(userId)
       res.render('pages/pop/progress', progressData)
     } catch (error) {
       next(error)
@@ -35,9 +38,12 @@ export const renderPopProgress = (popService = getPopService()): RequestHandler 
 export const renderMessageThread = (popService = getPopService()): RequestHandler => {
   return async (req, res, next) => {
     try {
-      const message = await popService.getMessageById(req.params.id)
+      // const userId = req.session.user_id || randomUUID()
+      // const messages = popService.getMessageById(req.params.id, userId)
+      const { messages } = req.session
+      const message = messages?.find((msg: Message) => msg.id === req.params.id)
       if (message) {
-        res.render('pages/pop/messageThread', { message, error: req.flash('error') })
+        res.render('pages/pop/messageThread', { message, error: req.session.errorMessage })
       } else {
         res.status(404).send('Message not found')
       }
@@ -55,7 +61,9 @@ export const handleMessageThread = (popService = getPopService()): RequestHandle
       const fileData = req.file
       const userId = req.session.user_id
 
-      const success = await popService.addMessageToThread(messageId, messageText, fileData, userId)
+      const messages = req.session.messages || []
+      const success = await popService.addMessageToThread(messageId, messageText, fileData, userId, messages)
+      req.session.messages = messages
       if (success) {
         res.redirect(`/pop/messages/thread/${messageId}`)
       } else {
@@ -70,7 +78,8 @@ export const handleMessageThread = (popService = getPopService()): RequestHandle
 export const renderAppointments = (popService = getPopService()): RequestHandler => {
   return async (req, res, next) => {
     try {
-      const appointments = await popService.getAppointments()
+      const userId = req.session.user_id || randomUUID()
+      const appointments = await popService.getAppointments(userId)
       res.render('pages/pop/appointments', appointments)
     } catch (error) {
       next(error)
@@ -86,26 +95,40 @@ export const renderConditions: RequestHandler = async (req, res, next) => {
   }
 }
 
-export const renderViewAppointment: RequestHandler = async (req, res, next) => {
-  try {
-    res.render('pages/pop/view-appointment')
-  } catch (error) {
-    next(error)
+export const renderViewAppointment = (popService = getPopService()): RequestHandler => {
+  return async (req, res, next) => {
+    try {
+      const appointmentId = '12345'
+      const userId = req.session.user_id || randomUUID()
+      const appointmentDetails = await popService.getAppointmentDetails(appointmentId, userId)
+      res.render('pages/pop/view-appointment', { appointmentDetails })
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
-export const renderViewPastAppointment: RequestHandler = async (req, res, next) => {
-  try {
-    res.render('pages/pop/view-past-appointment')
-  } catch (error) {
-    next(error)
+export const renderViewPastAppointment = (popService = getPopService()): RequestHandler => {
+  return async (req, res, next) => {
+    try {
+      const appointmentId = '67890'
+      const userId = req.session.user_id || randomUUID()
+      const appointmentDetails = await popService.getAppointmentDetails(appointmentId, userId)
+      res.render('pages/pop/view-past-appointment', { appointmentDetails })
+    } catch (error) {
+      next(error)
+    }
   }
 }
 
 export const renderMessages = (popService = getPopService()): RequestHandler => {
   return async (req, res, next) => {
     try {
-      const messages = await popService.getAllMessages()
+      let { messages } = req.session
+      if (!messages) {
+        messages = await popService.getAllMessages()
+        req.session.messages = messages
+      }
       res.render('pages/pop/messages', { messages })
     } catch (error) {
       next(error)
@@ -119,9 +142,13 @@ export const handleNewMessage = (popService = getPopService()): RequestHandler =
       const { subject, message: messageText } = req.body
       const fileData = req.file
       const userId = req.session.user_id
+      const recipient = 'mayberecipientuuidhere'
 
       if (subject && messageText) {
-        const messageId = await popService.createNewMessage(subject, messageText, fileData, userId)
+        const messages = req.session.messages || []
+        const messageId = await popService.createNewMessage(subject, messageText, fileData, userId, recipient, messages)
+        req.session.messages = messages
+
         res.redirect(`/pop/messages/thread/${messageId}`)
       } else {
         res.render('pages/pop/new-message', { message: 'Subject and message are required.' })
