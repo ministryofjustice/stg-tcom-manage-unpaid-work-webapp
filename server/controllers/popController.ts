@@ -2,6 +2,7 @@ import { RequestHandler } from 'express'
 import { randomUUID } from 'crypto'
 import getPopService from '../services/serviceInjection'
 import { Message } from '../routes/data/messages'
+import { AttendenceRecord } from '../services/PopServiceInterface'
 
 export const renderIndex: RequestHandler = async (req, res, next) => {
   try {
@@ -31,17 +32,34 @@ export const renderPopProgress = (popService = getPopService()): RequestHandler 
       const { progress } = req.query
       let tempUserId = req.session.user_id || randomUUID()
       req.session.user_id = tempUserId // ensure this is always set
+
+      let nextAppointment
+      let previousAttendence: Array<Array<{ text: string | number } | { html: string | number }>> | undefined
+      let attendance: Array<AttendenceRecord> = []
       if (progress === 'wip') {
         // to simulate zero progress or in progress (wip) we will fake a prefix on the userId
 
         tempUserId = `wip_${tempUserId}`
+        nextAppointment = await popService.getNextAppointment(tempUserId)
+        attendance = await popService.getPreviousAttendence(tempUserId)
       }
       const progressData = await popService.getProgressDetails(tempUserId)
       const displayBreakdown: Array<Array<{ text: string | number }>> = []
       progressData.breakdown.forEach(item => {
         displayBreakdown.push([{ text: item.title }, { text: item.required }, { text: item.completed }])
       })
-      res.render('pages/pop/progress', { progressData, displayBreakdown })
+      if (attendance.length > 0) {
+        previousAttendence = []
+        attendance.forEach(item => {
+          previousAttendence.push([
+            { text: item.date },
+            { text: item.status },
+            { text: `${item.credits} ${item.unit}` },
+            { html: `<strong>${item.performanceRating}</strong><br />${item.feedback}` },
+          ])
+        })
+      }
+      res.render('pages/pop/progress', { progressData, displayBreakdown, nextAppointment, previousAttendence })
     } catch (error) {
       next(error)
     }

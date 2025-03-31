@@ -1,6 +1,6 @@
 import path from 'path'
 import { randomUUID } from 'crypto'
-import { PopServiceInterface, ProgressBreakdownItem } from './PopServiceInterface'
+import { AttendenceRecord, PopServiceInterface, ProgressBreakdownItem } from './PopServiceInterface'
 import messages, { Message } from '../routes/data/messages'
 import { pastAppointments, upcomingAppointments } from '../routes/data/appointments'
 import logger from '../../logger'
@@ -52,6 +52,51 @@ const PopService: PopServiceInterface = {
     }
   },
 
+  async getPreviousAttendence(userId: string) {
+    return [
+      {
+        date: '15 March 2025',
+        status: 'Attended',
+        credits: 7,
+        unit: 'hours',
+        performanceRating: 'Excellent',
+        feedback: 'Great work on the skirting board.\nAppreciate you keeping the engery up even after 3pm.',
+      },
+      {
+        date: '8 March 2025',
+        status: 'Attended',
+        credits: 7,
+        unit: 'hours',
+        performanceRating: 'Excellent',
+        feedback: 'Fantastic job on organising the inventory today. Your attention to detail really shows!',
+      },
+      {
+        date: '1 March 2025',
+        status: 'Left earlier',
+        credits: 2,
+        unit: 'hours',
+        performanceRating: 'Satisfactory',
+        feedback: 'Your communication could be better. Try using less aggressive language with others.',
+      },
+      {
+        date: '22 February 2025',
+        status: 'Attended',
+        credits: 7,
+        unit: 'hours',
+        performanceRating: 'Excellent',
+        feedback: 'Great teamwork during the shift.',
+      },
+      {
+        date: '22 February 2025',
+        status: 'Did not attend',
+        credits: 0,
+        unit: 'hours',
+        performanceRating: '',
+        feedback: '',
+      },
+    ]
+  },
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getMessageById(messageId: string, userId: string) {
     const message = messages.find(msg => msg.id === messageId)
@@ -62,12 +107,28 @@ const PopService: PopServiceInterface = {
     return { upcomingAppointments, pastAppointments, userId }
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getNextAppointment(userId) {
+    return {
+      date: 'Saturday 15 March 2025',
+      time: '9am - 5pm',
+      title: 'Community Garden Maintenance',
+      location: '123 Garden Street, London SE1 7TH',
+      contact: 'Karen Smith',
+      contactLink: '',
+      description:
+        'Group session focused on weeding, planting seasonal vegetables, and Probation appointment garden maintenance. Bring appropriate clothing for outdoor work, tools will be provided. Break times will be scheduled during the session.',
+      category: 'Unpaid Work',
+      showOnMap: true,
+    }
+  },
+
   async addMessageToThread(
     messageId: string,
     messageText: string,
     fileData?: { path: string; originalname: string },
     userId?: string,
-    sessionMessages?: Message[], // passing session messages so we can update them might not be required in the real implementation
+    sessionMessages?: Message[],
   ): Promise<boolean> {
     const message = sessionMessages?.find(msg => msg.id === messageId)
     if (!message) {
@@ -110,7 +171,7 @@ const PopService: PopServiceInterface = {
     fileData?: { path: string; originalname: string },
     userId?: string,
     recipient?: string,
-    sessionMessages?: Message[], // passing session messages so we can update them might not be required in the real implementation
+    sessionMessages?: Message[],
   ): Promise<string> {
     let updatedMessageText = messageText
     if (fileData && userId) {
