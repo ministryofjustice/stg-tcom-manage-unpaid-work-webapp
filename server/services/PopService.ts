@@ -20,9 +20,10 @@ const PopService: PopServiceInterface = {
   async getProgressDetails(userId) {
     return {
       userId,
-      completedHours: 0,
+      totalCompletedHours: 0,
       totalHours: 100,
       percentCompleted: (0 / 100) * 100,
+      breakdown: [],
       appointment: {
         title: 'Community Garden Maintenance',
         date: 'Friday 15 March 2024',

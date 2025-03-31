@@ -11,9 +11,10 @@ export interface PopServiceInterface {
   }>
 
   getProgressDetails(userId: string): Promise<{
-    completedHours: number
+    totalCompletedHours: number
     totalHours: number
     percentCompleted: number
+    breakdown: Array<{ title: string; required: number; completed: number }>
     appointment: {
       title: string
       date: string
