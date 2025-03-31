@@ -1,5 +1,7 @@
 import { Message } from '../routes/data/messages'
 
+export type ProgressBreakdownItem = { title: string; completed: number; required: number }
+
 export interface PopServiceInterface {
   getUserDetails(userId: string): Promise<{
     name: string
@@ -14,7 +16,7 @@ export interface PopServiceInterface {
     totalCompletedHours: number
     totalHours: number
     percentCompleted: number
-    breakdown: Array<{ title: string; required: number; completed: number }>
+    breakdown: Array<ProgressBreakdownItem>
     appointment: {
       title: string
       date: string

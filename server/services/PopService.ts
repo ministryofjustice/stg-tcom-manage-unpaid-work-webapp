@@ -1,6 +1,6 @@
 import path from 'path'
 import { randomUUID } from 'crypto'
-import { PopServiceInterface } from './PopServiceInterface'
+import { PopServiceInterface, ProgressBreakdownItem } from './PopServiceInterface'
 import messages, { Message } from '../routes/data/messages'
 import { pastAppointments, upcomingAppointments } from '../routes/data/appointments'
 import logger from '../../logger'
@@ -18,12 +18,31 @@ const PopService: PopServiceInterface = {
   },
 
   async getProgressDetails(userId) {
+    // to simulate zero progress or in progress (wip) we will fake a prefix on the userId
+    let breakdown: ProgressBreakdownItem[] = []
+    let totalCompletedHours = 0
+    const totalRequiredHours = 100
+    if (userId.startsWith('wip_')) {
+      totalCompletedHours = 50
+      breakdown = [
+        { title: 'In person', completed: 40, required: 70 },
+        { title: 'Education, Training and Employment (ETE) programmes', completed: 10, required: 30 },
+        { title: 'Total', completed: 50, required: 100 },
+      ]
+    } else {
+      totalCompletedHours = 0
+      breakdown = [
+        { title: 'In person', completed: 0, required: 70 },
+        { title: 'Education, Training and Employment (ETE) programmes', completed: 0, required: 30 },
+        { title: 'Total', completed: 0, required: 100 },
+      ]
+    }
     return {
       userId,
-      totalCompletedHours: 0,
-      totalHours: 100,
-      percentCompleted: (0 / 100) * 100,
-      breakdown: [],
+      totalCompletedHours,
+      totalHours: totalRequiredHours,
+      percentCompleted: (totalCompletedHours / totalRequiredHours) * 100,
+      breakdown,
       appointment: {
         title: 'Community Garden Maintenance',
         date: 'Friday 15 March 2024',
@@ -33,6 +52,7 @@ const PopService: PopServiceInterface = {
     }
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getMessageById(messageId: string, userId: string) {
     const message = messages.find(msg => msg.id === messageId)
     return message || null

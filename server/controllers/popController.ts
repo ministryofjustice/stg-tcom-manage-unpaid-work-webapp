@@ -25,10 +25,23 @@ export const renderPopDetails = (popService = getPopService()): RequestHandler =
 
 export const renderPopProgress = (popService = getPopService()): RequestHandler => {
   return async (req, res, next) => {
+    // /pop/your-progress/?progress=zero (default)
+    // /pop/your-progress/?progress=wip
     try {
-      const userId = req.session.user_id || randomUUID()
-      const progressData = await popService.getProgressDetails(userId)
-      res.render('pages/pop/progress', { progressData })
+      const { progress } = req.query
+      let tempUserId = req.session.user_id || randomUUID()
+      req.session.user_id = tempUserId // ensure this is always set
+      if (progress === 'wip') {
+        // to simulate zero progress or in progress (wip) we will fake a prefix on the userId
+
+        tempUserId = `wip_${tempUserId}`
+      }
+      const progressData = await popService.getProgressDetails(tempUserId)
+      const displayBreakdown: Array<Array<{ text: string | number }>> = []
+      progressData.breakdown.forEach(item => {
+        displayBreakdown.push([{ text: item.title }, { text: item.required }, { text: item.completed }])
+      })
+      res.render('pages/pop/progress', { progressData, displayBreakdown })
     } catch (error) {
       next(error)
     }
@@ -39,6 +52,7 @@ export const renderMessageThread = (popService = getPopService()): RequestHandle
   return async (req, res, next) => {
     try {
       // const userId = req.session.user_id || randomUUID()
+      // req.session.user_id = userId // ensure this is always set
       // const messages = popService.getMessageById(req.params.id, userId)
       const { messages } = req.session
       const message = messages?.find((msg: Message) => msg.id === req.params.id)
@@ -79,6 +93,7 @@ export const renderAppointments = (popService = getPopService()): RequestHandler
   return async (req, res, next) => {
     try {
       const userId = req.session.user_id || randomUUID()
+      req.session.user_id = userId // ensure this is always set
       const appointments = await popService.getAppointments(userId)
       res.render('pages/pop/appointments', appointments)
     } catch (error) {
@@ -100,6 +115,7 @@ export const renderViewAppointment = (popService = getPopService()): RequestHand
     try {
       const appointmentId = '12345'
       const userId = req.session.user_id || randomUUID()
+      req.session.user_id = userId // ensure this is always set
       const appointmentDetails = await popService.getAppointmentDetails(appointmentId, userId)
       res.render('pages/pop/view-appointment', { appointmentDetails })
     } catch (error) {
@@ -113,6 +129,7 @@ export const renderViewPastAppointment = (popService = getPopService()): Request
     try {
       const appointmentId = '67890'
       const userId = req.session.user_id || randomUUID()
+      req.session.user_id = userId // ensure this is always set
       const appointmentDetails = await popService.getAppointmentDetails(appointmentId, userId)
       res.render('pages/pop/view-past-appointment', { appointmentDetails })
     } catch (error) {
