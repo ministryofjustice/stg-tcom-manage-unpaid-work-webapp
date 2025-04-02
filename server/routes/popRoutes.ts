@@ -1,20 +1,21 @@
 import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import setUpMultipartFormDataParsing from '../middleware/setUpMultipartFormDataParsing'
+import { renderPopDetails, renderPopProgress, renderConditions, renderIndex } from '../controllers/popController'
+
 import {
-  renderPopDetails,
-  renderPopProgress,
-  renderMessageThread,
   renderAppointments,
-  renderConditions,
   renderViewAppointment,
   renderViewPastAppointment,
+} from '../controllers/appointmentsController'
+
+import {
+  renderMessageThread,
   handleMessageThread,
   renderMessages,
   handleNewMessage,
   renderNewMessage,
-  renderIndex,
-} from '../controllers/popController'
+} from '../controllers/messagesController'
 
 export default function routes(): Router {
   const router = Router()
