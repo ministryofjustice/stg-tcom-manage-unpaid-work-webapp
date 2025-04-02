@@ -24,9 +24,6 @@ h4 {
   background-color: $govuk-success-colour;
   height: 0.5em;
 }
-.not-completed-hours {
-  height: 0.5em;
-}
 
 // override in one place using mixins to reduce repeated classes in njks
 .appointment-summary p, .appointment-summary h4 {
