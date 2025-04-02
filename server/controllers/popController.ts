@@ -4,6 +4,10 @@ import getPopService from '../services/serviceInjection'
 import { Message } from '../routes/data/messages'
 import { AttendenceRecord } from '../services/PopServiceInterface'
 
+export type TableEntriesCollection = Array<
+  Array<{ text: string | number; attributes?: object } | { html: string | number }>
+>
+
 export const renderIndex: RequestHandler = async (req, res, next) => {
   try {
     const { scenario } = req.query
@@ -34,7 +38,7 @@ export const renderPopProgress = (popService = getPopService()): RequestHandler 
       req.session.user_id = tempUserId // ensure this is always set
 
       let nextAppointment
-      let previousAttendence: Array<Array<{ text: string | number } | { html: string | number }>> | undefined
+      let previousAttendence: TableEntriesCollection | undefined
       let attendance: Array<AttendenceRecord> = []
       if (progress === 'wip') {
         // to simulate zero progress or in progress (wip) we will fake a prefix on the userId
@@ -44,15 +48,28 @@ export const renderPopProgress = (popService = getPopService()): RequestHandler 
         attendance = await popService.getPreviousAttendence(tempUserId)
       }
       const progressData = await popService.getProgressDetails(tempUserId)
-      const displayBreakdown: Array<Array<{ text: string | number }>> = []
+      const displayBreakdown: TableEntriesCollection = []
       progressData.breakdown.forEach(item => {
-        displayBreakdown.push([{ text: item.title }, { text: item.required }, { text: item.completed }])
+        if (item.title === 'Total') {
+          displayBreakdown.push([
+            { html: `<strong>${item.title}</strong>` },
+            { html: `<strong>${item.required}</strong>` },
+            { html: `<strong>${item.completed}</strong>` },
+          ])
+        } else {
+          displayBreakdown.push([{ text: item.title }, { text: item.required }, { text: item.completed }])
+        }
       })
       if (attendance.length > 0) {
         previousAttendence = []
         attendance.forEach(item => {
           previousAttendence.push([
-            { text: item.date },
+            {
+              text: item.date,
+              attributes: {
+                'data-sort-value': item.sortableDate,
+              },
+            },
             { text: item.status },
             { text: `${item.credits} ${item.unit}` },
             { html: `<strong>${item.performanceRating}</strong><br />${item.feedback}` },
@@ -66,6 +83,7 @@ export const renderPopProgress = (popService = getPopService()): RequestHandler 
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const renderMessageThread = (popService = getPopService()): RequestHandler => {
   return async (req, res, next) => {
     try {

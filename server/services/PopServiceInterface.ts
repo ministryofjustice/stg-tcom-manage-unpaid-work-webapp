@@ -25,6 +25,7 @@ export type ProgressDetails = {
 
 export type AttendenceRecord = {
   date: string
+  sortableDate: string
   status: string // will be an enum in real system
   credits: number
   unit: string

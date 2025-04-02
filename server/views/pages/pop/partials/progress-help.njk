@@ -1,19 +1,17 @@
-     {# displayBreakdown #}
-
-{% set breakdown = displayBreakdown %}
-
+{% set note %}
+<p>You can do up to 30% of your hours through Education, Training and Employment (ETE) programmes on
+  <a href='https://www.communitycampus.online/#/sign-in' target="_blank" class='govuk-link'>Community Campus (opens in a new tab)</a>.</p>
+{% endset %}
 {{ govukDetails({
   summaryText: "Help with my unpaid work hours",
-  html: "<p>You can do up to 30% of your hours through Education, Training and Employment (ETE) programmes on <a href='https://www.communitycampus.online/#/sign-in' class='govuk-link'>Community Campus</a>.</p>" +
+  html: note +
       govukTable({
-          caption: "Type of unpaid work",
-          captionClasses: "govuk-table__caption--m",
           firstCellIsHeader: false,
           head: [
               { text: "Type of unpaid work" },
               { text: "Hours sentenced" },
               { text: "Hours completed" }
           ],
-          rows: breakdown
+          rows: displayBreakdown
       })
 }) }}

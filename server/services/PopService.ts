@@ -1,6 +1,6 @@
 import path from 'path'
 import { randomUUID } from 'crypto'
-import { AttendenceRecord, PopServiceInterface, ProgressBreakdownItem } from './PopServiceInterface'
+import { PopServiceInterface, ProgressBreakdownItem } from './PopServiceInterface'
 import messages, { Message } from '../routes/data/messages'
 import { pastAppointments, upcomingAppointments } from '../routes/data/appointments'
 import logger from '../../logger'
@@ -52,10 +52,12 @@ const PopService: PopServiceInterface = {
     }
   },
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getPreviousAttendence(userId: string) {
     return [
       {
         date: '15 March 2025',
+        sortableDate: '2025-03-15',
         status: 'Attended',
         credits: 7,
         unit: 'hours',
@@ -64,6 +66,7 @@ const PopService: PopServiceInterface = {
       },
       {
         date: '8 March 2025',
+        sortableDate: '2025-03-08',
         status: 'Attended',
         credits: 7,
         unit: 'hours',
@@ -72,6 +75,7 @@ const PopService: PopServiceInterface = {
       },
       {
         date: '1 March 2025',
+        sortableDate: '2025-03-01',
         status: 'Left earlier',
         credits: 2,
         unit: 'hours',
@@ -80,6 +84,7 @@ const PopService: PopServiceInterface = {
       },
       {
         date: '22 February 2025',
+        sortableDate: '2025-02-22',
         status: 'Attended',
         credits: 7,
         unit: 'hours',
@@ -87,7 +92,8 @@ const PopService: PopServiceInterface = {
         feedback: 'Great teamwork during the shift.',
       },
       {
-        date: '22 February 2025',
+        date: '13 February 2025',
+        sortableDate: '2025-02-13',
         status: 'Did not attend',
         credits: 0,
         unit: 'hours',

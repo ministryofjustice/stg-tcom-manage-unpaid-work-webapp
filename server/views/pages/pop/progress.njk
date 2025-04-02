@@ -27,12 +27,16 @@
           </div>
         </div>
       <div class="govuk-box total-hours">
-          <div class="not-completed-hours" style="width: 0%"></div>
-        </div>
+        {% set styleWidth = progressData.percentCompleted +'%' %}
+        <style nonce="{{ cspNonce }}">
+          .completed-hours-width { width: {{styleWidth}}}
+        </style>
+          <div class="completed-hours completed-hours-width"></div>
+      </div>
   {% include "./partials/progress-help.njk" %}
 
-
-    <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Next Session</h1>
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Next session</h1>
     {% if nextAppointment %}
       {% set appointment = nextAppointment %}
       {% set isUpcoming = true %}
@@ -42,7 +46,6 @@
     {% endif %}
     <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Past attendance</h1>
     {% if previousAttendence %}
-      <p class="govuk-body subhead">Your previous attendance table goes here!</p>
       {{ govukTable({
         attributes: {
           "data-module": "moj-sortable-table"
@@ -72,7 +75,7 @@
       <p class="govuk-body subhead">Your previous attendance will be shown here after your first session</p>
     {% endif %}
   </div>
-  </div>
+  {# </div> #}
 </div>
 
 {% endblock %}
