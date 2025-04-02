@@ -23,22 +23,59 @@
             <p class="govuk-heading-m govuk-!-margin-0">Hours completed</p>
           </div>
           <div class="govuk-grid-column-one-quarter">
-            <span class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0  govuk-!-text-align-right">{{ progressData.completedHours }}/{{ progressData.totalHours }}</span>
+            <span class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0  govuk-!-text-align-right">{{ progressData.totalCompletedHours }}/{{ progressData.totalHours }}</span>
           </div>
         </div>
       <div class="govuk-box total-hours">
-          <div class="not-completed-hours" style="width: 0%"></div>
-        </div>
+        {% set styleWidth = progressData.percentCompleted +'%' %}
+        <style nonce="{{ cspNonce }}">
+          .completed-hours-width { width: {{styleWidth}}}
+        </style>
+          <div class="completed-hours completed-hours-width"></div>
+      </div>
   {% include "./partials/progress-help.njk" %}
 
-
-     <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Next Session</h1>
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Next session</h1>
+    {% if nextAppointment %}
+      {% set appointment = nextAppointment %}
+      {% set isUpcoming = true %}
+      {% include "./partials/appointmentSummary.njk" %}
+    {% else %}
       <p class="govuk-body subhead">Your next session will be shown here after it has been scheduled</p>
-
-      <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Past attendance</h1>
+    {% endif %}
+    <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Past attendance</h1>
+    {% if previousAttendence %}
+      {{ govukTable({
+        attributes: {
+          "data-module": "moj-sortable-table"
+        },
+        head: [
+            { text: "Date", attributes: {
+                "aria-sort": "descending"
+              }
+            },
+            { text: "Status", attributes: {
+                "aria-sort": "none"
+              }
+            },
+            { text: "Hours earned", attributes: {
+                "aria-sort": "none"
+              }
+            },
+            { text: "Feedback", attributes: {
+                "aria-sort": "none"
+              }
+            }
+        ],
+        rows: previousAttendence
+    })
+      }}
+    {% else %}
       <p class="govuk-body subhead">Your previous attendance will be shown here after your first session</p>
+    {% endif %}
   </div>
-  </div>
+  {# </div> #}
 </div>
 
 {% endblock %}
