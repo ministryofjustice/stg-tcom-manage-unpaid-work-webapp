@@ -75,22 +75,16 @@ export const renderPopProgress = (popService = getPopService()): RequestHandler 
           ])
         })
       }
-      res.render('pages/pop/progress', { progressData, displayBreakdown, nextAppointment, previousAttendence })
-    } catch (error) {
-      next(error)
-    }
-  }
-}
-
-export const renderConditions = (popService = getPopService()): RequestHandler => {
-  return async (req, res, next) => {
-    try {
-      const userId = req.session.user_id || randomUUID()
-      req.session.user_id = userId // ensure this is always set
-      const unpaidWorkSummary = await popService.getUnpaidWorkSummary(userId)
-      const unpaidWorkWarning = await popService.getUnpaidWorkWarning(userId)
-
-      res.render('pages/pop/conditions', { unpaidWorkSummary, unpaidWorkWarning })
+      const unpaidWorkWarning = await popService.getUnpaidWorkWarning(tempUserId)
+      const unpaidWorkSummary = await popService.getUnpaidWorkSummary(tempUserId)
+      res.render('pages/pop/progress', {
+        progressData,
+        displayBreakdown,
+        nextAppointment,
+        previousAttendence,
+        unpaidWorkSummary,
+        unpaidWorkWarning,
+      })
     } catch (error) {
       next(error)
     }
