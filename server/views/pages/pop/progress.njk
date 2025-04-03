@@ -15,17 +15,23 @@
       href: "/pop"
     }) }}
   </div>
+</div>
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-      <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Your progress</h1>
-      <p class="govuk-body subhead">Last updated on 10 March 2025, 2:29pm</p>
-        <div class="govuk-grid-row govuk-!-margin-top-8">
-          <div class="govuk-grid-column-three-quarters">
-            <p class="govuk-heading-m govuk-!-margin-0">Hours completed</p>
-          </div>
-          <div class="govuk-grid-column-one-quarter">
-            <span class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0  govuk-!-text-align-right">{{ progressData.totalCompletedHours }}/{{ progressData.totalHours }}</span>
-          </div>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Your progress</h1>
+    <p class="govuk-body subhead">Last updated on 10 March 2025, 2:29pm</p>
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+      <div class="govuk-grid-row govuk-!-margin-top-6">
+        <div class="govuk-grid-column-three-quarters">
+          <p class="govuk-heading-m govuk-!-margin-0">Hours completed</p>
         </div>
+        <div class="govuk-grid-column-one-quarter">
+          <span class="govuk-heading-m govuk-!-margin-0 govuk-!-padding-0  govuk-!-text-align-right">{{ progressData.totalCompletedHours }}/{{ progressData.totalHours }}</span>
+        </div>
+      </div>
       <div class="govuk-box total-hours">
         {% set styleWidth = progressData.percentCompleted +'%' %}
         <style nonce="{{ cspNonce }}">
@@ -34,7 +40,9 @@
           <div class="completed-hours completed-hours-width"></div>
       </div>
   {% include "./partials/progress-help.njk" %}
-
+  </div>
+</div>
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Next session</h1>
     {% if nextAppointment %}
@@ -44,6 +52,10 @@
     {% else %}
       <p class="govuk-body subhead">Your next session will be shown here after it has been scheduled</p>
     {% endif %}
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
     <h1 class="govuk-heading-m govuk-!-margin-bottom-3">Past attendance</h1>
     {% if previousAttendence %}
       {{ govukTable({
@@ -75,7 +87,6 @@
       <p class="govuk-body subhead">Your previous attendance will be shown here after your first session</p>
     {% endif %}
   </div>
-  {# </div> #}
 </div>
 
 {% endblock %}
