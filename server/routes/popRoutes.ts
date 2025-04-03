@@ -43,7 +43,7 @@ export default function routes(): Router {
   get('/your-details', renderPopDetails())
   get('/your-progress', renderPopProgress())
   get('/appointments', renderAppointments())
-  get('/conditions', renderConditions)
+  get('/conditions', renderConditions())
   get('/view-appointment', renderViewAppointment())
   get('/view-past-appointment', renderViewPastAppointment())
 
