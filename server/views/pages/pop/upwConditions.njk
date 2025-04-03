@@ -1,0 +1,56 @@
+{% extends "../../layouts/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Your unpaid work conditions" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+     {{ govukBackLink({
+      text: "Back",
+      href: "/conditions"
+    }) }}
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Unpaid work</h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-margin-top-6 ">
+    {% include "./partials/unpaidWorkWarning.njk" %}
+    {% include "./partials/unpaidWorkSummary.njk" %}
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-margin-top-6 ">
+    <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Conditions</h2>
+    <p>Unpaid work, also called Community Payback, is a requirement in your sentence.</p>
+    <p>You will usually work in your local area, and be managed by a Community Payback supervisor. Unpaid work projects can include activities such as removing graffiti, planting trees, or decorating community centres.</p>
+    <p>This is an opportunity for you to contribute positively to your community and demonstrate a commitment to making amends for past actions.</p>
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">Conditions</h2>
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-margin-top-6 ">
+    <h3 class="govuk-heading-m govuk-!-margin-bottom-2">We expect you to:</h3>
+    {% include "./partials/conditionsList.njk" %}
+  </div>
+</div>
+
+<div class="govuk-grid-row ">
+  <div class="govuk-grid-column-full govuk-!-margin-top-4 ">
+
+    <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">
+    Need help understanding your conditions?
+    </p>
+    <p class=" govuk-body-s govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">Contact your probation practitioner for guidance on any conditions you are unsure about.</p>
+    <a class="govuk-link govuk-link--no-visited-state" href="/pop/new-message">Message</a>
+
+  </div>
+</div>
+
+{% endblock %}
+

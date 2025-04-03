@@ -36,6 +36,7 @@ export type AttendenceRecord = {
 export type OrderRequirement = {
   category: string
   requirement: string
+  infoLink?: string
 }
 
 export type UnpaidWorkSummary = {
