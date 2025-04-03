@@ -1,7 +1,7 @@
-import PopService from './PopService'
-import { PopServiceInterface } from './PopServiceInterface'
+import PrototypePopService from './PrototypePopService'
+import { PopService } from './PopService'
 
 // can be changed to DB service or mock service
-export default function getPopService(): PopServiceInterface {
-  return PopService
+export default function getPopService(): PopService {
+  return PrototypePopService
 }

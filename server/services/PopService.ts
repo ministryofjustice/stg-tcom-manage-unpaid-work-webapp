@@ -1,231 +1,123 @@
-import path from 'path'
-import { randomUUID } from 'crypto'
-import { PopServiceInterface, ProgressBreakdownItem } from './PopServiceInterface'
-import messages, { Message } from '../routes/data/messages'
-import { pastAppointments, upcomingAppointments } from '../routes/data/appointments'
-import logger from '../../logger'
+import { Message } from '../routes/data/messages'
 
-const PopService: PopServiceInterface = {
-  async getUserDetails(userId: string) {
-    return {
-      name: 'Joe Bloggs',
-      userId,
-      hoursRequired: 100,
-      address: 'Flat 1, 1 Example St, London, SE1 1AA',
-      email: 'joe.bloggs@example.com',
-      phone: '07777 012345',
-    }
-  },
+export type ProgressBreakdownItem = { title: string; completed: number; required: number }
+export type UserDetails = {
+  name: string
+  userId: string
+  hoursRequired: number
+  address: string
+  email: string
+  phone: string
+}
 
-  async getProgressDetails(userId) {
-    // to simulate zero progress or in progress (wip) we will fake a prefix on the userId
-    let breakdown: ProgressBreakdownItem[] = []
-    let totalCompletedHours = 0
-    const totalRequiredHours = 100
-    if (userId.startsWith('wip_')) {
-      totalCompletedHours = 50
-      breakdown = [
-        { title: 'In person', completed: 40, required: 70 },
-        { title: 'Education, Training and Employment (ETE) programmes', completed: 10, required: 30 },
-        { title: 'Total', completed: 50, required: 100 },
-      ]
-    } else {
-      totalCompletedHours = 0
-      breakdown = [
-        { title: 'In person', completed: 0, required: 70 },
-        { title: 'Education, Training and Employment (ETE) programmes', completed: 0, required: 30 },
-        { title: 'Total', completed: 0, required: 100 },
-      ]
-    }
-    return {
-      userId,
-      totalCompletedHours,
-      totalHours: totalRequiredHours,
-      percentCompleted: (totalCompletedHours / totalRequiredHours) * 100,
-      breakdown,
-      appointment: {
-        title: 'Community Garden Maintenance',
-        date: 'Friday 15 March 2024',
-        time: '09:00',
-        location: '123 Garden Street, London SE1 7TH',
-      },
-    }
-  },
+export type ProgressDetails = {
+  totalCompletedHours: number
+  totalHours: number
+  percentCompleted: number
+  breakdown: Array<ProgressBreakdownItem>
+  appointment: {
+    title: string
+    date: string
+    time: string
+    location: string
+  }
+}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async getPreviousAttendence(userId: string) {
-    return [
-      {
-        date: '15 March 2025',
-        sortableDate: '2025-03-15',
-        status: 'Attended',
-        credits: 7,
-        unit: 'hours',
-        performanceRating: 'Excellent',
-        feedback: 'Great work on the skirting board.\nAppreciate you keeping the engery up even after 3pm.',
-      },
-      {
-        date: '8 March 2025',
-        sortableDate: '2025-03-08',
-        status: 'Attended',
-        credits: 7,
-        unit: 'hours',
-        performanceRating: 'Excellent',
-        feedback: 'Fantastic job on organising the inventory today. Your attention to detail really shows!',
-      },
-      {
-        date: '1 March 2025',
-        sortableDate: '2025-03-01',
-        status: 'Left earlier',
-        credits: 2,
-        unit: 'hours',
-        performanceRating: 'Satisfactory',
-        feedback: 'Your communication could be better. Try using less aggressive language with others.',
-      },
-      {
-        date: '22 February 2025',
-        sortableDate: '2025-02-22',
-        status: 'Attended',
-        credits: 7,
-        unit: 'hours',
-        performanceRating: 'Excellent',
-        feedback: 'Great teamwork during the shift.',
-      },
-      {
-        date: '13 February 2025',
-        sortableDate: '2025-02-13',
-        status: 'Did not attend',
-        credits: 0,
-        unit: 'hours',
-        performanceRating: '',
-        feedback: '',
-      },
-    ]
-  },
+export type AttendenceRecord = {
+  date: string
+  sortableDate: string
+  status: string // will be an enum in real system
+  credits: number
+  unit: string
+  performanceRating: string // will be an enum in real system
+  feedback: string // note format, expect possibility of multiple lines
+}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async getMessageById(messageId: string, userId: string) {
-    const message = messages.find(msg => msg.id === messageId)
-    return message || null
-  },
+export type OrderRequirement = {
+  category: string
+  requirement: string
+}
 
-  async getAppointments(userId) {
-    return { upcomingAppointments, pastAppointments, userId }
-  },
+export type UnpaidWorkSummary = {
+  day: string
+  time: string
+  frequency: string
+  meetingPoint: string
+  workType: string
+  requirements: string
+}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async getNextAppointment(userId) {
-    return {
-      date: 'Saturday 15 March 2025',
-      time: '9am - 5pm',
-      title: 'Community Garden Maintenance',
-      location: '123 Garden Street, London SE1 7TH',
-      contact: 'Karen Smith',
-      contactLink: '',
-      description:
-        'Group session focused on weeding, planting seasonal vegetables, and Probation appointment garden maintenance. Bring appropriate clothing for outdoor work, tools will be provided. Break times will be scheduled during the session.',
-      category: 'Unpaid Work',
-      showOnMap: true,
-    }
-  },
+export type ProbationConditionsSummary = {
+  orderType: string
+  startDate: string // later: data type date, format at view
+  requirementsCompletionDate: string // later: data type date, format at view
+  requirements: Array<OrderRequirement>
+}
 
-  async addMessageToThread(
+export interface PopService {
+  getUserDetails(userId: string): Promise<UserDetails>
+
+  getProgressDetails(userId: string): Promise<ProgressDetails>
+
+  getPreviousAttendence(userId: string): Promise<Array<AttendenceRecord>>
+
+  getUnpaidWorkConditions(userId: string): Promise<Array<string>>
+
+  getProbationConditions(userId: string): Promise<Array<string>>
+
+  getUnpaidWorkSummary(userId: string): Promise<UnpaidWorkSummary>
+
+  getUnpaidWorkWarning(userId: string): Promise<string>
+
+  getProbationConditionSummary(userId: string): Promise<ProbationConditionsSummary>
+
+  getAppointments(userId: string): Promise<{
+    upcomingAppointments: Array<{ title: string; date: string; time: string }>
+    pastAppointments: Array<{ title: string; date: string; time: string }>
+  }>
+
+  getNextAppointment(userId: string): Promise<{
+    date: string
+    time: string
+    title: string
+    location: string
+    contact: string
+    contactLink: string
+    description: string
+    category: string
+    showOnMap: boolean
+  }>
+
+  getAppointmentDetails(
+    appointmentId: string,
+    userId: string,
+  ): Promise<{
+    id: string
+    title: string
+    date: string
+    time: string
+    location: string
+    description: string
+  }>
+
+  getMessageById(messageId: string, userId: string): Promise<Message | null>
+
+  addMessageToThread(
     messageId: string,
     messageText: string,
     fileData?: { path: string; originalname: string },
     userId?: string,
     sessionMessages?: Message[],
-  ): Promise<boolean> {
-    const message = sessionMessages?.find(msg => msg.id === messageId)
-    if (!message) {
-      return false
-    }
+  ): Promise<boolean>
 
-    let updatedMessageText = messageText
-    if (fileData && userId) {
-      try {
-        const relativePath = `/assets/uploads/${userId}/${path.basename(fileData.path)}`
-        const attachmentLink = `<a href="${relativePath}" target="_blank">${fileData.originalname}</a>`
-        updatedMessageText = messageText
-          ? `${messageText}<br><br>Attachment: <br>${attachmentLink}`
-          : `Attachment: ${attachmentLink}`
-      } catch (error) {
-        logger.error(`Error processing uploaded file: ${error.message}`)
-      }
-    }
+  getAllMessages(): Promise<Message[]>
 
-    if (updatedMessageText || fileData) {
-      const newMessageItem: Message['items'][0] = {
-        html: updatedMessageText,
-        type: 'sent',
-        timestamp: new Date().toLocaleString(),
-        sender: 'You',
-      }
-      message.items.push(newMessageItem)
-    }
-
-    return true
-  },
-
-  async getAllMessages() {
-    return messages
-  },
-
-  async createNewMessage(
+  createNewMessage(
     subject: string,
     messageText: string,
     fileData?: { path: string; originalname: string },
     userId?: string,
     recipient?: string,
     sessionMessages?: Message[],
-  ): Promise<string> {
-    let updatedMessageText = messageText
-    if (fileData && userId) {
-      try {
-        const relativePath = `/assets/uploads/${userId}/${path.basename(fileData.path)}`
-        const attachmentLink = `<a href="${relativePath}" target="_blank">${fileData.originalname}</a>`
-        updatedMessageText = messageText
-          ? `${messageText}<br><br>Attachment: <br>${attachmentLink}`
-          : `Attachment: ${attachmentLink}`
-      } catch (error) {
-        logger.error(`Error processing uploaded file: ${error.message}`)
-      }
-    }
-
-    const newMessage: Message = {
-      id: randomUUID(),
-      subject,
-      date: new Date().toLocaleDateString(),
-      status: 'new',
-      description: updatedMessageText,
-      recipient,
-      items: [
-        {
-          html: updatedMessageText,
-          type: 'sent',
-          timestamp: new Date().toLocaleString(),
-          sender: 'You',
-        },
-      ],
-    }
-
-    if (sessionMessages) {
-      sessionMessages.push(newMessage)
-    }
-
-    return newMessage.id
-  },
-
-  async getAppointmentDetails(appointmentId: string, userId: string) {
-    return {
-      id: appointmentId,
-      title: 'Community Garden Maintenance',
-      date: 'Friday 15 March 2024',
-      time: '09:00',
-      location: '123 Garden Street, London SE1 7TH',
-      description: `This is a fake appointment for user ${userId}.`,
-    }
-  },
+  ): Promise<string>
 }
-
-export default PopService

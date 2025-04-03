@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express'
 import { randomUUID } from 'crypto'
 import getPopService from '../services/serviceInjection'
-import { AttendenceRecord } from '../services/PopServiceInterface'
+import { AttendenceRecord } from '../services/PopService'
 
 export type TableEntriesCollection = Array<
   Array<{ text: string | number; attributes?: object } | { html: string | number }>
