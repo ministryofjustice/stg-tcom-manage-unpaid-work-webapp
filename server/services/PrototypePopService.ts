@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto'
 import { PopService, ProgressBreakdownItem } from './PopService'
 import messages, { Message } from '../routes/data/messages'
 import { pastAppointments, upcomingAppointments } from '../routes/data/appointments'
+import { unpaidWorkConditions, probationConditions } from '../routes/data/conditions'
 import logger from '../../logger'
 
 const PrototypePopService: PopService = {
@@ -248,7 +249,7 @@ const PrototypePopService: PopService = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getUnpaidWorkConditions(userId: string) {
-    return []
+    return unpaidWorkConditions
   },
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -263,7 +264,7 @@ const PrototypePopService: PopService = {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getProbationConditions(userId: string) {
-    return []
+    return probationConditions
   },
 }
 
