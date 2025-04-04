@@ -1,0 +1,59 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{{ govukSummaryList({
+  card: {
+    title: {
+      text: "Unpaid work instructions"
+    }
+  },
+  rows: [
+    {
+      key: {
+        text: "Day"
+      },
+      value: {
+        html: unpaidWorkSummary.day
+      }
+    },
+    {
+      key: {
+        text: "Time"
+      },
+      value: {
+        html: unpaidWorkSummary.time
+      }
+    },
+    {
+      key: {
+        text: "Frequency"
+      },
+      value: {
+        html: unpaidWorkSummary.frequency
+      }
+    },
+    {
+      key: {
+        text: "Meeting point"
+      },
+      value: {
+        html: unpaidWorkSummary.meetingPoint
+      }
+    },
+    {
+      key: {
+        text: "Work type"
+      },
+      value: {
+        html: unpaidWorkSummary.workType
+      }
+    },
+    {
+      key: {
+        text: "What you'll need"
+      },
+      value: {
+        html: unpaidWorkSummary.requirements
+      }
+    }
+  ]
+}) }}

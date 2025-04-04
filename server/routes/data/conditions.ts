@@ -1,0 +1,55 @@
+export const unpaidWorkConditions: Array<string> = [
+  "Contact your Probation Practitioner 48 hours in advance if you can't work and provide evidence for absences.",
+  'Work as instructed by your Community Payback Supervisor and show good behaviour.',
+  'Treat everyone you meet during your workday with respect.',
+  "Attend on time; if you're late, your work may not be counted.",
+  'Stay under supervision at all times.',
+  'Work a full day as instructed.',
+  'Wear Community Payback high visibility vests as instructed by the Supervisor.',
+  'Follow Health and Safety advice from the Supervisor.',
+  'Wear appropriate clothing for manual work. No shorts, vests, or skirts.',
+  'Cover offensive tattoos.',
+  'Bring a packed lunch which includes a soft drink.',
+  'Be sober and avoid non-prescribed drugs.',
+  'Behave in a non-aggressive and non-violent manner, using respectful language and behaviour.',
+  'Be cooperative and willing to work; disruptive behaviour or refusal to work may result in being asked to leave the project.',
+  'Respect property and avoid deliberate damage, as any damage may result in prosecution.',
+  'Keep personal visitors away from your worksite.',
+  'Avoid taking photos or using video/audio recording equipment.',
+  'Smoke only during break times.',
+  'Leave your mobile phone at home or refrain from using it during Community Payback sessions, including break and lunch times. If caught using your phone, you may be asked to leave the session and enforcement action could be taken by your Probation Practitioner.',
+]
+
+export const probationConditions: Array<string> = [
+  'Work with your Probation Practitioner and participate in activities laid out in your Court Order or licence. Dependant on your requirements, this may include attending groups, completing unpaid work or working with partner agencies.',
+  'Treat staff and other people on Probation in a fair and respectful manner by not attending under the influence of alcohol / illicit drugs, and not using offensive, discriminatory, abusive, threatening, aggressive or violent words/behaviour in any Probation appointment or activity. Doing this may result in you being sent home and/or enforcement action being undertaken.',
+  'Engage with your sentence plan, reviews of progress, and wider support, and talk about areas of your life which can help you avoid further offending. The more you engage with us, the more you will get out of it.',
+  'Respect the privacy of others and not attempt to, or make any photographic, video or audio recordings when attending Probation appointments.',
+  'Notify the Probation Service of any changes to contact details including telephone number within one working day, so that we are always able to contact you.',
+  'Seek permission from your Probation Practitioner before any change of address and wait for their approval before moving.',
+  'If you become homeless or have no fixed abode, you must keep in touch with Probation and contact them as often as instructed.',
+  'Allow Probation staff to visit your home, to support effective sentence planning, sentence delivery and/or for public protection.',
+  'Be on time for appointments and carry out all reasonable instructions given',
+  'Notify us as far in advance as possible if you know you will be unable to attend a scheduled appointment',
+  'If you are unable to provide evidence of why you cannot attend an appointment before it takes place, you must provide evidence within five working days of the failure to attend.',
+]
+
+// these are added here from a previous prototype iteration in case we want to return to them
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specialistConditions: Array<string> = [
+  'Be of good behaviour and not behave in a way which undermines the purpose of the licence period.',
+  'Not commit any offence.',
+  'Keep in touch with the supervising officer in accordance with instructions given by the supervising officer.',
+  'Receive visits from the supervising officer in accordance with instructions given by the supervising officer.',
+  'Reside permanently at an address approved by the supervising officer and obtain the prior permission of the supervising officer for any stay of one or more nights at a different address.',
+  'Not undertake work, or a particular type of work, unless it is approved by the supervising officer and notify the supervising officer in advance of any proposal to undertake work or a particular type of work',
+  'Not travel outside the United Kingdom, the Channel Islands or the Isle of Man except with the prior permission of your supervising officer or for the purposes of immigration deportation or removal.',
+  'Tell your supervising officer if you use a name which is different from the name or names which appear on your licence.',
+  'Tell your supervising officer if you change or add any contact details, including phone number or email.',
+  'Notify your supervising officer of any intimate relationships.',
+  'Attend appointments arranged by your supervising officer. This includes appointments with: employment services, drug treatment providers, alcohol treatment providers.',
+  'Not to reside (not even to stay for one night) in the same household as any child under the age of 18 without the prior approval of your supervising officer.',
+  'To comply with any instruction given by your supervising officer requiring you to attend a sex offender treatment programme.',
+  'Not to enter the area of Moss Side, as defined by your supervising officer, without the prior approval of your supervising officer.',
+  'Not to contact or associate with Bob Smith or Bill Jones without the prior approval of your supervising officer.',
+]

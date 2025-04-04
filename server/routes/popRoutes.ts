@@ -1,20 +1,21 @@
 import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import setUpMultipartFormDataParsing from '../middleware/setUpMultipartFormDataParsing'
+import { renderPopDetails, renderPopProgress, renderIndex } from '../controllers/popController'
+import { renderOrderSummary, renderUnpaidWork, renderProbationConditions } from '../controllers/conditionsController'
 import {
-  renderPopDetails,
-  renderPopProgress,
-  renderMessageThread,
   renderAppointments,
-  renderConditions,
   renderViewAppointment,
   renderViewPastAppointment,
+} from '../controllers/appointmentsController'
+
+import {
+  renderMessageThread,
   handleMessageThread,
   renderMessages,
   handleNewMessage,
   renderNewMessage,
-  renderIndex,
-} from '../controllers/popController'
+} from '../controllers/messagesController'
 
 export default function routes(): Router {
   const router = Router()
@@ -42,7 +43,9 @@ export default function routes(): Router {
   get('/your-details', renderPopDetails())
   get('/your-progress', renderPopProgress())
   get('/appointments', renderAppointments())
-  get('/conditions', renderConditions)
+  get('/conditions', renderOrderSummary())
+  get('/probation-conditions', renderProbationConditions())
+  get('/upw-conditions', renderUnpaidWork())
   get('/view-appointment', renderViewAppointment())
   get('/view-past-appointment', renderViewPastAppointment())
 
