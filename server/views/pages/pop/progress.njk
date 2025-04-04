@@ -48,6 +48,7 @@
     {% if nextAppointment %}
       {% set appointment = nextAppointment %}
       {% set isUpcoming = true %}
+      {% set showDescription = false %}
       {% include "./partials/appointmentSummary.njk" %}
     {% else %}
       <p class="govuk-body subhead">Your next session will be shown here after it has been scheduled</p>
