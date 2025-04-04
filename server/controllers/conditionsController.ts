@@ -12,6 +12,9 @@ export const renderOrderSummary = (popService = getPopService()): RequestHandler
         if (r.category === 'Unpaid work') {
           // eslint-disable-next-line no-param-reassign
           r.infoLink = '/pop/upw-conditions'
+        } else {
+          // eslint-disable-next-line no-param-reassign
+          r.infoLink = '#'
         }
       })
       res.render('pages/pop/orderSummary', { orderSummary })

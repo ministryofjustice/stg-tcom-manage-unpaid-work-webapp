@@ -7,6 +7,15 @@
 {% set pageTitle = applicationName + " - Your conditions summary" %}
 {% set mainClasses = "app-container govuk-body" %}
 
+{% set tableData = {rows: []} %}
+{% for line in orderSummary.requirements %}
+    {%- set tableRow = [
+        { html: '<a class="govuk-link" href="' + line.infoLink + '">' + line.category +'</a>'},
+        { html: line.requirement }
+    ] -%}
+    {{ tableData.rows.push(tableRow) }}
+{% endfor %}
+
 {% block content %}
 
 <div class="govuk-grid-row">
@@ -63,34 +72,16 @@
       ]
     ]
   }) }}
-  <p><a href="/pop/probation-conditions" target="_blank" class="govuk-link">View what probation expcts of you (opens in a new tab)</a></p>
+  <p><a href="/pop/probation-conditions" target="_blank" class="govuk-link">View what probation expects of you (opens in a new tab)</a></p>
   </div>
 </div>
-
 
 <div class="govuk-grid-row ">
   <div class="govuk-grid-column-two-thirds govuk-!-margin-top-4 ">
     <h2 class="govuk-heading-m">Requirements</h2>
     <p>You must complete all requirements by {{orderSummary.requirementsCompletionDate}}</p>
-
-    {% set requirements = [] %}
-    {# {% foreach r in orderSummary.requirements %}
-    [
-          {
-            text: "Date of Order"
-          },
-          {
-            text: ""
-          },
-        ]
-    {% endforeach %} #}
-
-    {{ govukTable({
-      rows: requirements
-    }) }}
-
+    {{ govukTable(tableData) }}
   </div>
 </div>
-
 
 {% endblock %}
