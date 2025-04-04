@@ -50,9 +50,9 @@
 
 <div class="govuk-grid-row ">
   <div class="govuk-grid-column-full govuk-!-margin-top-1">
-     <h2 class="govuk-heading-m">Upcoming Appointments</h2>
+    <h2 class="govuk-heading-m">Upcoming Appointments</h2>
+    {% set isUpcoming = true %}
     {% for appointment in upcomingAppointments %}
-      {% set isUpcoming = true %}
       {% include "./partials/appointmentSummary.njk" %}
     {% endfor %}
      </div>
@@ -61,9 +61,9 @@
 
 <div class="govuk-grid-row ">
   <div class="govuk-grid-column-full govuk-!-margin-top-1">
-     <h2 class="govuk-heading-m">Past appointments</h2>
+    <h2 class="govuk-heading-m">Past appointments</h2>
+    {% set isUpcoming = false %}
     {% for appointment in pastAppointments %}
-      {% set isUpcoming = false %}
       {% include "./partials/appointmentSummary.njk" %}
     {% endfor %}
   </div>
