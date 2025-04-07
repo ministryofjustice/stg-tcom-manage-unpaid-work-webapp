@@ -1,8 +1,8 @@
-import * as govukFrontend from 'govuk-frontend'
-import * as mojFrontend from '@ministryofjustice/frontend'
+import * as GOVUKFrontend from 'govuk-frontend'
+import * as MOJFrontend from '@ministryofjustice/frontend'
 
-govukFrontend.initAll()
-mojFrontend.initAll()
+GOVUKFrontend.initAll()
+MOJFrontend.initAll()
 
 function togglePasswordVisibility(passwordFieldId, toggleButtonElement) {
   const passwordField = document.getElementById(passwordFieldId)

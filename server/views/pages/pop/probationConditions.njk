@@ -1,0 +1,33 @@
+{% extends "../../layouts/layout.njk" %}
+
+{% set pageTitle = applicationName + " - Your probation conditions" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Probation service</h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full govuk-!-margin-top-6 ">
+    <p>We will work with you to develop your &apos;sentence plan&apos; &emdash; this will set out goals and objectives to help you avoid further offending and make positive changes to your life. This sentence plan will shape what you work on, who with and when. Your plan will be reviewed with you to reflect progress and changes you make.</p>
+    <h3 class="govuk-heading-m govuk-!-font-weight-bold govuk-!-margin-bottom-2">We expect you to:</h3>
+    {% include "./partials/conditionsList.njk" %}
+  </div>
+</div>
+
+<div class="govuk-grid-row ">
+  <div class="govuk-grid-column-full govuk-!-margin-top-4 ">
+
+    <p class="govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">
+    Need help understanding your conditions?
+    </p>
+    <p class="govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2">Contact your probation practitioner for guidance on any conditions you are unsure about.</p>
+    <a class="govuk-link govuk-link--no-visited-state" href="/pop/new-message">Message</a>
+
+  </div>
+</div>
+{% endblock %}

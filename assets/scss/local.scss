@@ -17,7 +17,7 @@ h4 {
   border: 1px $govuk-border-colour solid;
   background-color: govuk-colour("mid-grey");
   @include govuk-responsive-margin(5,'bottom');
-  @include govuk-responsive-margin(5,'top');
+  @include govuk-responsive-margin(2,'top');
 }
 
 .completed-hours {

@@ -1,0 +1,86 @@
+{% extends "../../layouts/layout.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% set pageTitle = applicationName + " - Your conditions summary" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% set tableData = {rows: []} %}
+{% for line in orderSummary.requirements %}
+    {%- set tableRow = [
+        { html: '<a class="govuk-link" href="' + line.infoLink + '">' + line.category +'</a>'},
+        { html: line.requirement }
+    ] -%}
+    {{ tableData.rows.push(tableRow) }}
+{% endfor %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+     {{ govukBackLink({
+      text: "Back to homepage",
+      href: "/pop"
+    }) }}
+  </div>
+</div>
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Your conditions</h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row ">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-4 ">
+
+    {{ govukWarningText({
+      html: '<p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-1" >'
+        + 'You must follow these conditions to avoid returning to court, being given additional requirements, or being sent to prison.</p>',
+      iconFallbackText: "Warning"
+    }) }}
+
+  </div>
+</div>
+
+
+<div class="govuk-grid-row ">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-4 ">
+
+  {{ govukTable({
+    caption: "Order Details",
+    captionClasses: "govuk-table__caption--m",
+    firstCellIsHeader: true,
+    rows: [
+      [
+        {
+          text: "Order type"
+        },
+        {
+          text: orderSummary.orderType
+        }
+      ],
+      [
+        {
+          text: "Date of Order"
+        },
+        {
+          text: orderSummary.startDate
+        }
+      ]
+    ]
+  }) }}
+  <p><a href="/pop/probation-conditions" target="_blank" class="govuk-link">View what probation expects of you (opens in a new tab)</a></p>
+  </div>
+</div>
+
+<div class="govuk-grid-row ">
+  <div class="govuk-grid-column-two-thirds govuk-!-margin-top-4 ">
+    <h2 class="govuk-heading-m">Requirements</h2>
+    <p>You must complete all requirements by {{orderSummary.requirementsCompletionDate}}</p>
+    {{ govukTable(tableData) }}
+  </div>
+</div>
+
+{% endblock %}
