@@ -21,22 +21,23 @@
 <div class="govuk-grid-row govuk-!-margin-top-4">
   <div class="govuk-grid-column-full">
     {{ govukTable({
+      firstCellIsHeader: true,
       head: [],
       rows: [
         [
-          { text: "Type of appointment", classes: "govuk-!-font-weight-bold" },
+          { text: "Type of appointment" },
           { text: "Unpaid work" }
         ],
         [
-          { text: "Meeting point", classes: "govuk-!-font-weight-bold" },
+          { text: "Meeting point" },
           { text: "123 Garden Street, London SE1 7TH" }
         ],
         [
-          { text: "Date", classes: "govuk-!-font-weight-bold" },
+          { text: "Date" },
           { text: "Saturday 15 March 2025" }
         ],
         [
-          { text: "Time", classes: "govuk-!-font-weight-bold" },
+          { text: "Time" },
           { text: "9am - 5pm" }
         ]
       ]
