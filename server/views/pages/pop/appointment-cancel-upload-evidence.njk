@@ -1,0 +1,82 @@
+{% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% set pageTitle = applicationName + " - Missed attendance form" %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+     {{ govukBackLink({
+      text: "Back",
+      href: "/pop/appointment-cancel"
+    }) }}
+    <h1 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-4">You need to upload supporting evidence</h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row govuk-!-margin-top-4">
+  <div class="govuk-grid-column-full">
+
+    <p class="govuk-body">You can upload one of the following as evidence:</p>
+<ul class="govuk-list govuk-list--bullet">
+  <li>Doctor’s notes</li>
+  <li>Fit note (sometimes called a ‘sick note’)</li>
+  <li>Diagnostic test results</li>
+  <li>Hospital discharge papers</li>
+  <li>Prescription receipts</li>
+  <li>Photographs or videos</li>
+</ul>
+
+    <h2 class="govuk-heading-m">Uploaded files</h2>
+
+{% if uploadedEvidence and uploadedEvidence | length > 0 %}
+<p class="govuk-body">
+  When you submit this application, a caseworker willbe able to access these files.
+</p>
+{% set evidenceRows = [] %}
+{% for evidence in uploadedEvidence %}
+  {% set _ = evidenceRows.push([
+    { text: evidence.filename },
+    { html: '<a href="/pop/delete-evidence?filename=' ~ evidence.filename ~ '" class="govuk-link govuk-link--no-visited-state">Delete</a>' }
+  ]) %}
+{% endfor %}
+
+{{ govukTable({
+  head: [
+    { text: "File Name" },
+    { text: "Action" }
+  ],
+  rows: evidenceRows
+}) }}
+
+  <form action="/pop/submit-evidence" method="post">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    <button class="govuk-button govuk-!-margin-top-2" type="submit">Submit</button>
+  </form>
+
+{% else %}
+<p class="govuk-body">
+  When you cancel your appointment, your probation practitioner will be able to access these files.
+</p>
+  <form action="/pop/upload-evidence" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+    <div>
+      <input class="govuk-file-upload" id="attachments" name="attachments" type="file" multiple>
+    </div>
+    {{ govukButton({
+      text: "Send",
+      classes: "govuk-!-margin-top-2"
+    }) }}
+  </form>
+{% endif %}
+
+  </div>
+
+</div>
+{% endblock %}
+
+
+
