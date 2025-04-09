@@ -8,7 +8,7 @@ interface FileUploadRequest extends Request {
   uploadDir?: string
 }
 
-export default function setUpMultipartFormDataParsing(): Router {
+export default function setUpMultipartFormDataParsing(allowMultiple = false): Router {
   const router = Router({ mergeParams: true })
 
   router.use(setUpSessionUploadsDir)
@@ -37,12 +37,18 @@ export default function setUpMultipartFormDataParsing(): Router {
     storage,
     fileFilter,
     limits: {
-      fileSize: 2 * 1024 * 1024,
+      fileSize: 10 * 1024 * 1024,
     },
   })
 
   router.use(flash())
-  router.use(upload.single('attachment'))
+
+  if (allowMultiple) {
+    router.use(upload.array('attachments', 3))
+  } else {
+    router.use(upload.single('attachment'))
+  }
+
   router.use(uploadedFileTooLargeHandler)
 
   return router
