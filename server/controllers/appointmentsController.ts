@@ -23,7 +23,8 @@ export const renderViewAppointment = (popService = getPopService()): RequestHand
       const userId = req.session.user_id || randomUUID()
       req.session.user_id = userId // ensure this is always set
       const appointmentDetails = await popService.getAppointmentDetails(appointmentId, userId)
-      res.render('pages/pop/view-appointment', { appointmentDetails })
+      const submitEvidence = req.query.submitEvidence === 'true'
+      res.render('pages/pop/view-appointment', { appointmentDetails, submitEvidence })
     } catch (error) {
       next(error)
     }
