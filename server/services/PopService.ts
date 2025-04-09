@@ -1,3 +1,4 @@
+import { Session, SessionData } from 'express-session'
 import { Message } from '../routes/data/messages'
 
 export type ProgressBreakdownItem = { title: string; completed: number; required: number }
@@ -121,4 +122,8 @@ export interface PopService {
     recipient?: string,
     sessionMessages?: Message[],
   ): Promise<string>
+
+  deleteEvidence(session: Session & Partial<SessionData>, filename: string): Promise<void>
+  submitEvidence(session: Session & Partial<SessionData>): Promise<void>
+  uploadEvidence(session: Session & Partial<SessionData>, files: Express.Multer.File[]): Promise<void>
 }
