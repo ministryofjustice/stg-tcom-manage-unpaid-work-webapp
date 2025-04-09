@@ -19,7 +19,7 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-4">
   <div class="govuk-grid-column-full">
-    {% include "./partials/appointment-summary.njk" %}
+    {% include "./partials/appointment-detail.njk" %}
     <div class="govuk-!-margin-top-2">
     <form action="/pop/appointment-cancel" method="post">
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">

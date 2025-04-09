@@ -1,6 +1,6 @@
 {% extends "../../layouts/layout.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% set pageTitle = applicationName + " - View upcoming appointment" %}
 {% set mainClasses = "app-container govuk-body" %}
@@ -14,34 +14,19 @@
       href: "/pop/appointments"
     }) }}
     <h1 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-4">View upcoming appointment</h1>
-  <p class="govuk-body">If you have a problem attending an appointment, you need to <a class="govuk-link" href="">tell your probation practitioner</a> as soon as possible.</p>
+    {% if submitEvidence %}        
+  {{ govukInsetText({
+  text: "You told us you cannot attend this appointment. This has been shared with your probation practitioner who will check your justification. They'll contact you if the evidence you provided was not accepted."
+}) }}
+    {% else %}
+        <p class="govuk-body">If you have a problem attending an appointment, you need to <a class="govuk-link" href="/pop/appointment-cancel">tell your probation practitioner</a> as soon as possible.</p>
+    {% endif %}
   </div>
 </div>
 
-<div class="govuk-grid-row govuk-!-margin-top-4">
+<div class="govuk-grid-row govuk-!-margin-top-3">
   <div class="govuk-grid-column-full">
-    {{ govukTable({
-      firstCellIsHeader: true,
-      head: [],
-      rows: [
-        [
-          { text: "Type of appointment" },
-          { text: "Unpaid work" }
-        ],
-        [
-          { text: "Meeting point" },
-          { text: "123 Garden Street, London SE1 7TH" }
-        ],
-        [
-          { text: "Date" },
-          { text: "Saturday 15 March 2025" }
-        ],
-        [
-          { text: "Time" },
-          { text: "9am - 5pm" }
-        ]
-      ]
-    }) }}
+    {% include "./partials/appointment-detail.njk" %}
   </div>
 </div>
 
