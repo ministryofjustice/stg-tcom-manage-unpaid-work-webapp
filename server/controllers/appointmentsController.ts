@@ -95,14 +95,13 @@ export const handleSubmitEvidence = (popService = getPopService()): RequestHandl
 }
 
 export const handleUploadEvidence = (popService = getPopService()): RequestHandler => {
-  // eslint-disable-next-line consistent-return
   return async (req, res, next) => {
     const files = req.files as Express.Multer.File[]
-
     try {
       if (!files || files.length === 0) {
-        req.session.errorMessage = 'No files have been uploaded'
-        return res.redirect('/pop/appointment-notify-upload-evidence')
+        req.session.errorMessage = 'No files uploaded'
+        res.redirect('/pop/appointment-notify-upload-evidence')
+        return
       }
 
       await popService.uploadEvidence(req.session, files)
