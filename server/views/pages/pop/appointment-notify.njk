@@ -19,9 +19,9 @@
 
 <div class="govuk-grid-row govuk-!-margin-top-4">
   <div class="govuk-grid-column-full">
-    {% include "./partials/appointment-detail.njk" %}
+    {% include "./partials/appointment-summary.njk" %}
     <div class="govuk-!-margin-top-2">
-    <form action="/pop/appointment-cancel" method="post">
+    <form action="/pop/appointment-notify" method="post">
                 <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     {{ govukRadios({
       name: "cancellationReason",

@@ -45,21 +45,21 @@ export const renderViewPastAppointment = (popService = getPopService()): Request
   }
 }
 
-export const renderAppointmentCancel = (popService = getPopService()): RequestHandler => {
+export const renderAppointmentNotify = (popService = getPopService()): RequestHandler => {
   return async (req, res, next) => {
     try {
-      res.render('pages/pop/appointment-cancel')
+      res.render('pages/pop/appointment-notify')
     } catch (error) {
       next(error)
     }
   }
 }
 
-export const renderAppointmentCancelUploadEvidence = (popService = getPopService()): RequestHandler => {
+export const renderAppointmentNotifyUploadEvidence = (popService = getPopService()): RequestHandler => {
   return async (req, res, next) => {
     try {
       const uploadedEvidence = req.session.uploadedEvidence || []
-      res.render('pages/pop/appointment-cancel-upload-evidence', { uploadedEvidence })
+      res.render('pages/pop/appointment-notify-upload-evidence', { uploadedEvidence })
     } catch (error) {
       next(error)
     }
@@ -71,10 +71,10 @@ export const handleDeleteEvidence = (popService = getPopService()): RequestHandl
     try {
       const filename = typeof req.query.filename === 'string' ? req.query.filename : ''
       if (!filename) {
-        res.redirect('/pop/appointment-cancel-upload-evidence')
+        res.redirect('/pop/appointment-notify-upload-evidence')
       }
       await popService.deleteEvidence(req.session, filename)
-      res.redirect('/pop/appointment-cancel-upload-evidence')
+      res.redirect('/pop/appointment-notify-upload-evidence')
     } catch (error) {
       next(error)
     }
@@ -97,7 +97,7 @@ export const handleUploadEvidence = (popService = getPopService()): RequestHandl
     const files = req.files as Express.Multer.File[]
     try {
       await popService.uploadEvidence(req.session, files)
-      res.redirect('/pop/appointment-cancel-upload-evidence')
+      res.redirect('/pop/appointment-notify-upload-evidence')
     } catch (error) {
       next(error)
     }

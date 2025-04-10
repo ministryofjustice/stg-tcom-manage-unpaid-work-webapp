@@ -9,6 +9,8 @@
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
+
+
      {{ govukBackLink({
       text: "Back to Your appointments",
       href: "/pop/appointments"
@@ -19,14 +21,14 @@
   text: "You told us you cannot attend this appointment. This has been shared with your probation practitioner who will check your justification. They'll contact you if the evidence you provided was not accepted."
 }) }}
     {% else %}
-        <p class="govuk-body">If you have a problem attending an appointment, you need to <a class="govuk-link" href="/pop/appointment-cancel">tell your probation practitioner</a> as soon as possible.</p>
+        <p class="govuk-body">If you have a problem attending an appointment, you need to <a class="govuk-link" href="/pop/appointment-notify">tell your probation practitioner</a> as soon as possible.</p>
     {% endif %}
   </div>
 </div>
 
 <div class="govuk-grid-row govuk-!-margin-top-3">
   <div class="govuk-grid-column-full">
-    {% include "./partials/appointment-detail.njk" %}
+    {% include "./partials/appointment-summary.njk" %}
   </div>
 </div>
 

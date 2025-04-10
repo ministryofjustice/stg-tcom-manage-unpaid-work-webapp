@@ -7,8 +7,8 @@ import {
   renderAppointments,
   renderViewAppointment,
   renderViewPastAppointment,
-  renderAppointmentCancel,
-  renderAppointmentCancelUploadEvidence,
+  renderAppointmentNotify,
+  renderAppointmentNotifyUploadEvidence,
   handleDeleteEvidence,
   handleSubmitEvidence,
   handleUploadEvidence,
@@ -53,9 +53,9 @@ export default function routes(): Router {
   get('/upw-conditions', renderUnpaidWork())
   get('/view-appointment', renderViewAppointment())
   get('/view-past-appointment', renderViewPastAppointment())
-  get('/appointment-cancel', renderAppointmentCancel())
-  post('/appointment-cancel', (req, res) => res.redirect('/pop/appointment-cancel-upload-evidence'))
-  get('/appointment-cancel-upload-evidence', renderAppointmentCancelUploadEvidence())
+  get('/appointment-notify', renderAppointmentNotify())
+  post('/appointment-notify', (req, res) => res.redirect('/pop/appointment-notify-upload-evidence'))
+  get('/appointment-notify-upload-evidence', renderAppointmentNotifyUploadEvidence())
 
   post('/upload-evidence', handleUploadEvidence(), setUpMultipartFormDataParsing(true))
   post('/submit-evidence', handleSubmitEvidence())
