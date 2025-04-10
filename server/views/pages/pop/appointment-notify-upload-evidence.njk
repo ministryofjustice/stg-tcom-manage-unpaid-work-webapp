@@ -64,7 +64,7 @@
   <form action="/pop/upload-evidence" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     <div>
-      <input class="govuk-file-upload" id="attachments" name="attachments" type="file" multiple>
+      <input class="govuk-file-upload" id="attachments" name="attachments" accept=".png,.jpeg,.webp,.pdf" type="file" multiple>
     </div>
     {{ govukButton({
       text: "Send",
