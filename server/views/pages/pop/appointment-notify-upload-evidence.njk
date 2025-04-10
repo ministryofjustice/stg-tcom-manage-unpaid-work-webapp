@@ -12,17 +12,16 @@
   <div class="govuk-grid-column-full">
 
     {% if errorMessage and errorMessage.length > 0 %}
-          {{ mojAlert({
-            variant: "error",
-            title: errorMessage,
-            showTitleAsHeading: true,
-            dismissible: true,
-            html: ''
-          }) }}
-        {% endif %}
+      {{ mojAlert({
+        variant: "error",
+        title: errorMessage,
+        showTitleAsHeading: true,
+        dismissible: true,
+        html: ''
+      }) }}
+    {% endif %}
 
-
-     {{ govukBackLink({
+    {{ govukBackLink({
       text: "Back",
       href: "/pop/appointment-notify"
     }) }}

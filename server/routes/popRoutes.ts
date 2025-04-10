@@ -12,6 +12,7 @@ import {
   handleDeleteEvidence,
   handleSubmitEvidence,
   handleUploadEvidence,
+  handleAppointmentNotify, // Added import
 } from '../controllers/appointmentsController'
 
 import {
@@ -54,7 +55,7 @@ export default function routes(): Router {
   get('/view-appointment', renderViewAppointment())
   get('/view-past-appointment', renderViewPastAppointment())
   get('/appointment-notify', renderAppointmentNotify())
-  post('/appointment-notify', (req, res) => res.redirect('/pop/appointment-notify-upload-evidence'))
+  post('/appointment-notify', handleAppointmentNotify())
   get('/appointment-notify-upload-evidence', renderAppointmentNotifyUploadEvidence())
 
   post('/upload-evidence', handleUploadEvidence(), setUpMultipartFormDataParsing(true))

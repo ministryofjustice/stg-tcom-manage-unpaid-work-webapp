@@ -48,7 +48,9 @@ export const renderViewPastAppointment = (popService = getPopService()): Request
 export const renderAppointmentNotify = (popService = getPopService()): RequestHandler => {
   return async (req, res, next) => {
     try {
-      res.render('pages/pop/appointment-notify')
+      const { errorMessage } = req.session
+      delete req.session.errorMessage
+      res.render('pages/pop/appointment-notify', { errorMessage })
     } catch (error) {
       next(error)
     }
@@ -105,6 +107,23 @@ export const handleUploadEvidence = (popService = getPopService()): RequestHandl
       }
 
       await popService.uploadEvidence(req.session, files)
+      res.redirect('/pop/appointment-notify-upload-evidence')
+    } catch (error) {
+      next(error)
+    }
+  }
+}
+
+export const handleAppointmentNotify = (popService = getPopService()): RequestHandler => {
+  return async (req, res, next) => {
+    try {
+      const { cancellationReason } = req.body
+      if (!cancellationReason) {
+        req.session.errorMessage = 'You must select a reason for cancelling'
+        res.redirect('/pop/appointment-notify')
+        return
+      }
+
       res.redirect('/pop/appointment-notify-upload-evidence')
     } catch (error) {
       next(error)
