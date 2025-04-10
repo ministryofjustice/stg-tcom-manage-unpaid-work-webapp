@@ -99,7 +99,7 @@ export const handleUploadEvidence = (popService = getPopService()): RequestHandl
     const files = req.files as Express.Multer.File[]
     try {
       if (!files || files.length === 0) {
-        req.session.errorMessage = 'No files uploaded'
+        req.session.errorMessage = 'No files have been uploaded'
         res.redirect('/pop/appointment-notify-upload-evidence')
         return
       }
