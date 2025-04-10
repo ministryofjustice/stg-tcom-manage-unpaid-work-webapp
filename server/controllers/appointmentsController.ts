@@ -59,7 +59,9 @@ export const renderAppointmentNotifyUploadEvidence = (popService = getPopService
   return async (req, res, next) => {
     try {
       const uploadedEvidence = req.session.uploadedEvidence || []
-      res.render('pages/pop/appointment-notify-upload-evidence', { uploadedEvidence })
+      const { errorMessage } = req.session
+      delete req.session.errorMessage
+      res.render('pages/pop/appointment-notify-upload-evidence', { uploadedEvidence, errorMessage })
     } catch (error) {
       next(error)
     }
@@ -93,9 +95,16 @@ export const handleSubmitEvidence = (popService = getPopService()): RequestHandl
 }
 
 export const handleUploadEvidence = (popService = getPopService()): RequestHandler => {
+  // eslint-disable-next-line consistent-return
   return async (req, res, next) => {
     const files = req.files as Express.Multer.File[]
+
     try {
+      if (!files || files.length === 0) {
+        req.session.errorMessage = 'No files have been uploaded'
+        return res.redirect('/pop/appointment-notify-upload-evidence')
+      }
+
       await popService.uploadEvidence(req.session, files)
       res.redirect('/pop/appointment-notify-upload-evidence')
     } catch (error) {

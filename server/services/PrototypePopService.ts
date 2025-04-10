@@ -271,15 +271,11 @@ const PrototypePopService: PopService = {
 
   async deleteEvidence(session: Session & Partial<SessionData>, filename: string): Promise<void> {
     try {
-      if (!session.uploadedEvidence) {
-        throw new Error('No evidence found in session.')
-      }
-
       const evidenceIndex = session.uploadedEvidence.findIndex(
         (file: { filename: string }) => file.filename === filename,
       )
       if (evidenceIndex === -1) {
-        throw new Error('Evidence not found.')
+        logger.error(`Evidence not found.`)
       }
 
       const evidencePath = session.uploadedEvidence[evidenceIndex].path
@@ -293,7 +289,6 @@ const PrototypePopService: PopService = {
       })
     } catch (error) {
       logger.error(`Error deleting evidence: ${error.message}`)
-      throw error
     }
   },
 
@@ -303,10 +298,6 @@ const PrototypePopService: PopService = {
   },
 
   async uploadEvidence(session: Session & Partial<SessionData>, files: Express.Multer.File[]): Promise<void> {
-    if (!files || files.length === 0) {
-      throw new Error('No files uploaded.')
-    }
-
     const uploadedEvidence = session.uploadedEvidence || []
     files.forEach(file => {
       uploadedEvidence.push({

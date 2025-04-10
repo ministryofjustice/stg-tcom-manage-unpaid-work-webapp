@@ -3,12 +3,25 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% set pageTitle = applicationName + " - Missed attendance form" %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
 
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
+
+    {% if errorMessage and errorMessage.length > 0 %}
+          {{ mojAlert({
+            variant: "error",
+            title: errorMessage,
+            showTitleAsHeading: true,
+            dismissible: true,
+            html: ''
+          }) }}
+        {% endif %}
+
+
      {{ govukBackLink({
       text: "Back",
       href: "/pop/appointment-notify"
@@ -64,7 +77,7 @@
   <form action="/pop/upload-evidence" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
     <div>
-      <input class="govuk-file-upload" id="attachments" name="attachments" accept=".png,.jpeg,.webp,.pdf" type="file" multiple>
+      <input class="govuk-file-upload" id="attachments" name="attachments" accept=".png,.jpeg,.jpg,.webp,.pdf" type="file" multiple>
     </div>
     {{ govukButton({
       text: "Send",
