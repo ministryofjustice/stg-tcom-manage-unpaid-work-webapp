@@ -71,7 +71,7 @@
 
 {% else %}
 <p class="govuk-body">
-  When you cancel your appointment, your probation practitioner will be able to access these files.
+  Your probation practitioner will be able to access these files when you submit them.
 </p>
   <form action="/pop/upload-evidence" method="post" enctype="multipart/form-data">
     <input type="hidden" name="_csrf" value="{{ csrfToken }}">
@@ -79,7 +79,7 @@
       <input class="govuk-file-upload" id="attachments" name="attachments" accept=".png,.jpeg,.jpg,.webp,.pdf" type="file" multiple>
     </div>
     {{ govukButton({
-      text: "Send",
+      text: "Upload",
       classes: "govuk-!-margin-top-2"
     }) }}
   </form>
