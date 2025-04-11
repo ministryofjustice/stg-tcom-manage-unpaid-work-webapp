@@ -7,6 +7,12 @@ import {
   renderAppointments,
   renderViewAppointment,
   renderViewPastAppointment,
+  renderAppointmentNotify,
+  renderAppointmentNotifyUploadEvidence,
+  handleDeleteEvidence,
+  handleSubmitEvidence,
+  handleUploadEvidence,
+  handleAppointmentNotify, // Added import
 } from '../controllers/appointmentsController'
 
 import {
@@ -48,6 +54,13 @@ export default function routes(): Router {
   get('/upw-conditions', renderUnpaidWork())
   get('/view-appointment', renderViewAppointment())
   get('/view-past-appointment', renderViewPastAppointment())
+  get('/appointment-notify', renderAppointmentNotify())
+  post('/appointment-notify', handleAppointmentNotify())
+  get('/appointment-notify-upload-evidence', renderAppointmentNotifyUploadEvidence())
+
+  post('/upload-evidence', handleUploadEvidence(), setUpMultipartFormDataParsing(true))
+  post('/submit-evidence', handleSubmitEvidence())
+  get('/delete-evidence', handleDeleteEvidence())
 
   get('/messages', renderMessages())
   get('/new-message', renderNewMessage)

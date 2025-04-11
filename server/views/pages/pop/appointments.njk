@@ -2,12 +2,23 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {%- from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{%- from "moj/components/alert/macro.njk" import mojAlert -%}
 
 
 {% set pageTitle = applicationName + " - Appointments" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
+
+{% if submittedEvidence %}
+{{ mojAlert({
+  variant: "success",
+  title: "You told us you cannot attend your unpaid work appointment on Saturday 15 March 2025",
+  showTitleAsHeading: true,
+  dismissible: true,
+  html: "This has been shared with your probation practitioner who will check your justification. They’ll contact you if the evidence you provided was not accepted."
+}) }}
+{% endif %}
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
@@ -53,10 +64,9 @@
     <h2 class="govuk-heading-m">Upcoming Appointments</h2>
     {% set isUpcoming = true %}
     {% for appointment in upcomingAppointments %}
-      {% include "./partials/appointmentSummary.njk" %}
+    {% include "./partials/appointmentSummary.njk" %}
     {% endfor %}
-     </div>
-
+  </div>
 </div>
 
 <div class="govuk-grid-row ">

@@ -1,0 +1,26 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+<div class="govuk-grid-row govuk-!-margin-top-4">
+  <div class="govuk-grid-column-full">
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: { text: "Type of appointment" },
+          value: { text: "Unpaid work" }
+        },
+        {
+          key: { text: "Meeting point" },
+          value: { text: "123 Garden Street, London SE1 7TH" }
+        },
+        {
+          key: { text: "Date" },
+          value: { text: "Saturday 15 March 2025" }
+        },
+        {
+          key: { text: "Time" },
+          value: { text: "9am - 5pm" }
+        }
+      ]
+    }) }}
+  </div>
+</div>
