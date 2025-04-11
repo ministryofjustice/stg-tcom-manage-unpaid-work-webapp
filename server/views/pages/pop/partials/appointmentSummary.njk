@@ -1,5 +1,15 @@
-    <div class="govuk-box govuk-box--rounded appointment-summary">
-      <h3 class="govuk-body">{{appointment.date}}<br/>{{appointment.time}}</h3>
+{%- from "moj/components/badge/macro.njk" import mojBadge -%}
+
+<div class="govuk-box govuk-box--rounded appointment-summary">
+      <h3 class="govuk-body govuk-!-margin-0">
+        {{appointment.date}}
+        {% if isUpcoming and loop.first and submittedEvidence %}
+          {{ mojBadge({ text: "CANNOT ATTEND", classes: "moj-badge--red govuk-!-margin-left-2 " }) }}
+        {% endif %}
+      </h3> 
+      <h3 class=" govuk-!-margin-0 govuk-!-padding-0  govuk-body"> 
+      {{appointment.time}}
+      </h3>
 
        <div class="govuk-!-margin-top-3">
       <h4 class="govuk-body-s ">Appointment type</h4>
@@ -38,7 +48,11 @@
           <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-0 govuk-!-margin-right-3">
             Add to calendar
           </button>
-          <a class="govuk-link" href="/pop/view-appointment">View</a>
+          {% if isUpcoming and loop.first and submittedEvidence %}
+            <a class="govuk-link" href="/pop/view-appointment?submitEvidence=true">View</a>
+          {% else %}
+            <a class="govuk-link" href="/pop/view-appointment">View</a>
+          {% endif %}
         {% else %}
           <a class="govuk-link" href="/pop/view-past-appointment">View</a>
         {% endif %}

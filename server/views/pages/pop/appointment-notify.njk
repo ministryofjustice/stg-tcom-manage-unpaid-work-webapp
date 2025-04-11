@@ -1,0 +1,98 @@
+{% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "moj/components/alert/macro.njk" import mojAlert %}
+{% set pageTitle = applicationName + " - Missed attendance form" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+
+    {% if errorMessage and errorMessage.length > 0 %}
+      {{ mojAlert({
+        variant: "error",
+        title: errorMessage,
+        showTitleAsHeading: true,
+        dismissible: true,
+        html: ''
+      }) }}
+    {% endif %}
+
+    {{ govukBackLink({
+      text: "Back",
+      href: "/pop/view-appointment"
+    }) }}
+    <h1 class="govuk-heading-l govuk-!-margin-top-6 govuk-!-margin-bottom-4">Why are you unable to attend?</h1>
+  </div>
+</div>
+
+<div class="govuk-grid-row govuk-!-margin-top-4">
+  <div class="govuk-grid-column-full">
+    {% include "./partials/appointment-summary.njk" %}
+    <div class="govuk-!-margin-top-2">
+    <form action="/pop/appointment-notify" method="post">
+      <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+      {{ govukRadios({
+        name: "cancellationReason",
+        fieldset: {
+          legend: {
+            text: "Select the reason for not attending"
+          }
+        },
+        items: [
+          {
+            value: "employment",
+            text: "Employment",
+            hint: { text: "For example, you'll be working" }
+          },
+          {
+            value: "childcare",
+            text: "Childcare",
+            hint: { text: "For example, you could not get someone to look after your child" }
+          },
+          {
+            value: "family",
+            text: "Family",
+            hint: { text: "For example, you have to look after your parents who are ill" }
+          },
+          {
+            value: "health",
+            text: "Health",
+            hint: { text: "For example, you are ill" }
+          },
+          {
+            value: "plannedHoliday",
+            text: "Planned holiday",
+            hint: { text: "For example, you have a planned trip to another area or abroad" }
+          },
+          {
+            value: "bereavement",
+            text: "Bereavement",
+            hint: { text: "For example, you need to attend a funeral" }
+          }
+        ]
+      }) }}
+
+      {{ govukTextarea({
+        name: "furtherDetails",
+        id: "furtherDetails",
+        label: {
+          text: "Give further details (optional)"
+        },
+        hint: {
+          text: "We'll share this information with your probation practitioner."
+        }
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }}
+
+    </form>
+  </div> 
+</div>
+</div>
+{% endblock %}

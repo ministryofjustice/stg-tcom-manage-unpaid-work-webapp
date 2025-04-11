@@ -15,6 +15,7 @@ export declare module 'express-session' {
     popVerificationStatus: 'pending' | 'failed' | 'verified'
     placements: Placement[]
     messages: Message[]
+    uploadedEvidence: Array<{ path: string; filename: string }>
   }
 }
 
