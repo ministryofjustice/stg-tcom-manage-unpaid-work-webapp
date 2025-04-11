@@ -119,7 +119,7 @@ export const handleAppointmentNotify = (popService = getPopService()): RequestHa
     try {
       const { cancellationReason } = req.body
       if (!cancellationReason) {
-        req.session.errorMessage = 'Please select a reason for not attending'
+        req.session.errorMessage = 'You must select a reason for not attending'
         res.redirect('/pop/appointment-notify')
         return
       }
