@@ -17,7 +17,9 @@
     "test:ci": "jest --runInBand",
     "security_audit": "npx audit-ci --config audit-ci.json",
     "clean": "rm -rf dist node_modules",
-    "rebuild": "npm run clean && npm i && npm run build"
+    "rebuild": "npm run clean && npm i && npm run build",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "engines": {
     "node": "^22",
@@ -86,6 +88,8 @@
     "connect-redis": "^8.0.1",
     "cookie-parser": "^1.4.7",
     "csrf-sync": "^4.0.3",
+    "cypress-dotenv": "^3.0.1",
+    "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "express-basic-auth": "^1.2.0",
     "express-session": "^1.18.1",
