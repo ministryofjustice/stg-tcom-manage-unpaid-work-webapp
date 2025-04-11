@@ -4,7 +4,7 @@
       <h3 class="govuk-body govuk-!-margin-0">
         {{appointment.date}}
         {% if isUpcoming and loop.first and submittedEvidence %}
-          {{ mojBadge({ text: "CANNOT ATTEND", classes: "moj-badge--red" }) }}
+          {{ mojBadge({ text: "CANNOT ATTEND", classes: "moj-badge--red govuk-!-margin-left-2 " }) }}
         {% endif %}
       </h3> 
       <h3 class=" govuk-!-margin-0 govuk-!-padding-0  govuk-body"> 
