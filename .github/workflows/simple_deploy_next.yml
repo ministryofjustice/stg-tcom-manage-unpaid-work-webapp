@@ -13,20 +13,30 @@ jobs:
       contents: read # This is required for actions/checkout
     steps:
       - uses: actions/checkout@v4
-      - uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 #v4.0.2
+      - name: cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          build: npm run build
+          start: npm start
+        env:
+          POC_PASSWORD: ${{secrets.POC_PASSWORD}}
+      - name: aws role
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 #v4.0.2
         with:
           role-to-assume: ${{ secrets.ECR_ROLE_TO_ASSUME }}
           aws-region: ${{ vars.ECR_REGION }}
       - uses: aws-actions/amazon-ecr-login@v2
         id: login-ecr
-      - run: |
+      - name: build & push image
+        run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG --build-arg GIT_REF=${{ github.sha }} --build-arg GIT_BRANCH=${{ github.ref_name }} --build-arg BUILD_NUMBER=0_0_1 .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: ${{ vars.ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
-      - run: |
+      - name: update kubernetes resource configurations
+        run: |
           cat deployments/templates/configmap.yml | envsubst > deployments/configmap.yml
           cat deployments/templates/deployment.yml | envsubst > deployments/deployment.yml
           cat deployments/templates/ingress.yml | envsubst > deployments/ingress.yml
@@ -38,7 +48,8 @@ jobs:
           NAMESPACE: ${{ secrets.KUBE_NAMESPACE_NEXT }}
           POC_PASSWORD: ${{secrets.POC_PASSWORD}}
           VALID_OTP: ${{secrets.VALID_OTP}}
-      - run: |
+      - name: deploy changes to cluster
+        run: |
           echo "${{ secrets.KUBE_CERT_NEXT }}" > ca.crt
           kubectl config set-cluster ${KUBE_CLUSTER} --certificate-authority=./ca.crt --server=https://${KUBE_CLUSTER}
           kubectl config set-credentials deploy-user --token=${{ secrets.KUBE_TOKEN_NEXT }}
