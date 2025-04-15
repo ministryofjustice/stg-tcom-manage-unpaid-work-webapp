@@ -1,7 +1,13 @@
 import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import setUpMultipartFormDataParsing from '../middleware/setUpMultipartFormDataParsing'
-import { renderPopDetails, renderPopProgress, renderIndex } from '../controllers/popController'
+import {
+  renderPopDetails,
+  renderPopProgress,
+  renderIndex,
+  renderRecordVideo,
+  saveCheckInVideo,
+} from '../controllers/popController'
 import { renderOrderSummary, renderUnpaidWork, renderProbationConditions } from '../controllers/conditionsController'
 import {
   renderAppointments,
@@ -12,7 +18,7 @@ import {
   handleDeleteEvidence,
   handleSubmitEvidence,
   handleUploadEvidence,
-  handleAppointmentNotify, // Added import
+  handleAppointmentNotify,
 } from '../controllers/appointmentsController'
 
 import {
@@ -68,6 +74,9 @@ export default function routes(): Router {
 
   get('/messages/thread/:id', renderMessageThread())
   post('/messages/thread/:id', handleMessageThread(), setUpMultipartFormDataParsing())
+
+  get('/video-checkIn', renderRecordVideo())
+  post('/save-checkin-video', saveCheckInVideo(), setUpMultipartFormDataParsing(false, true))
 
   return router
 }

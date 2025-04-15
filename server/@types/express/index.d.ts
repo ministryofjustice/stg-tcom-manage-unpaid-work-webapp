@@ -16,6 +16,7 @@ export declare module 'express-session' {
     placements: Placement[]
     messages: Message[]
     uploadedEvidence: Array<{ path: string; filename: string }>
+    checkInVideoPath: string
   }
 }
 

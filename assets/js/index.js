@@ -106,3 +106,72 @@ document.addEventListener('DOMContentLoaded', () => {
     openCamera()
   }
 })
+
+document.addEventListener('DOMContentLoaded', () => {
+  const video = document.getElementById('video')
+  const startRecordButton = document.getElementById('start-recording')
+  const stopRecordButton = document.getElementById('stop-recording')
+
+  let mediaRecorder
+  let recordedChunks = []
+
+  async function startVideoStream() {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+      video.srcObject = stream
+      video.muted = true
+
+      mediaRecorder = new MediaRecorder(stream)
+      mediaRecorder.ondataavailable = event => {
+        if (event.data.size > 0) {
+          recordedChunks.push(event.data)
+        }
+      }
+
+      mediaRecorder.onstop = async () => {
+        const blob = new Blob(recordedChunks, { type: 'video/webm' })
+
+        const formData = new FormData()
+        formData.append('video', blob, 'recorded-video.webm')
+
+        try {
+          const response = await fetch('/pop/save-checkin-video', {
+            method: 'POST',
+            body: formData,
+          })
+
+          if (!response.ok) {
+            console.error('Error uploading video', response) // eslint-disable-line no-console
+            return
+          }
+
+          const data = await response.json()
+          if (data.success) {
+            window.location.href = '/pop/video-checkIn?uploaded=success'
+          } else {
+            console.error('Error uploading video') // eslint-disable-line no-console
+          }
+        } catch (error) {
+          console.error('Error submitting video:', error) // eslint-disable-line no-console
+        }
+      }
+    } catch (error) {
+      console.error('Error accessing camera:', error) // eslint-disable-line no-console
+    }
+  }
+
+  startRecordButton.addEventListener('click', () => {
+    recordedChunks = []
+    mediaRecorder.start()
+    startRecordButton.disabled = true
+    stopRecordButton.disabled = false
+  })
+
+  stopRecordButton.addEventListener('click', () => {
+    mediaRecorder.stop()
+    startRecordButton.disabled = false
+    stopRecordButton.disabled = true
+  })
+
+  startVideoStream()
+})
