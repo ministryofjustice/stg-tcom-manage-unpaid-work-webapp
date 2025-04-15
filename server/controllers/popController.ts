@@ -100,6 +100,10 @@ export const renderPopProgress = (popService = getPopService()): RequestHandler 
 export const renderRecordVideo = (popService = getPopService()): RequestHandler => {
   return async (req, res, next) => {
     try {
+      const { redo } = req.query
+      if (redo && redo === 'true') {
+        delete req.session.checkInVideoPath
+      }
       const now = new Date()
       const currentDate = format(now, 'EEEE, MMMM do yyyy, h:mm a')
       res.render('pages/pop/record-checkin-video', { session: req.session, currentDate })
