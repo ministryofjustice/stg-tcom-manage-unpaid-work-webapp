@@ -4,11 +4,13 @@ import flash from 'connect-flash'
 import path from 'path'
 import fs from 'fs'
 
-interface FileUploadRequest extends Request {
+export interface FileUploadRequest extends Request {
   uploadDir?: string
 }
 
-export default function setUpMultipartFormDataParsing(allowMultiple = false): Router {
+export default function setUpMultipartFormDataParsing(
+  fileUploadMode: 'singleAttachment' | 'multipleAttachments' | 'videoUpload',
+): Router {
   const router = Router({ mergeParams: true })
 
   router.use(setUpSessionUploadsDir)
@@ -30,7 +32,17 @@ export default function setUpMultipartFormDataParsing(allowMultiple = false): Ro
   })
 
   const fileFilter = (req: FileUploadRequest, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-    cb(null, true)
+    switch (fileUploadMode) {
+      case 'videoUpload':
+        if (file.mimetype.startsWith('video/')) {
+          cb(null, true)
+        } else {
+          cb(null, false)
+        }
+        break
+      default:
+        cb(null, true)
+    }
   }
 
   const upload = multer({
@@ -43,10 +55,17 @@ export default function setUpMultipartFormDataParsing(allowMultiple = false): Ro
 
   router.use(flash())
 
-  if (allowMultiple) {
-    router.use(upload.array('attachments', 3))
-  } else {
-    router.use(upload.single('attachment'))
+  switch (fileUploadMode) {
+    case 'multipleAttachments':
+      router.use(upload.array('attachments', 3))
+      break
+    case 'videoUpload':
+      router.use(upload.single('video'))
+      break
+    case 'singleAttachment':
+    default:
+      router.use(upload.single('attachment'))
+      break
   }
 
   router.use(uploadedFileTooLargeHandler)

@@ -1,0 +1,56 @@
+{% extends "../../layouts/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitle = applicationName + " - Record Video" %}
+{% set mainClasses = "app-container govuk-body" %}
+
+{% block content %}
+
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    {{ govukBackLink({
+      text: "Back to homepage",
+      href: "/pop"
+    }) }}
+  </div>
+</div>
+
+{% if session.checkInVideoPath %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full govuk-!-text-align-center">
+        <h1 class="govuk-heading-l govuk-!-margin-top-1 govuk-!-margin-bottom-3">Review Video</h1>
+      <video src="{{ session.checkInVideoPath }}" controls class="govuk-!-margin-bottom-3" style="width: 100%;"></video>
+     <div class="govuk-button-group govuk-!-margin-top-3">
+       <a href="/pop/video-checkIn?redo=true" class="govuk-button govuk-button--secondary" style="background-color: white; color: black; border: 1px solid black;">Redo</a>
+       {{ govukButton({
+         text: "Submit check-in Video",
+         classes: "govuk-button--primary",
+         href: "/pop?checkin=true"
+       }) }}
+     </div>
+    </div>
+  </div>
+{% else %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      <h1 class="govuk-heading-l govuk-!-margin-top-1 govuk-!-margin-bottom-3">Upload Video</h1>
+      {{ govukInsetText({
+        html: "In the video recording, confirm: <strong>Today is " ~ currentDate ~ ", state your location, and wave at the camera</strong>"
+      }) }}
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full govuk-!-text-align-center">
+      <video id="video" autoplay class="govuk-!-margin-bottom-3" style="display: block; margin: 0 auto;"></video>
+      <div class="govuk-button-group">
+        <button id="start-recording" class="govuk-button">Start Recording</button>
+        <button id="stop-recording" class="govuk-button govuk-button--secondary" disabled>Stop Recording</button>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% endblock %}

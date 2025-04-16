@@ -1,7 +1,13 @@
 import { type RequestHandler, Router } from 'express'
 import asyncMiddleware from '../middleware/asyncMiddleware'
 import setUpMultipartFormDataParsing from '../middleware/setUpMultipartFormDataParsing'
-import { renderPopDetails, renderPopProgress, renderIndex } from '../controllers/popController'
+import {
+  renderPopDetails,
+  renderPopProgress,
+  renderIndex,
+  renderRecordVideo,
+  saveCheckInVideo,
+} from '../controllers/popController'
 import { renderOrderSummary, renderUnpaidWork, renderProbationConditions } from '../controllers/conditionsController'
 import {
   renderAppointments,
@@ -12,7 +18,7 @@ import {
   handleDeleteEvidence,
   handleSubmitEvidence,
   handleUploadEvidence,
-  handleAppointmentNotify, // Added import
+  handleAppointmentNotify,
 } from '../controllers/appointmentsController'
 
 import {
@@ -58,16 +64,19 @@ export default function routes(): Router {
   post('/appointment-notify', handleAppointmentNotify())
   get('/appointment-notify-upload-evidence', renderAppointmentNotifyUploadEvidence())
 
-  post('/upload-evidence', handleUploadEvidence(), setUpMultipartFormDataParsing(true))
+  post('/upload-evidence', handleUploadEvidence(), setUpMultipartFormDataParsing('multipleAttachments'))
   post('/submit-evidence', handleSubmitEvidence())
   get('/delete-evidence', handleDeleteEvidence())
 
   get('/messages', renderMessages())
   get('/new-message', renderNewMessage)
-  post('/new-message', handleNewMessage(), setUpMultipartFormDataParsing())
+  post('/new-message', handleNewMessage(), setUpMultipartFormDataParsing('singleAttachment'))
 
   get('/messages/thread/:id', renderMessageThread())
-  post('/messages/thread/:id', handleMessageThread(), setUpMultipartFormDataParsing())
+  post('/messages/thread/:id', handleMessageThread(), setUpMultipartFormDataParsing('singleAttachment'))
+
+  get('/video-checkIn', renderRecordVideo())
+  post('/save-checkin-video', saveCheckInVideo(), setUpMultipartFormDataParsing('videoUpload'))
 
   return router
 }

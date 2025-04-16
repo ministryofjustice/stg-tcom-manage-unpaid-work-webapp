@@ -30,6 +30,15 @@
 }) }}
 {% endif %}
 
+{% if checkin == "true" %}
+{{ mojAlert({
+  variant: "success",
+  title: "Check-in video submitted",
+  showTitleAsHeading: true,
+  dismissible: true,
+  html: "Your check-in video has been successfully submitted."
+}) }}
+{% endif %}
 
 {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
 {{ mojAlert({
@@ -98,6 +107,16 @@
               <a class="govuk-link govuk-link--no-underline" href="#">Your conditions</a>
             {% else %}
               <a class="govuk-link govuk-link--no-underline" href="pop/conditions">Your conditions</a>
+            {% endif %}
+            </p>
+        </li>
+
+        <li >
+            <p class="govuk-heading-s">
+            {% if (session.popVerificationStatus == "pending" or scenario == "pending") %}
+              <a class="govuk-link govuk-link--no-underline" href="#">Video check-in</a>
+            {% else %}
+              <a class="govuk-link govuk-link--no-underline" href="/pop/video-checkIn">Video check-in</a>
             {% endif %}
             </p>
         </li>
