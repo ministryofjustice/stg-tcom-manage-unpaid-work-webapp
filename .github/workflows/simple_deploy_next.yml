@@ -1,9 +1,12 @@
 name: Next Cloud Platform Deploy
-
+# This assumes a namespace with environment name 'next' which shares the ECR of the dev environment
+# and has stored the namespace and kubernetes token in suffixed environment variables
+# See this commit for namespace details: https://github.com/ministryofjustice/cloud-platform-environments/commit/764a13559d37da4d8186c36420adcde13ee8c780
+# Namespace has now been decommissioned after the initial research stages - left in for documentation purposes
 on:
-  push:
-    branches: [next]
-  workflow_dispatch:
+  # push:
+  #   branches: [next]
+  workflow_dispatch: # disabled manually
 
 jobs:
   ecr:
