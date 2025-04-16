@@ -25,7 +25,7 @@ export default function routes(): Router {
   const get = (routePath: string | string[], handler: RequestHandler) => router.get(routePath, asyncMiddleware(handler))
   const post = (routePath: string | string[], handler: RequestHandler) =>
     router.post(routePath, asyncMiddleware(handler))
-  router.use(setUpMultipartFormDataParsing())
+  router.use(setUpMultipartFormDataParsing('singleAttachment'))
 
   get('/', renderSubmitPhoto)
   get('/options', renderOptions)

@@ -8,7 +8,9 @@ export interface FileUploadRequest extends Request {
   uploadDir?: string
 }
 
-export default function setUpMultipartFormDataParsing(allowMultiple = false, uploadVideo = false): Router {
+export default function setUpMultipartFormDataParsing(
+  fileUploadMode: 'singleAttachment' | 'multipleAttachments' | 'videoUpload',
+): Router {
   const router = Router({ mergeParams: true })
 
   router.use(setUpSessionUploadsDir)
@@ -30,12 +32,16 @@ export default function setUpMultipartFormDataParsing(allowMultiple = false, upl
   })
 
   const fileFilter = (req: FileUploadRequest, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
-    if (uploadVideo && file.mimetype.startsWith('video/')) {
-      cb(null, true)
-    } else if (!uploadVideo) {
-      cb(null, true)
-    } else {
-      cb(null, false)
+    switch (fileUploadMode) {
+      case 'videoUpload':
+        if (file.mimetype.startsWith('video/')) {
+          cb(null, true)
+        } else {
+          cb(null, false)
+        }
+        break
+      default:
+        cb(null, true)
     }
   }
 
@@ -49,12 +55,17 @@ export default function setUpMultipartFormDataParsing(allowMultiple = false, upl
 
   router.use(flash())
 
-  if (allowMultiple) {
-    router.use(upload.array('attachments', 3))
-  } else if (uploadVideo) {
-    router.use(upload.single('video'))
-  } else {
-    router.use(upload.single('attachment'))
+  switch (fileUploadMode) {
+    case 'multipleAttachments':
+      router.use(upload.array('attachments', 3))
+      break
+    case 'videoUpload':
+      router.use(upload.single('video'))
+      break
+    case 'singleAttachment':
+    default:
+      router.use(upload.single('attachment'))
+      break
   }
 
   router.use(uploadedFileTooLargeHandler)
