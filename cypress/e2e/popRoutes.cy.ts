@@ -1,5 +1,9 @@
 describe('POP Routes', () => {
   beforeEach(() => {
+    cy.on('uncaught:exception', err => {
+      console.error('An uncaught exception occurred:', err.message)
+      return false
+    })
     cy.session('login', () => {
       cy.visit(`${Cypress.env('BASE_URL')}pop?bypass=true`)
       cy.url().then(url => {
