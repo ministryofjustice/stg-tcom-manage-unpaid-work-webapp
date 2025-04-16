@@ -21,7 +21,7 @@
 {% if session.checkInVideoPath %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full govuk-!-text-align-center">
-        <h1 class="govuk-heading-l govuk-!-margin-top-1 govuk-!-margin-bottom-3">Uploaded Video</h1>
+        <h1 class="govuk-heading-l govuk-!-margin-top-1 govuk-!-margin-bottom-3">Review Video</h1>
       <video src="{{ session.checkInVideoPath }}" controls class="govuk-!-margin-bottom-3" style="width: 100%;"></video>
      <div class="govuk-button-group govuk-!-margin-top-3">
        <a href="/pop/video-checkIn?redo=true" class="govuk-button govuk-button--secondary" style="background-color: white; color: black; border: 1px solid black;">Redo</a>
@@ -38,7 +38,7 @@
     <div class="govuk-grid-column-full">
       <h1 class="govuk-heading-l govuk-!-margin-top-1 govuk-!-margin-bottom-3">Upload Video</h1>
       {{ govukInsetText({
-        text: "In the video recording, confirm: Today is " ~ currentDate ~ ", state your location, and wave at the camera"
+        html: "In the video recording, confirm: <strong>Today is " ~ currentDate ~ ", state your location, and wave at the camera</strong>"
       }) }}
     </div>
   </div>
