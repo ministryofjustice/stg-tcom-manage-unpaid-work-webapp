@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 })
 
+// open camera and process video
 document.addEventListener('DOMContentLoaded', () => {
   const video = document.getElementById('video')
   const startRecordButton = document.getElementById('start-recording')
@@ -160,18 +161,53 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  startRecordButton.addEventListener('click', () => {
-    recordedChunks = []
-    mediaRecorder.start()
-    startRecordButton.disabled = true
-    stopRecordButton.disabled = false
-  })
+  if (startRecordButton && stopRecordButton) {
+    startRecordButton.addEventListener('click', () => {
+      recordedChunks = []
+      mediaRecorder.start()
+      startRecordButton.disabled = true
+      stopRecordButton.disabled = false
+    })
 
-  stopRecordButton.addEventListener('click', () => {
-    mediaRecorder.stop()
-    startRecordButton.disabled = false
-    stopRecordButton.disabled = true
-  })
+    stopRecordButton.addEventListener('click', () => {
+      mediaRecorder.stop()
+      startRecordButton.disabled = false
+      stopRecordButton.disabled = true
+    })
 
-  startVideoStream()
+    startVideoStream()
+  }
+})
+
+// get location and redirect to checkin page
+document.addEventListener('DOMContentLoaded', () => {
+  const submitCheckinButton = document.getElementById('submit-checkin-video')
+  const locationAlert = document.getElementById('enable-location-alert')
+  locationAlert.style.display = 'none'
+  if (submitCheckinButton) {
+    submitCheckinButton.addEventListener('click', event => {
+      event.preventDefault()
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            const { latitude, longitude } = position.coords
+            const userLocationInput = document.getElementById('user-location')
+            userLocationInput.value = `${latitude}, ${longitude}`
+            window.location.href = `/pop?checkin=true&location=${latitude},${longitude}`
+          },
+          error => {
+            console.error('Error accessing location:', error) // eslint-disable-line no-console
+            if (locationAlert) {
+              locationAlert.style.display = 'block'
+            }
+          },
+        )
+      } else {
+        console.error('Geolocation is not supported by your browser.') // eslint-disable-line no-console
+        if (locationAlert) {
+          locationAlert.style.display = 'block'
+        }
+      }
+    })
+  }
 })
