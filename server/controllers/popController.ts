@@ -12,11 +12,11 @@ export type TableEntriesCollection = Array<
 
 export const renderIndex: RequestHandler = async (req, res, next) => {
   try {
-    const { scenario, checkin } = req.query
+    const { scenario, checkin, location } = req.query
     if (checkin && checkin === 'true') {
       delete req.session.checkInVideoPath
     }
-    res.render('pages/pop/index', { scenario, checkin, session: req.session })
+    res.render('pages/pop/index', { scenario, checkin, location, session: req.session })
   } catch (error) {
     next(error)
   }
