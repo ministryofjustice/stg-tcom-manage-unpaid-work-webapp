@@ -44,7 +44,9 @@ export default function createApp(): express.Application {
   app.use('/supervisor', supervisorRoutes())
   app.use('/staff', staffRoutes())
 
-  app.use((req, res, next) => next(createError(404, 'Not found')))
+  app.use((req, res, next) => {
+    res.status(404).render('pages/404.njk')
+  })
   app.use(errorHandler(process.env.NODE_ENV === 'production'))
 
   return app
