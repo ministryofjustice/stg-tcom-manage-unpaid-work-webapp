@@ -14,20 +14,20 @@
       href: "/pop"
     }) }}
   </div>
+</div>
+<div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-      <h1 class="govuk-heading-l">Your details</h1>
-      <p class="govuk-body subhead">Last updated on 10 March 2025, 2.29pm</p>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Your details</h1>
+    <p class="govuk-body subhead">Last updated on 10 March 2025, 2:29pm</p>
   </div>
 </div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
-    <div class="govuk-box govuk-box--rounded govuk-!-padding-3 govuk-!-margin-bottom-6 govuk-!-padding-top-4 border box-shadow">
+    <div class="govuk-box govuk-!-padding-3 govuk-!-margin-bottom-6 govuk-!-padding-top-4 border box-shadow">
       <div class="profile">
         <div class="prefix">J</div>
         <div class="name">
-          <p class="govuk-body govuk-!-margin-bottom-0 govuk-!-font-weight-bold govuk-!-font-size-16">{{ userProfile.name }}</p>
-          <p class="govuk-!-margin-top-0 govuk-!-font-size-14">User ID: {{ userProfile.userId }}</p>
         </div>
       </div>
 
@@ -39,6 +39,10 @@
             <div class="govuk-!-margin-bottom-4">
               <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Name</h3>
               <p class="">{{ userProfile.name }}</p>
+            </div>
+             <div class="govuk-!-margin-bottom-4">
+              <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">User ID</h3>
+              <p class="">{{ userProfile.userId }}</p>
             </div>
             <div class="govuk-!-margin-bottom-4">
               <h3 class="govuk-!-margin-bottom-0 govuk-!-color-light">Date of birth</h3>

@@ -31,32 +31,27 @@
   <div class="govuk-grid-row">
 
  <div class="govuk-grid-column-full">
-    <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-l govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2  ">Appointments</h1>
-    </div>
-    <div class="govuk-grid-column-one-third govuk-!-text-align-right">
-        {{ govukButton({
-          text: "Request a callback",
-          href: "#",
-          class: "govuk-!-text-align-right "
-        }) }}
-    </div>
   </div>
    </div>
 
 
-<div class="govuk-grid-row">
+<div class="govuk-grid-row govuk-!-margin-top-2">
   <div class="govuk-grid-column-full">
 
   {{ govukWarningText({
               html: '
-              <p class="govuk-body-s govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0" >
-              Attending probation appointments is part of complying with your conditions.</p>
-  <p class=" govuk-body-s govuk-!-margin-0 govuk-!-padding-0">If you have a problem attending an appointment, you need to tell your probation worker as soon as possible.</p>',
+              <p class="govuk-!-font-weight-bold govuk-!-margin-0 govuk-!-padding-0" >Attending probation appointments is part of complying with your conditions. If you have a problem attending an appointment, you need to tell your probation practitioner as soon as possible.</p>',
     iconFallbackText: "Warning"
   }) }}
 
+  {{ govukButton({
+          text: "Request a callback",
+          href: "#",
+          class: "govuk-!-margin-top-2 govuk-!-margin-bottom-2"
+        }) }}
    </div>
+   
 </div>
 
 <div class="govuk-grid-row ">

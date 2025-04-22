@@ -43,8 +43,7 @@
             <label class="govuk-label" for="attachment">Attach supporting evidence (optional)</label>
             <input class="govuk-file-upload" id="attachment" name="attachment" type="file">
           </div>
-          <div class="govuk-grid-row">
-            <div class="govuk-grid-column-full govuk-!-text-align-right">
+          <div class="govuk-grid-row govuk-!-text-align-left">
               {{ govukButton({
                 text: "Cancel",
                 href: "/pop/messages",
@@ -54,7 +53,6 @@
                 text: "Send message",
                 type: "submit"
               }) }}
-            </div>
           </div>
         </form>
       </div>
