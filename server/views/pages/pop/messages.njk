@@ -21,7 +21,7 @@
   </div>
   <div class="govuk-grid-column-full">
       <h1 class="govuk-heading-l govuk-!-margin-0 govuk-!-padding-0 govuk-!-padding-bottom-2  ">Messages</h1>
-      <p class="govuk-body-s govuk-!-color-muted">Communicate with your probation practitioner and view important updates about your community sentence</p>
+      <p class="govuk-!-color-muted">Communicate with your probation practitioner and view important updates about your community sentence</p>
   </div>
 
   <div class="govuk-grid-column-full">
@@ -45,14 +45,14 @@
      {% if message.status == 'unread' %}
      {{ mojBadge({
         text: "Unread",
-        classes: "govuk-body-s moj-badge--red govuk-!-margin-right-1"
+        classes: "moj-badge--red govuk-!-margin-right-1"
      }) }}
       {% endif %}
       {{message.subject}}
     </h3>
   </div>
   <p class="govuk-body-xs govuk-!-margin-0 govuk-!-padding-0 govuk-!-margin-bottom-4">{{message.date}}</p>
-  <p class="govuk-body-s">{{message.description | safe}}</p>
+  <p>{{message.description | safe}}</p>
   <a class="govuk-link" href="/pop/messages/thread/{{message.id}}">View message</a></div>
   {% endfor %}
   </div>

@@ -6,7 +6,7 @@ export const pastAppointments = [
     location: '123 Garden Street, London SE1 7TH',
     contact: 'Karen Smith',
     contactLink: '/pop/new-message',
-    category: 'Unpaid Work',
+    category: 'Unpaid work',
     showOnMap: false,
   },
   {
@@ -31,7 +31,7 @@ export const upcomingAppointments = [
     contactLink: '',
     description:
       'Group session focused on weeding, planting seasonal vegetables, and Probation appointment garden maintenance. Bring appropriate clothing for outdoor work, tools will be provided. Break times will be scheduled during the session.',
-    category: 'Unpaid Work',
+    category: 'Unpaid work',
     showOnMap: true,
   },
 
