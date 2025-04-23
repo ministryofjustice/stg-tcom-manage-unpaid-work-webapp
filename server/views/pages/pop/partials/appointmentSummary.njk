@@ -12,7 +12,7 @@
       </h3>
 
        <div class="govuk-!-margin-top-3">
-      <h4 class="govuk-body-s ">Appointment type</h4>
+      <h4 >Appointment type</h4>
 
       <p class="govuk-body ">{{ appointment.category }}</p>
 
@@ -20,10 +20,10 @@
        {% if appointment.category !== 'Unpaid Work'%}
       <div class="govuk-!-margin-top-3">
 
-        <h4 class="govuk-body-s ">Key contact</h4>
+        <h4>Key contact</h4>
         <p class="govuk-body  ">{{ appointment.contact }}</p>
 
-       <span class="govuk-body-s govuk-!-font-weight-normal govuk-!-padding-bottom-1  ">
+       <span class="govuk-!-font-weight-normal govuk-!-padding-bottom-1  ">
           {% if appointment.contactLink %}
             <a class="govuk-link govuk-link--no-visited-state" href="/pop/new-message">Message</a>
           {% endif %}
@@ -32,9 +32,9 @@
       {% endif %}
        <div class="govuk-!-margin-top-3">
           {% if appointment.category == 'Unpaid Work'%}
-            <h4 class="govuk-body-s ">Meeting point</h4>
+            <h4>Meeting point</h4>
           {% else %}
-            <h4 class="govuk-body-s ">Location</h4>
+            <h4>Location</h4>
           {% endif%}
           <p class="govuk-body ">{{ appointment.location }}</p>
        </div>
