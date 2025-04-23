@@ -124,5 +124,6 @@ test_results/
 **/Chart.lock
 **/.DS_Store
 cypress/downloads
+cypress/screenshots
 
 deployments/*.yml
