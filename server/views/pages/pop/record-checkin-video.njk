@@ -3,11 +3,22 @@
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "moj/components/alert/macro.njk" import mojAlert %}
 
 {% set pageTitle = applicationName + " - Record Video" %}
 {% set mainClasses = "app-container govuk-body" %}
 
 {% block content %}
+
+<div id="enable-location-alert">
+  {{ mojAlert({
+    variant: "error",
+    title: "Location Required",
+    showTitleAsHeading: false,
+    dismissible: true,
+    html: "You must turn on device location in order to submit your video."
+  }) }}
+</div>
 
 <div class="govuk-grid-row">
   <div class="govuk-grid-column-full">
@@ -25,10 +36,13 @@
       <video src="{{ session.checkInVideoPath }}" controls class="govuk-!-margin-bottom-3" style="width: 100%;"></video>
      <div class="govuk-button-group govuk-!-margin-top-3">
        <a href="/pop/video-checkIn?redo=true" class="govuk-button govuk-button--secondary" style="background-color: white; color: black; border: 1px solid black;">Redo</a>
+       <input type="hidden" id="user-location" name="userLocation" value="">
        {{ govukButton({
          text: "Submit check-in Video",
          classes: "govuk-button--primary",
-         href: "/pop?checkin=true"
+         attributes: {
+           id: "submit-checkin-video"
+         }
        }) }}
      </div>
     </div>
