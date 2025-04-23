@@ -1,22 +1,5 @@
-describe('POP Routes', () => {
-  beforeEach(() => {
-    cy.on('uncaught:exception', err => {
-      console.error('An uncaught exception occurred:', err.message)
-      return false
-    })
-    cy.session('login', () => {
-      cy.visit(`${Cypress.env('BASE_URL')}pop?bypass=true`)
-      cy.url().then(url => {
-        if (url.includes('/admin/password')) {
-          cy.get('input[name="password"]').type(Cypress.env('POC_PASSWORD'))
-          cy.get('button[type="submit"]').click()
-          cy.url().should('not.include', '/admin/password')
-        }
-      })
-    })
-  })
-
-  it('should render the Index page or handle password redirection', () => {
+describe('Site should be password locked', () => {
+  it('should handle password redirection', () => {
     cy.visit(`${Cypress.env('BASE_URL')}pop?bypass=true`)
     cy.url().then(url => {
       if (url.includes('/admin/password')) {
@@ -29,9 +12,30 @@ describe('POP Routes', () => {
           expect(normalizedUrl).to.eq(expectedUrl)
         })
       } else {
-        cy.get('h1').contains('Welcome, Joe')
+        expect(false)
       }
     })
+  })
+})
+
+describe('POP Routes', () => {
+  beforeEach(() => {
+    cy.session('login', () => {
+      cy.visit(`${Cypress.env('BASE_URL')}pop`)
+      cy.url().then(url => {
+        if (url.includes('/admin/password')) {
+          cy.get('input[name="password"]').type(Cypress.env('POC_PASSWORD'))
+          cy.get('button[type="submit"]').click()
+          cy.url().should('not.include', '/admin/password')
+        }
+      })
+    })
+  })
+
+  it('should redirect to one login mock pages without manual bypass', () => {
+    cy.visit(`${Cypress.env('BASE_URL')}pop`)
+    cy.url().should('include', '/one-login')
+    cy.get('h1').contains('Create a GOV.UK One Login or sign in')
   })
 
   it('should access the POP Index page', () => {

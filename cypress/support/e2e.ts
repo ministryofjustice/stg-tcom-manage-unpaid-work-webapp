@@ -15,3 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+
+// tell eslint it's in the dev dependencies!
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'cypress-file-upload'
