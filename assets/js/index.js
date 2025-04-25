@@ -183,7 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const submitCheckinButton = document.getElementById('submit-checkin-video')
   const locationAlert = document.getElementById('enable-location-alert')
-  locationAlert.style.display = 'none'
+  if (locationAlert) {
+    locationAlert.style.display = 'none'
+  }
   if (submitCheckinButton) {
     submitCheckinButton.addEventListener('click', event => {
       event.preventDefault()
